@@ -1,0 +1,695 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 650" width="100%" height="100%">
+  <defs>
+    <!-- Sky Gradients -->
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1c4b" />
+      <stop offset="35%" stop-color="#3b2d64" />
+      <stop offset="68%" stop-color="#9e4770" />
+      <stop offset="88%" stop-color="#f2855d" />
+      <stop offset="100%" stop-color="#fbd07c" />
+    </linearGradient>
+
+    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fff6b7" stop-opacity="1" />
+      <stop offset="40%" stop-color="#ffaa5c" stop-opacity="0.7" />
+      <stop offset="100%" stop-color="#f2855d" stop-opacity="0" />
+    </radialGradient>
+
+    <!-- Petronas Metallic Gradient -->
+    <linearGradient id="petronasGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7ec8e3" />
+      <stop offset="30%" stop-color="#d4f1f9" />
+      <stop offset="55%" stop-color="#9be0f7" />
+      <stop offset="100%" stop-color="#4a90b8" />
+    </linearGradient>
+
+    <linearGradient id="merdekaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#64b5f6" />
+      <stop offset="50%" stop-color="#283593" />
+      <stop offset="100%" stop-color="#1a237e" />
+    </linearGradient>
+
+    <linearGradient id="roadGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2b2d3c" />
+      <stop offset="100%" stop-color="#181924" />
+    </linearGradient>
+
+    <linearGradient id="bikeFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff5252" />
+      <stop offset="100%" stop-color="#c62828" />
+    </linearGradient>
+
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+
+    <!-- Reusable Petronas Single Tower -->
+    <g id="petronas-tower">
+      <!-- Base Shaft -->
+      <rect x="-28" y="210" width="56" height="230" fill="url(#petronasGrad)" stroke="#376e96" stroke-width="1" />
+      <!-- Tier 1 -->
+      <rect x="-24" y="160" width="48" height="50" fill="url(#petronasGrad)" stroke="#376e96" stroke-width="1" />
+      <!-- Tier 2 -->
+      <rect x="-19" y="120" width="38" height="40" fill="url(#petronasGrad)" stroke="#376e96" stroke-width="1" />
+      <!-- Tier 3 -->
+      <rect x="-14" y="90" width="28" height="30" fill="url(#petronasGrad)" stroke="#376e96" stroke-width="1" />
+      <!-- Crown & Spire -->
+      <polygon points="-14,90 14,90 8,68 -8,68" fill="#d4f1f9" stroke="#376e96" stroke-width="1" />
+      <rect x="-4" y="45" width="8" height="23" fill="#e0f7fa" />
+      <line x1="0" y1="5" x2="0" y2="45" stroke="#ffffff" stroke-width="2.5" />
+      <circle cx="0" cy="22" r="3.5" fill="#ffffff" />
+      <circle cx="0" cy="5" r="3" fill="#ff5252" class="beacon-pulse" filter="url(#glow)" />
+      <!-- Horizontal Rib Lines -->
+      <g stroke="#2c5d82" stroke-width="1" opacity="0.55">
+        <line x1="-28" y1="225" x2="28" y2="225" />
+        <line x1="-28" y1="240" x2="28" y2="240" />
+        <line x1="-28" y1="255" x2="28" y2="255" />
+        <line x1="-28" y1="270" x2="28" y2="270" />
+        <line x1="-28" y1="285" x2="28" y2="285" />
+        <line x1="-28" y1="300" x2="28" y2="300" />
+        <line x1="-28" y1="315" x2="28" y2="315" />
+        <line x1="-28" y1="330" x2="28" y2="330" />
+        <line x1="-28" y1="345" x2="28" y2="345" />
+        <line x1="-28" y1="360" x2="28" y2="360" />
+        <line x1="-28" y1="375" x2="28" y2="375" />
+        <line x1="-28" y1="390" x2="28" y2="390" />
+        <line x1="-24" y1="175" x2="24" y2="175" />
+        <line x1="-24" y1="190" x2="24" y2="190" />
+        <line x1="-19" y1="135" x2="19" y2="135" />
+        <line x1="-19" y1="150" x2="19" y2="150" />
+        <line x1="-14" y1="105" x2="14" y2="105" />
+      </g>
+      <!-- Vertical Facade Mullions -->
+      <line x1="-12" y1="90" x2="-12" y2="440" stroke="#ffffff" stroke-width="1.2" opacity="0.6" />
+      <line x1="0" y1="90" x2="0" y2="440" stroke="#ffffff" stroke-width="1.5" opacity="0.8" />
+      <line x1="12" y1="90" x2="12" y2="440" stroke="#ffffff" stroke-width="1.2" opacity="0.6" />
+    </g>
+
+    <!-- Reusable Tropical Palm Tree -->
+    <g id="palm-tree">
+      <path d="M0,0 Q-6,-45 4,-90" fill="none" stroke="#4e342e" stroke-width="7" stroke-linecap="round" />
+      <g transform="translate(4, -90)">
+        <path d="M0,0 Q-35,-15 -50,10 Q-25,2 0,0" fill="#2e7d32" />
+        <path d="M0,0 Q-25,-35 -45,-20 Q-20,-12 0,0" fill="#388e3c" />
+        <path d="M0,0 Q0,-45 15,-38 Q5,-18 0,0" fill="#43a047" />
+        <path d="M0,0 Q35,-30 50,-10 Q25,-8 0,0" fill="#2e7d32" />
+        <path d="M0,0 Q38,-5 48,20 Q22,6 0,0" fill="#1b5e20" />
+        <circle cx="-3" cy="4" r="4" fill="#5d4037" />
+        <circle cx="4" cy="5" r="4" fill="#4e342e" />
+      </g>
+    </g>
+
+    <!-- Reusable Bicycle Wheel -->
+    <g id="bike-wheel">
+      <!-- Outer Tire -->
+      <circle cx="0" cy="0" r="46" fill="none" stroke="#1e2029" stroke-width="8" />
+      <!-- Whitewall / Reflective Rim -->
+      <circle cx="0" cy="0" r="40" fill="none" stroke="#cfd8dc" stroke-width="3" />
+      <circle cx="0" cy="0" r="38" fill="none" stroke="#ffeb3b" stroke-width="1.5" stroke-dasharray="18 22" />
+      <!-- Spokes -->
+      <g stroke="#b0bec5" stroke-width="1.5">
+        <line x1="-38" y1="0" x2="38" y2="0" />
+        <line x1="0" y1="-38" x2="0" y2="38" />
+        <line x1="-27" y1="-27" x2="27" y2="27" />
+        <line x1="-27" y1="27" x2="27" y2="-27" />
+        <line x1="-35" y1="-15" x2="35" y2="15" />
+        <line x1="-15" y1="35" x2="15" y2="-35" />
+        <line x1="-35" y1="15" x2="35" y2="-15" />
+        <line x1="-15" y1="-35" x2="15" y2="35" />
+      </g>
+      <!-- Hub -->
+      <circle cx="0" cy="0" r="7" fill="#455a64" stroke="#eceff1" stroke-width="2" />
+    </g>
+  </defs>
+
+  <style>
+    /* Parallax Scrolling Keyframes */
+    @keyframes scrollFar {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-1200px); }
+    }
+    @keyframes scrollMid {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-1200px); }
+    }
+    @keyframes scrollNear {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-1200px); }
+    }
+    @keyframes scrollClouds {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-1200px); }
+    }
+    @keyframes monorailMove {
+      0% { transform: translateX(1350px); }
+      100% { transform: translateX(-550px); }
+    }
+
+    /* Bicycle & Panda Animations */
+    @keyframes spinWheel {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes bikeBounce {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-4px); }
+    }
+    @keyframes pandaTorsoBob {
+      0%, 100% { transform: rotate(10deg) translateY(0px); }
+      50% { transform: rotate(12.5deg) translateY(-4px); }
+    }
+    @keyframes pandaHeadNod {
+      0%, 100% { transform: rotate(-3deg) translateY(0px); }
+      50% { transform: rotate(3deg) translateY(-3px); }
+    }
+    @keyframes scarfWave {
+      0%, 100% { d: path("M -18,-52 Q -55,-58 -85,-42 Q -105,-34 -120,-48 L -115,-32 Q -90,-22 -55,-38 Q -30,-44 -16,-40 Z"); }
+      50% { d: path("M -18,-52 Q -55,-42 -85,-56 Q -105,-64 -122,-44 L -114,-30 Q -90,-45 -55,-30 Q -30,-42 -16,-40 Z"); }
+    }
+    @keyframes blink {
+      0%, 92%, 100% { transform: scaleY(1); }
+      96% { transform: scaleY(0.1); }
+    }
+    @keyframes beaconPulse {
+      0%, 100% { opacity: 1; r: 3px; }
+      50% { opacity: 0.35; r: 5px; }
+    }
+    @keyframes speedLine {
+      0% { transform: translateX(0); opacity: 0.8; }
+      100% { transform: translateX(-180px); opacity: 0; }
+    }
+    @keyframes earWiggle {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-8deg); }
+    }
+
+    /* Articulated Leg Keyframes (1.1s cycle matching 360deg crank rotation) */
+    @keyframes frontLegThigh {
+      0%   { transform: rotate(-15deg); }
+      25%  { transform: rotate(10deg); }
+      50%  { transform: rotate(28deg); }
+      75%  { transform: rotate(2deg); }
+      100% { transform: rotate(-15deg); }
+    }
+    @keyframes frontLegCalf {
+      0%   { transform: rotate(25deg); }
+      25%  { transform: rotate(55deg); }
+      50%  { transform: rotate(15deg); }
+      75%  { transform: rotate(5deg); }
+      100% { transform: rotate(25deg); }
+    }
+    @keyframes backLegThigh {
+      0%   { transform: rotate(28deg); }
+      25%  { transform: rotate(2deg); }
+      50%  { transform: rotate(-15deg); }
+      75%  { transform: rotate(10deg); }
+      100% { transform: rotate(28deg); }
+    }
+    @keyframes backLegCalf {
+      0%   { transform: rotate(15deg); }
+      25%  { transform: rotate(5deg); }
+      50%  { transform: rotate(25deg); }
+      75%  { transform: rotate(55deg); }
+      100% { transform: rotate(15deg); }
+    }
+
+    .clouds-track { animation: scrollClouds 65s linear infinite; }
+    .skyline-far { animation: scrollFar 38s linear infinite; }
+    .skyline-mid { animation: scrollMid 18s linear infinite; }
+    .street-near { animation: scrollNear 4.2s linear infinite; }
+    .monorail-train { animation: monorailMove 14s linear infinite; }
+    .spin { animation: spinWheel 1.1s linear infinite; }
+    .bike-rig { animation: bikeBounce 0.55s ease-in-out infinite; }
+    .panda-torso { animation: pandaTorsoBob 0.55s ease-in-out infinite; }
+    .panda-head { animation: pandaHeadNod 0.55s ease-in-out infinite; }
+    .panda-eye { animation: blink 4s infinite; transform-origin: center; transform-box: fill-box; }
+    .panda-ear { animation: earWiggle 0.55s ease-in-out infinite; transform-origin: center; transform-box: fill-box; }
+    .beacon-pulse { animation: beaconPulse 1.6s ease-in-out infinite; }
+    .leg-front-thigh { animation: frontLegThigh 1.1s linear infinite; }
+    .leg-front-calf { animation: frontLegCalf 1.1s linear infinite; }
+    .leg-back-thigh { animation: backLegThigh 1.1s linear infinite; }
+    .leg-back-calf { animation: backLegCalf 1.1s linear infinite; }
+    .wind-1 { animation: speedLine 0.9s linear infinite; }
+    .wind-2 { animation: speedLine 1.2s linear infinite 0.3s; }
+    .wind-3 { animation: speedLine 0.75s linear infinite 0.5s; }
+  </style>
+
+  <!-- 1. SKY BACKGROUND & SUNSET GLOW -->
+  <rect width="1200" height="650" fill="url(#skyGrad)" />
+  <circle cx="880" cy="310" r="190" fill="url(#sunGlow)" />
+  <circle cx="880" cy="310" r="62" fill="#fff3b0" opacity="0.9" />
+
+  <!-- Twinkling Stars in Upper Sky -->
+  <g fill="#ffffff" opacity="0.75">
+    <circle cx="120" cy="50" r="1.5" />
+    <circle cx="280" cy="80" r="2" />
+    <circle cx="450" cy="40" r="1.2" />
+    <circle cx="620" cy="70" r="1.8" />
+    <circle cx="790" cy="45" r="1.5" />
+    <circle cx="960" cy="60" r="2" />
+    <circle cx="1110" cy="35" r="1.4" />
+    <circle cx="190" cy="115" r="1.2" />
+    <circle cx="530" cy="105" r="1.5" />
+  </g>
+
+  <!-- 2. DRIFTING CLOUDS LAYER -->
+  <g class="clouds-track" opacity="0.45" fill="#ffd8be">
+    <g id="cloud-set">
+      <path d="M120,150 Q140,130 170,135 Q195,115 225,135 Q250,135 260,155 Z" />
+      <path d="M520,110 Q545,85 580,95 Q610,75 645,95 Q675,95 685,118 Z" />
+      <path d="M920,165 Q940,145 975,150 Q1000,135 1030,152 Q1050,152 1060,170 Z" />
+    </g>
+    <use href="#cloud-set" x="1200" />
+  </g>
+
+  <!-- 3. FAR PARALLAX LAYER: ICONIC KL SKYLINE (Petronas Twin Towers, KL Tower, Merdeka 118, Exchange 106) -->
+  <g class="skyline-far">
+    <g id="kl-skyline-slice">
+      <!-- Distant City Silhouette Base -->
+      <path d="M0,440 L0,360 L45,360 L45,320 L95,320 L95,370 L130,370 L130,295 L185,295 L185,355 L260,355 L260,310 L315,310 L315,380 L490,380 L490,330 L545,330 L545,365 L690,365 L690,300 L745,300 L745,360 L860,360 L860,315 L915,315 L915,355 L1035,355 L1035,285 L1095,285 L1095,345 L1150,345 L1150,370 L1200,370 L1200,440 Z" fill="#2c2250" opacity="0.85" />
+
+      <!-- MERDEKA 118 (Faceted Megatall Skyscraper + Spire) -->
+      <g transform="translate(215, 0)">
+        <!-- Spire -->
+        <polygon points="18,115 24,25 28,115" fill="#90caf9" />
+        <circle cx="24" cy="25" r="3" fill="#ff5252" class="beacon-pulse" filter="url(#glow)" />
+        <!-- Main Faceted Tower -->
+        <polygon points="-28,440 -22,155 18,115 32,145 36,440" fill="url(#merdekaGrad)" stroke="#64b5f6" stroke-width="1" />
+        <!-- Geometric Diamond Facet Lines -->
+        <polyline points="-22,155 8,240 -25,360" fill="none" stroke="#90caf9" stroke-width="1.5" opacity="0.7" />
+        <polyline points="18,115 8,240 34,340" fill="none" stroke="#90caf9" stroke-width="1.5" opacity="0.7" />
+        <line x1="8" y1="240" x2="8" y2="440" stroke="#bbdefb" stroke-width="1.2" opacity="0.5" />
+      </g>
+
+      <!-- PETRONAS TWIN TOWERS -->
+      <g transform="translate(410, 0)">
+        <!-- Left Tower -->
+        <use href="#petronas-tower" x="-52" y="0" />
+        <!-- Right Tower -->
+        <use href="#petronas-tower" x="52" y="0" />
+        <!-- Iconic Double-Decker Skybridge (Levels 41 & 42) -->
+        <rect x="-24" y="246" width="48" height="11" fill="#e0f7fa" stroke="#2c5d82" stroke-width="1" />
+        <line x1="-24" y1="251.5" x2="24" y2="251.5" stroke="#2c5d82" stroke-width="1.2" />
+        <!-- Skybridge V-Arch Support Legs -->
+        <line x1="-24" y1="282" x2="-4" y2="257" stroke="#9be0f7" stroke-width="3" />
+        <line x1="24" y1="282" x2="4" y2="257" stroke="#9be0f7" stroke-width="3" />
+      </g>
+
+      <!-- MENARA KL (KL TOWER on Bukit Nanas Hill) -->
+      <g transform="translate(795, 0)">
+        <!-- Antenna Mast -->
+        <line x1="0" y1="38" x2="0" y2="112" stroke="#e0f2f1" stroke-width="3" />
+        <circle cx="0" cy="38" r="3" fill="#ff5252" class="beacon-pulse" filter="url(#glow)" />
+        <!-- Tower Head / Observation Pod -->
+        <ellipse cx="0" cy="132" rx="26" ry="16" fill="#cfd8dc" stroke="#455a64" stroke-width="1.2" />
+        <rect x="-25" y="127" width="50" height="7" rx="3" fill="#4fc3f7" />
+        <polygon points="-16,146 16,146 10,162 -10,162" fill="#90a4ae" />
+        <!-- Concrete Shaft -->
+        <polygon points="-7,162 7,162 13,440 -13,440" fill="#eceff1" stroke="#78909c" stroke-width="1" />
+        <!-- Green Bukit Nanas Hill at Base -->
+        <path d="M-85,440 Q0,375 85,440 Z" fill="#1b4d3e" />
+      </g>
+
+      <!-- THE EXCHANGE 106 (TRX Crowned Tower) -->
+      <g transform="translate(990, 0)">
+        <rect x="-26" y="175" width="52" height="265" fill="#283593" stroke="#5c6bc0" stroke-width="1" />
+        <!-- Illuminated Glass Crown -->
+        <polygon points="-26,175 26,175 18,138 -18,138" fill="#81d4fa" opacity="0.9" filter="url(#glow)" />
+        <polygon points="-18,138 18,138 0,122" fill="#e1f5fe" />
+        <!-- Vertical Stripes -->
+        <line x1="-13" y1="175" x2="-13" y2="440" stroke="#7986cb" stroke-width="1" opacity="0.5" />
+        <line x1="0" y1="175" x2="0" y2="440" stroke="#7986cb" stroke-width="1" opacity="0.5" />
+        <line x1="13" y1="175" x2="13" y2="440" stroke="#7986cb" stroke-width="1" opacity="0.5" />
+      </g>
+    </g>
+    <!-- Duplicate Slice for Seamless Loop -->
+    <use href="#kl-skyline-slice" x="1200" />
+  </g>
+
+  <!-- 4. MIDGROUND PARALLAX LAYER: SULTAN ABDUL SAMAD ARCHES, SHOPLOTS & LUSH PARK -->
+  <g class="skyline-mid">
+    <g id="kl-midground-slice">
+      <!-- Sultan Abdul Samad Heritage Building (Moorish Arches & Clock Tower) -->
+      <g transform="translate(150, 325)">
+        <!-- Main Brick Wings -->
+        <rect x="0" y="45" width="220" height="75" fill="#b7523d" stroke="#7f3222" stroke-width="1.5" />
+        <rect x="0" y="55" width="220" height="8" fill="#f5e6d3" />
+        <rect x="0" y="82" width="220" height="6" fill="#f5e6d3" />
+        <!-- Moorish Keyhole Arches -->
+        <g fill="#251c38">
+          <path d="M15,120 L15,95 A10,10 0 1,1 35,95 L35,120 Z" />
+          <path d="M48,120 L48,95 A10,10 0 1,1 68,95 L68,120 Z" />
+          <path d="M152,120 L152,95 A10,10 0 1,1 172,95 L172,120 Z" />
+          <path d="M185,120 L185,95 A10,10 0 1,1 205,95 L205,120 Z" />
+        </g>
+        <!-- Left & Right Copper Onion Domes -->
+        <path d="M20,45 Q20,22 35,15 Q50,22 50,45 Z" fill="#d9822b" />
+        <path d="M170,45 Q170,22 185,15 Q200,22 200,45 Z" fill="#d9822b" />
+        <!-- Central Clock Tower -->
+        <rect x="92" y="0" width="36" height="120" fill="#c95f49" stroke="#7f3222" stroke-width="1.5" />
+        <rect x="92" y="25" width="36" height="7" fill="#f5e6d3" />
+        <!-- Onion Dome Top -->
+        <path d="M88,0 Q88,-28 110,-38 Q132,-28 132,0 Z" fill="#e69138" />
+        <line x1="110" y1="-38" x2="110" y2="-50" stroke="#ffd54f" stroke-width="2" />
+        <!-- Glowing Clock Face -->
+        <circle cx="110" cy="48" r="11" fill="#fff8e1" stroke="#5d4037" stroke-width="2" />
+        <line x1="110" y1="48" x2="110" y2="41" stroke="#3e2723" stroke-width="1.5" />
+        <line x1="110" y1="48" x2="116" y2="48" stroke="#3e2723" stroke-width="1.5" />
+      </g>
+
+      <!-- Pintasan Saloma (Saloma Link Bridge Colorful Geometric Arch) -->
+      <g transform="translate(560, 370)">
+        <path d="M0,70 Q110,-10 220,70" fill="none" stroke="#00e5ff" stroke-width="5" opacity="0.85" />
+        <path d="M0,70 L25,45 L55,65 L85,30 L110,55 L135,30 L165,65 L195,45 L220,70" fill="none" stroke="#ff4081" stroke-width="3" opacity="0.9" />
+        <rect x="0" y="58" width="220" height="8" fill="#37474f" />
+      </g>
+
+      <!-- Colourful Bukit Bintang / Petaling Street Heritage Shophouses -->
+      <g transform="translate(880, 355)">
+        <rect x="0" y="15" width="55" height="75" fill="#ffd54f" stroke="#f57f17" stroke-width="1" />
+        <rect x="55" y="5" width="58" height="85" fill="#4dd0e1" stroke="#00838f" stroke-width="1" />
+        <rect x="113" y="18" width="55" height="72" fill="#ff8a65" stroke="#d84315" stroke-width="1" />
+        <!-- Terracotta Roofs -->
+        <polygon points="-4,15 59,15 52,5 3,5" fill="#bf360c" />
+        <polygon points="52,5 116,5 109,-5 59,-5" fill="#bf360c" />
+        <polygon points="110,18 172,18 165,8 117,8" fill="#bf360c" />
+        <!-- Shophouse Windows -->
+        <rect x="12" y="30" width="12" height="20" rx="6" fill="#263238" />
+        <rect x="32" y="30" width="12" height="20" rx="6" fill="#263238" />
+        <rect x="70" y="22" width="12" height="22" rx="6" fill="#263238" />
+        <rect x="90" y="22" width="12" height="22" rx="6" fill="#263238" />
+        <rect x="126" y="32" width="12" height="20" rx="6" fill="#263238" />
+        <rect x="146" y="32" width="12" height="20" rx="6" fill="#263238" />
+      </g>
+
+      <!-- Elevated KL Monorail Viaduct Pillars -->
+      <g fill="#546e7a">
+        <rect x="90" y="395" width="14" height="55" />
+        <rect x="390" y="395" width="14" height="55" />
+        <rect x="690" y="395" width="14" height="55" />
+        <rect x="990" y="395" width="14" height="55" />
+      </g>
+
+      <!-- Lush Tropical Greenery & Palm Trees Along KLCC Park -->
+      <path d="M0,448 Q60,415 130,448 Q220,420 310,448 Q420,410 520,448 Q640,418 760,448 Q880,412 1000,448 Q1100,420 1200,448 Z" fill="#1b5e20" />
+      <use href="#palm-tree" x="65" y="445" />
+      <use href="#palm-tree" x="455" y="448" transform="scale(0.85)" />
+      <use href="#palm-tree" x="510" y="445" />
+      <use href="#palm-tree" x="830" y="445" />
+      <use href="#palm-tree" x="1130" y="445" />
+    </g>
+    <use href="#kl-midground-slice" x="1200" />
+  </g>
+
+  <!-- Elevated Monorail Track & Moving KL Monorail Train -->
+  <rect x="0" y="390" width="1200" height="7" fill="#78909c" />
+  <rect x="0" y="395" width="1200" height="3" fill="#37474f" />
+  <g class="monorail-train">
+    <g transform="translate(0, 366)">
+      <!-- 2-Car KL Monorail -->
+      <path d="M0,26 Q8,4 26,4 L135,4 L135,26 Z" fill="#eceff1" stroke="#37474f" stroke-width="1.5" />
+      <rect x="139" y="4" width="130" height="22" rx="4" fill="#eceff1" stroke="#37474f" stroke-width="1.5" />
+      <!-- Red & Blue Malaysian Stripe -->
+      <rect x="6" y="18" width="262" height="4" fill="#e53935" />
+      <rect x="6" y="22" width="262" height="3" fill="#1e88e5" />
+      <!-- Illuminated Windows -->
+      <g fill="#fff59d">
+        <path d="M12,15 Q16,8 26,8 L38,8 L38,15 Z" />
+        <rect x="44" y="8" width="22" height="7" rx="1.5" />
+        <rect x="72" y="8" width="22" height="7" rx="1.5" />
+        <rect x="100" y="8" width="26" height="7" rx="1.5" />
+        <rect x="148" y="8" width="24" height="7" rx="1.5" />
+        <rect x="178" y="8" width="24" height="7" rx="1.5" />
+        <rect x="208" y="8" width="24" height="7" rx="1.5" />
+        <rect x="238" y="8" width="22" height="7" rx="1.5" />
+      </g>
+    </g>
+  </g>
+
+  <!-- 5. FOREGROUND ROAD, DEDICATED BLUE/GREEN KL BICYCLE LANE & STREET DETAILS -->
+  <!-- Sidewalk & Curb -->
+  <rect x="0" y="445" width="1200" height="18" fill="#90a4ae" />
+  <!-- Asphalt Road -->
+  <rect x="0" y="463" width="1200" height="187" fill="url(#roadGrad)" />
+  <!-- Dedicated KL City Green/Cyan Cycling Lane -->
+  <rect x="0" y="518" width="1200" height="74" fill="#00695c" opacity="0.55" />
+  <line x1="0" y1="518" x2="1200" y2="518" stroke="#ffd54f" stroke-width="3" />
+  <line x1="0" y1="592" x2="1200" y2="592" stroke="#ffd54f" stroke-width="3" />
+
+  <!-- Scrolling Near Street Elements (Road Signs, Hibiscus Bushes, Street Lamps, Lane Dashes) -->
+  <g class="street-near">
+    <g id="street-near-slice">
+      <!-- Curb Blocks -->
+      <g fill="#cfd8dc">
+        <rect x="0" y="457" width="60" height="6" />
+        <rect x="120" y="457" width="60" height="6" />
+        <rect x="240" y="457" width="60" height="6" />
+        <rect x="360" y="457" width="60" height="6" />
+        <rect x="480" y="457" width="60" height="6" />
+        <rect x="600" y="457" width="60" height="6" />
+        <rect x="720" y="457" width="60" height="6" />
+        <rect x="840" y="457" width="60" height="6" />
+        <rect x="960" y="457" width="60" height="6" />
+        <rect x="1080" y="457" width="60" height="6" />
+      </g>
+
+      <!-- Dashed Road Center Lines -->
+      <g stroke="#eceff1" stroke-width="4" stroke-dasharray="45 55" opacity="0.7">
+        <line x1="0" y1="490" x2="1200" y2="490" />
+        <line x1="0" y1="622" x2="1200" y2="622" />
+      </g>
+
+      <!-- Malaysian Road Sign: JALAN AMPANG / KLCC -->
+      <g transform="translate(260, 355)">
+        <rect x="38" y="45" width="5" height="55" fill="#b0bec5" />
+        <rect x="0" y="18" width="84" height="32" rx="4" fill="#1565c0" stroke="#ffffff" stroke-width="2" />
+        <text x="42" y="32" fill="#ffffff" font-family="sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">JALAN AMPANG</text>
+        <text x="42" y="44" fill="#ffd54f" font-family="sans-serif" font-size="8" font-weight="bold" text-anchor="middle">KLCC →</text>
+      </g>
+
+      <!-- Malaysian Road Sign: DATARAN MERDEKA / BUKIT BINTANG -->
+      <g transform="translate(860, 355)">
+        <rect x="48" y="45" width="5" height="55" fill="#b0bec5" />
+        <rect x="0" y="18" width="102" height="32" rx="4" fill="#2e7d32" stroke="#ffffff" stroke-width="2" />
+        <text x="51" y="32" fill="#ffffff" font-family="sans-serif" font-size="8.5" font-weight="bold" text-anchor="middle">BUKIT BINTANG</text>
+        <text x="51" y="44" fill="#ffd54f" font-family="sans-serif" font-size="8" font-weight="bold" text-anchor="middle">MERDEKA 118 →</text>
+      </g>
+
+      <!-- Decorative KL Street Lamps -->
+      <g transform="translate(560, 320)">
+        <rect x="-3" y="20" width="6" height="135" fill="#37474f" />
+        <path d="M0,25 Q22,10 32,25" fill="none" stroke="#37474f" stroke-width="4" />
+        <circle cx="32" cy="28" r="8" fill="#fff59d" filter="url(#glow)" />
+      </g>
+      <g transform="translate(1140, 320)">
+        <rect x="-3" y="20" width="6" height="135" fill="#37474f" />
+        <path d="M0,25 Q22,10 32,25" fill="none" stroke="#37474f" stroke-width="4" />
+        <circle cx="32" cy="28" r="8" fill="#fff59d" filter="url(#glow)" />
+      </g>
+
+      <!-- Bunga Raya (Red Hibiscus) Roadside Shrubs -->
+      <g transform="translate(110, 446)">
+        <path d="M-25,10 Q-15,-15 0,-8 Q15,-18 28,10 Z" fill="#2e7d32" />
+        <circle cx="-8" cy="-2" r="5" fill="#ff1744" />
+        <circle cx="-8" cy="-2" r="1.5" fill="#ffeb3b" />
+        <circle cx="10" cy="1" r="4.5" fill="#ff1744" />
+        <circle cx="10" cy="1" r="1.5" fill="#ffeb3b" />
+      </g>
+      <g transform="translate(690, 446)">
+        <path d="M-25,10 Q-15,-15 0,-8 Q15,-18 28,10 Z" fill="#2e7d32" />
+        <circle cx="-6" cy="-1" r="5" fill="#ff1744" />
+        <circle cx="-6" cy="-1" r="1.5" fill="#ffeb3b" />
+        <circle cx="12" cy="0" r="4.5" fill="#ff1744" />
+        <circle cx="12" cy="0" r="1.5" fill="#ffeb3b" />
+      </g>
+    </g>
+    <use href="#street-near-slice" x="1200" />
+  </g>
+
+  <!-- 6. MAIN CHARACTER: PANDA CYCLING ON BICYCLE -->
+  <g transform="translate(560, 540)">
+    <!-- Ground Shadow beneath Bicycle -->
+    <ellipse cx="0" cy="52" rx="108" ry="10" fill="#0d0e15" opacity="0.55" />
+
+    <!-- Speed Wind Lines -->
+    <g stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" opacity="0.65">
+      <line x1="-130" y1="-65" x2="-85" y2="-65" class="wind-1" />
+      <line x1="-145" y1="-20" x2="-95" y2="-20" class="wind-2" />
+      <line x1="-120" y1="25" x2="-75" y2="25" class="wind-3" />
+    </g>
+
+    <!-- Bouncing Bike & Panda Assembly -->
+    <g class="bike-rig">
+
+      <!-- BACK LEG (Behind Frame, 180deg phase offset from front leg) -->
+      <!-- Hip Joint at (-28, -58) -->
+      <g transform="translate(-28, -58)">
+        <g class="leg-back-thigh">
+          <!-- Black Panda Upper Leg -->
+          <path d="M-12,0 Q-15,24 14,38 Q26,38 22,22 Q12,2 0,-6 Z" fill="#18181b" />
+          <!-- Knee Joint at (16, 30) -->
+          <g transform="translate(16, 30)">
+            <g class="leg-back-calf">
+              <!-- Lower Leg & Cute Paw -->
+              <rect x="-8" y="-4" width="18" height="36" rx="9" fill="#18181b" />
+              <!-- Red/White Sneaker / Foot on Pedal -->
+              <ellipse cx="6" cy="32" rx="15" ry="7" fill="#27272a" />
+              <path d="M-6,35 L20,35" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <!-- REAR & FRONT WHEELS -->
+      <g transform="translate(-72, 0)">
+        <g class="spin">
+          <use href="#bike-wheel" />
+        </g>
+      </g>
+      <g transform="translate(72, 0)">
+        <g class="spin">
+          <use href="#bike-wheel" />
+        </g>
+      </g>
+
+      <!-- BICYCLE FRAME -->
+      <!-- Rear Fender -->
+      <path d="M-122,-5 A50,50 0 0,1 -26,-24" fill="none" stroke="#ff5252" stroke-width="5" stroke-linecap="round" />
+      <!-- Main Diamond Frame -->
+      <g stroke="url(#bikeFrame)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <!-- Chainstay -->
+        <line x1="-72" y1="0" x2="-8" y2="5" />
+        <!-- Seatstay -->
+        <line x1="-72" y1="0" x2="-34" y2="-48" />
+        <!-- Seat Tube -->
+        <line x1="-8" y1="5" x2="-38" y2="-56" />
+        <!-- Down Tube -->
+        <line x1="-8" y1="5" x2="46" y2="-48" />
+        <!-- Top Tube -->
+        <line x1="-34" y1="-48" x2="44" y2="-52" />
+        <!-- Front Fork -->
+        <line x1="72" y1="0" x2="42" y2="-62" />
+      </g>
+      <!-- Handlebar Stem -->
+      <path d="M42,-62 L36,-82 L22,-82" fill="none" stroke="#cfd8dc" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+      <!-- Saddle / Seat -->
+      <path d="M-52,-58 Q-35,-64 -20,-56 Q-32,-48 -48,-52 Z" fill="#263238" />
+
+      <!-- FRONT WICKER BASKET WITH FRESH BAMBOO & TEH AIS -->
+      <g transform="translate(52, -72)">
+        <rect x="0" y="0" width="30" height="24" rx="4" fill="#d7a86e" stroke="#8d6e63" stroke-width="2" />
+        <line x1="0" y1="8" x2="30" y2="8" stroke="#8d6e63" stroke-width="1.5" />
+        <line x1="0" y1="16" x2="30" y2="16" stroke="#8d6e63" stroke-width="1.5" />
+        <!-- Bamboo Stalks sticking out of basket -->
+        <g transform="rotate(12, 15, 0)">
+          <rect x="8" y="-22" width="5" height="24" rx="2" fill="#66bb6a" />
+          <line x1="7" y1="-12" x2="14" y2="-12" stroke="#2e7d32" stroke-width="1.5" />
+          <path d="M13,-18 Q24,-24 22,-14 Z" fill="#43a047" />
+          <rect x="17" y="-17" width="4.5" height="19" rx="2" fill="#81c784" />
+          <path d="M17,-14 Q6,-22 8,-11 Z" fill="#2e7d32" />
+        </g>
+      </g>
+
+      <!-- Headlight with Warm Beam -->
+      <polygon points="62,-56 195,-25 195,25" fill="#fff59d" opacity="0.22" />
+      <circle cx="60" cy="-56" r="5" fill="#fff176" stroke="#37474f" stroke-width="2" />
+
+      <!-- CRANKSET & CHAIN -->
+      <ellipse cx="-40" cy="3" rx="34" ry="8" fill="none" stroke="#546e7a" stroke-width="2" stroke-dasharray="4 2" />
+      <g transform="translate(-8, 5)">
+        <circle cx="0" cy="0" r="13" fill="#cfd8dc" stroke="#455a64" stroke-width="2.5" />
+        <circle cx="0" cy="0" r="5" fill="#ff5252" />
+        <!-- Rotating Crank Arm -->
+        <g class="spin">
+          <line x1="0" y1="-15" x2="0" y2="15" stroke="#90a4ae" stroke-width="4" stroke-linecap="round" />
+          <rect x="-7" y="13" width="14" height="4" rx="2" fill="#263238" />
+          <rect x="-7" y="-17" width="14" height="4" rx="2" fill="#263238" />
+        </g>
+      </g>
+
+      <!-- PANDA BODY & HEAD -->
+      <g transform="translate(-32, -62)">
+        <g class="panda-torso">
+          <!-- Cute Fluffy White Tail -->
+          <circle cx="-26" cy="4" r="9" fill="#ffffff" stroke="#e0e0e0" stroke-width="1" />
+
+          <!-- Chubby White Torso -->
+          <ellipse cx="0" cy="-22" rx="30" ry="35" fill="#ffffff" stroke="#e4e4e7" stroke-width="1.5" />
+
+          <!-- Black Shoulder / Chest Band -->
+          <path d="M-26,-36 Q2,-24 27,-34 Q31,-16 20,-10 Q-2,-16 -28,-18 Z" fill="#18181b" />
+
+          <!-- Sporty Malaysian Cycling Jersey Stripe / Scarf -->
+          <path d="M-18,-52 Q-55,-58 -85,-42 Q-105,-34 -120,-48 L-115,-32 Q-90,-22 -55,-38 Q-30,-44 -16,-40 Z" fill="#ffca28" style="animation: scarfWave 0.6s ease-in-out infinite;" />
+          <path d="M-20,-46 Q4,-38 22,-46" fill="none" stroke="#ffca28" stroke-width="7" stroke-linecap="round" />
+
+          <!-- PANDA HEAD -->
+          <g transform="translate(12, -66)">
+            <g class="panda-head">
+              <!-- Back Ear -->
+              <circle cx="14" cy="-24" r="11" fill="#18181b" class="panda-ear" />
+              <!-- Round White Head -->
+              <circle cx="0" cy="0" r="28" fill="#ffffff" stroke="#e4e4e7" stroke-width="1.5" />
+              <!-- Front Ear -->
+              <circle cx="-16" cy="-22" r="11.5" fill="#18181b" class="panda-ear" />
+
+              <!-- Cute Pink Rosy Cheek -->
+              <ellipse cx="10" cy="7" rx="6.5" ry="4" fill="#ff8a80" opacity="0.75" />
+
+              <!-- Iconic Black Eye Patch -->
+              <ellipse cx="13" cy="-3" rx="9" ry="11" transform="rotate(-14, 13, -3)" fill="#18181b" />
+
+              <!-- Sparkling Eye (Blinks) -->
+              <g class="panda-eye">
+                <circle cx="15" cy="-4" r="4" fill="#ffffff" />
+                <circle cx="16.5" cy="-5" r="2" fill="#18181b" />
+                <circle cx="17.5" cy="-6" r="1" fill="#ffffff" />
+              </g>
+
+              <!-- Cute Snout, Nose & Happy Smile -->
+              <ellipse cx="26" cy="3" rx="4.5" ry="3.2" fill="#18181b" />
+              <path d="M18,9 Q23,15 27,9" fill="none" stroke="#18181b" stroke-width="2.2" stroke-linecap="round" />
+
+              <!-- Sporty Aero Cycling Helmet -->
+              <path d="M-28,-8 C-28,-34 26,-34 29,-8 Z" fill="#00e5ff" stroke="#00838f" stroke-width="2" />
+              <!-- Helmet Vents -->
+              <path d="M-12,-22 L-4,-14" stroke="#006064" stroke-width="3" stroke-linecap="round" />
+              <path d="M4,-23 L11,-14" stroke="#006064" stroke-width="3" stroke-linecap="round" />
+              <!-- Helmet Strap -->
+              <path d="M-6,-8 L4,16 L14,-4" fill="none" stroke="#37474f" stroke-width="2" stroke-linejoin="round" />
+            </g>
+          </g>
+
+          <!-- FRONT ARM Reaching to Handlebars -->
+          <path d="M10,-32 Q32,-20 52,-18" fill="none" stroke="#18181b" stroke-width="15" stroke-linecap="round" />
+          <circle cx="54" cy="-18" r="8" fill="#18181b" />
+        </g>
+      </g>
+
+      <!-- FRONT LEG (In Front of Frame, Pedaling in Sync with Crank) -->
+      <!-- Hip Joint at (-28, -58) -->
+      <g transform="translate(-28, -58)">
+        <g class="leg-front-thigh">
+          <!-- Black Panda Upper Leg -->
+          <path d="M-12,0 Q-15,24 14,38 Q26,38 22,22 Q12,2 0,-6 Z" fill="#27272a" />
+          <!-- Knee Joint at (16, 30) -->
+          <g transform="translate(16, 30)">
+            <g class="leg-front-calf">
+              <!-- Lower Leg -->
+              <rect x="-8" y="-4" width="18" height="36" rx="9" fill="#18181b" />
+              <!-- Cute Foot on Pedal -->
+              <ellipse cx="6" cy="32" rx="15" ry="7" fill="#18181b" />
+              <path d="M-6,35 L20,35" stroke="#ffeb3b" stroke-width="3" stroke-linecap="round" />
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <!-- Handlebar Grip Cap (In front of Panda's Paw) -->
+      <circle cx="22" cy="-82" r="4.5" fill="#ff5252" />
+      <!-- Cute Golden Bicycle Bell -->
+      <path d="M32,-84 A5,5 0 0,1 42,-84 Z" fill="#ffd54f" stroke="#f57f17" stroke-width="1" />
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,2162 @@
+/* ==========================================================================
+   SPIELHAUS TTDI — European Board Game Parlor & Retail Atelier
+   Aesthetic: Tactile European Spiel Rulebook & Malaysian Heritage Shophouse
+   ========================================================================== */
+
+:root {
+  /* Core Surfaces */
+  --bg-linen: #F6F2EA;
+  --bg-parchment: #EFE9DC;
+  --bg-card: #FAF7F1;
+  --bg-glass: rgba(246, 242, 234, 0.90);
+  --bg-baize: #1F4E3D;
+  --bg-baize-deep: #15382B;
+  --bg-ink: #1E1B18;
+  --bg-walnut: #2A231E;
+
+  /* Typography Ink Hierarchy */
+  --text-primary: #1E1B18;
+  --text-secondary: #5A524C;
+  --text-muted: #8A8077;
+  --text-on-dark: #F6F2EA;
+  --text-on-dark-muted: #C5BCB0;
+
+  /* European Meeple & Spiel des Jahres Accents */
+  --accent-crimson: #B83A2A;
+  --accent-crimson-hover: #982D1F;
+  --accent-pine: #1F4E3D;
+  --accent-ochre: #D99B26;
+  --accent-cobalt: #2B5B84;
+  --accent-terracotta: #C86446;
+
+  /* Borders & Hairlines */
+  --border-rule: #D8CFC0;
+  --border-strong: #B8ADA0;
+  --border-ink: #1E1B18;
+
+  /* Shadows & Tactile Depth */
+  --shadow-card: 0 10px 28px -8px rgba(30, 27, 24, 0.08), 0 2px 6px -1px rgba(30, 27, 24, 0.05);
+  --shadow-elevated: 0 22px 48px -12px rgba(30, 27, 24, 0.16), 0 4px 12px -2px rgba(30, 27, 24, 0.08);
+  --shadow-stamp: 3px 3px 0px #1E1B18;
+  --shadow-stamp-crimson: 3px 3px 0px #B83A2A;
+
+  /* Typography Families */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Layout */
+  --max-width: 1380px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background-color: var(--bg-linen);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-linen);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+}
+
+/* Subtle Unbleached Linen Paper Texture Overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+/* ==========================================================================
+   Utility & Rulebook Typography
+   ========================================================================== */
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-index-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 0;
+  border-top: 2px solid var(--border-ink);
+  border-bottom: 1px solid var(--border-rule);
+  margin-bottom: 2.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.section-index-bar .index-num {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.section-index-bar .index-num::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent-crimson);
+  transform: rotate(45deg);
+}
+
+.section-header-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 2.5rem;
+  align-items: end;
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.section-title em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent-crimson);
+}
+
+.section-lead {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* Meeple Colored Dots */
+.meeple-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(30, 27, 24, 0.25);
+}
+.meeple-dot.crimson { background-color: var(--accent-crimson); }
+.meeple-dot.pine { background-color: var(--accent-pine); }
+.meeple-dot.ochre { background-color: var(--accent-ochre); }
+.meeple-dot.cobalt { background-color: var(--accent-cobalt); }
+
+/* ==========================================================================
+   Top Telemetry Strip & Sticky Rulebook Navbar
+   ========================================================================== */
+
+.top-telemetry-bar {
+  background-color: var(--bg-ink);
+  color: var(--text-on-dark);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.top-telemetry-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.telemetry-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.live-pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #38B26F;
+  box-shadow: 0 0 0 3px rgba(56, 178, 111, 0.25);
+  animation: pulseDot 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+
+.telemetry-meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: var(--text-on-dark-muted);
+}
+
+.telemetry-meta span strong {
+  color: var(--accent-ochre);
+  font-weight: 600;
+}
+
+/* Sticky Navbar */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--bg-glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border-rule);
+  transition: box-shadow 0.25s ease;
+}
+
+.site-header.scrolled {
+  box-shadow: 0 8px 24px -8px rgba(30, 27, 24, 0.1);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+  gap: 1.5rem;
+}
+
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-emblem {
+  width: 44px;
+  height: 44px;
+  background-color: var(--accent-crimson);
+  color: #FAF7F1;
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 0px var(--border-ink);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.brand-lockup:hover .brand-emblem {
+  transform: rotate(-4deg) scale(1.04);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.brand-badge-ttdi {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  background-color: var(--accent-pine);
+  color: #FAF7F1;
+  padding: 0.12rem 0.42rem;
+  border-radius: 3px;
+  letter-spacing: 0.06em;
+}
+
+.brand-sub {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-top: 0.15rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.nav-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+}
+
+.nav-links a .nav-sec {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent-crimson);
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-parchment);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.tray-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-parchment);
+  border: 1.5px solid var(--border-ink);
+  padding: 0.48rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tray-pill-btn:hover {
+  background-color: var(--accent-ochre);
+  color: var(--bg-ink);
+  transform: translateY(-1px);
+}
+
+.tray-count {
+  background-color: var(--accent-crimson);
+  color: #fff;
+  padding: 0.05rem 0.42rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+}
+
+/* Tactile Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  font-weight: 600;
+  font-size: 0.92rem;
+  padding: 0.78rem 1.35rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-ink);
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--accent-crimson);
+  color: #FAF7F1;
+  box-shadow: var(--shadow-stamp);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-crimson-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--border-ink);
+}
+
+.btn-primary:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px var(--border-ink);
+}
+
+.btn-secondary {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-stamp);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-parchment);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--border-ink);
+}
+
+.btn-pine {
+  background-color: var(--accent-pine);
+  color: #FAF7F1;
+  box-shadow: var(--shadow-stamp);
+}
+
+.btn-pine:hover {
+  background-color: var(--bg-baize-deep);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px var(--border-ink);
+}
+
+.btn-sm {
+  padding: 0.52rem 0.95rem;
+  font-size: 0.82rem;
+}
+
+/* ==========================================================================
+   Hero Section — Asymmetric 60/40 Editorial Rulebook Layout
+   ========================================================================== */
+
+.hero-section {
+  padding: 3.25rem 0 4.5rem;
+  border-bottom: 1px solid var(--border-rule);
+  position: relative;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
+  gap: 3.25rem;
+  align-items: start;
+}
+
+.hero-kicker-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.35rem;
+}
+
+.spiel-seal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #EFE5D4;
+  border: 1px solid var(--border-strong);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-crimson);
+  letter-spacing: 0.06em;
+}
+
+.location-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.7rem;
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.hero-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2.55rem, 4.6vw, 4.35rem);
+  font-weight: 700;
+  line-height: 1.03;
+  letter-spacing: -0.025em;
+  color: var(--text-primary);
+  margin-bottom: 1.4rem;
+}
+
+.hero-headline .highlight-italic {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--accent-crimson);
+  position: relative;
+  display: inline-block;
+}
+
+.hero-headline .pine-underline {
+  text-decoration: underline;
+  text-decoration-color: var(--accent-ochre);
+  text-decoration-thickness: 4px;
+  text-underline-offset: 6px;
+}
+
+.hero-lead {
+  font-size: 1.12rem;
+  line-height: 1.68;
+  color: var(--text-secondary);
+  max-width: 62ch;
+  margin-bottom: 2rem;
+}
+
+.hero-lead strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.hero-cta-group {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+/* Rulebook Telemetry Ledger inside Hero */
+.hero-ledger {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+.ledger-cell {
+  padding: 1rem 1.1rem;
+  border-right: 1px solid var(--border-rule);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.ledger-cell:last-child {
+  border-right: none;
+}
+
+.ledger-code {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+}
+
+.ledger-val {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+}
+
+.ledger-label {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* Hero Right Column: Real Photography Specimen Frame */
+.hero-visual-stage {
+  position: relative;
+}
+
+.specimen-frame {
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  box-shadow: var(--shadow-elevated);
+  position: relative;
+}
+
+.specimen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.65rem;
+  margin-bottom: 0.65rem;
+  border-bottom: 1px solid var(--border-rule);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.specimen-photo-wrap {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 4 / 3.2;
+  background-color: var(--bg-walnut);
+  border: 1px solid var(--border-ink);
+}
+
+.specimen-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.specimen-frame:hover .specimen-photo-wrap img {
+  transform: scale(1.03);
+}
+
+/* Interactive Hotspots on the Hero Real Photo */
+.photo-hotspot {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: var(--accent-crimson);
+  color: #FAF7F1;
+  border: 2px solid #FAF7F1;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+  z-index: 5;
+}
+
+.photo-hotspot:hover,
+.photo-hotspot.active {
+  transform: scale(1.18);
+  background-color: var(--accent-ochre);
+  color: var(--bg-ink);
+}
+
+.hotspot-caption-bar {
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.85rem;
+  background-color: var(--bg-parchment);
+  border: 1px solid var(--border-rule);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  font-size: 0.82rem;
+}
+
+.hotspot-caption-bar strong {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--accent-crimson);
+  text-transform: uppercase;
+}
+
+/* Secondary Overlapping Photo Card (People Playing at Parlor) */
+.hero-inset-card {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: 135px 1fr;
+  gap: 1rem;
+  align-items: center;
+  background-color: var(--bg-baize);
+  color: var(--text-on-dark);
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-ink);
+  box-shadow: var(--shadow-stamp);
+}
+
+.hero-inset-img {
+  width: 135px;
+  height: 96px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-inset-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-inset-content .inset-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent-ochre);
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.hero-inset-content h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.hero-inset-content p {
+  font-size: 0.8rem;
+  color: var(--text-on-dark-muted);
+  line-height: 1.45;
+}
+
+/* Rotating Spiel des Jahres Inspired Stamp */
+.spiel-stamp-badge {
+  position: absolute;
+  top: -18px;
+  right: -14px;
+  width: 96px;
+  height: 96px;
+  background-color: var(--accent-ochre);
+  border: 2px solid var(--border-ink);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0.5rem;
+  box-shadow: var(--shadow-stamp);
+  transform: rotate(8deg);
+  z-index: 10;
+}
+
+.spiel-stamp-badge .stamp-top {
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.spiel-stamp-badge .stamp-main {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.05;
+  margin: 0.12rem 0;
+}
+
+.spiel-stamp-badge .stamp-sub {
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Publisher Heritage Marquee Strip
+   ========================================================================== */
+
+.publisher-ribbon {
+  background-color: var(--bg-parchment);
+  border-bottom: 1px solid var(--border-rule);
+  padding: 1.15rem 0;
+}
+
+.publisher-ribbon-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+}
+
+.publisher-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.publisher-houses {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.75rem;
+}
+
+.publisher-item {
+  font-family: var(--font-display);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.publisher-item span {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ==========================================================================
+   § 01 — Die Kuratierte Sammlung (Interactive Eurogame Vault)
+   ========================================================================== */
+
+.catalog-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border-rule);
+}
+
+/* Filter Console */
+.catalog-controls {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.25rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.filter-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.category-tabs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.cat-tab {
+  background-color: var(--bg-linen);
+  border: 1px solid var(--border-strong);
+  padding: 0.48rem 0.9rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.18s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.cat-tab:hover {
+  border-color: var(--border-ink);
+  color: var(--text-primary);
+}
+
+.cat-tab.active {
+  background-color: var(--bg-ink);
+  color: var(--text-on-dark);
+  border-color: var(--bg-ink);
+}
+
+.search-input-wrap {
+  position: relative;
+  min-width: 260px;
+  flex: 1;
+  max-width: 340px;
+}
+
+.search-input-wrap input {
+  width: 100%;
+  padding: 0.55rem 0.9rem 0.55rem 2.25rem;
+  background-color: var(--bg-linen);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.search-input-wrap input:focus {
+  outline: none;
+  border-color: var(--accent-crimson);
+  background-color: #fff;
+}
+
+.search-input-wrap .search-icon {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.filter-bottom-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding-top: 0.95rem;
+  border-top: 1px dashed var(--border-rule);
+}
+
+.filter-group-inline {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.player-pills {
+  display: inline-flex;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.player-pill {
+  background-color: var(--bg-linen);
+  border: none;
+  border-right: 1px solid var(--border-rule);
+  padding: 0.32rem 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.player-pill:last-child {
+  border-right: none;
+}
+
+.player-pill.active {
+  background-color: var(--accent-pine);
+  color: #FAF7F1;
+}
+
+.weight-slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.weight-slider-wrap input[type="range"] {
+  accent-color: var(--accent-crimson);
+  cursor: pointer;
+  width: 130px;
+}
+
+.catalog-count-readout {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Catalog Grid */
+.games-bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.65rem;
+}
+
+.game-card {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  position: relative;
+}
+
+.game-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-elevated);
+}
+
+.game-card-photo {
+  position: relative;
+  height: 215px;
+  overflow: hidden;
+  background-color: var(--bg-walnut);
+  border-bottom: 1.5px solid var(--border-ink);
+}
+
+.game-card-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.game-card:hover .game-card-photo img {
+  transform: scale(1.06);
+}
+
+.game-badges-top {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.spiel-class-badge {
+  background-color: rgba(30, 27, 24, 0.88);
+  color: #FAF7F1;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  padding: 0.26rem 0.58rem;
+  border-radius: 3px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+
+.spiel-class-badge.crimson {
+  background-color: var(--accent-crimson);
+}
+
+.spiel-class-badge.pine {
+  background-color: var(--accent-pine);
+}
+
+.spiel-class-badge.ochre {
+  background-color: var(--accent-ochre);
+  color: var(--bg-ink);
+}
+
+.language-pill {
+  background-color: rgba(246, 242, 234, 0.92);
+  color: var(--text-primary);
+  border: 1px solid var(--border-ink);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.48rem;
+  border-radius: 3px;
+}
+
+.game-card-body {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.game-german-sub {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-crimson);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.2rem;
+}
+
+.game-title {
+  font-family: var(--font-display);
+  font-size: 1.32rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  color: var(--text-primary);
+}
+
+.game-designer {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.85rem;
+}
+
+.game-designer strong {
+  color: var(--text-secondary);
+}
+
+.game-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 1.1rem;
+  flex: 1;
+}
+
+/* Technical Spec Strip inside Card (max 4 data points) */
+.game-telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background-color: var(--bg-parchment);
+  border: 1px solid var(--border-rule);
+  border-radius: var(--radius-sm);
+  margin-bottom: 1.1rem;
+  font-family: var(--font-mono);
+}
+
+.telemetry-stat {
+  padding: 0.48rem 0.55rem;
+  border-right: 1px solid var(--border-rule);
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetry-stat:last-child {
+  border-right: none;
+}
+
+.stat-k {
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.stat-v {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.game-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-rule);
+}
+
+.price-lockup {
+  display: flex;
+  flex-direction: column;
+}
+
+.retail-price {
+  font-family: var(--font-mono);
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.table-copy-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent-pine);
+  font-weight: 600;
+}
+
+.card-action-btns {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.btn-icon-only {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-ink);
+  background-color: var(--bg-linen);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-icon-only:hover {
+  background-color: var(--bg-parchment);
+}
+
+.hold-game-btn {
+  padding: 0.48rem 0.85rem;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-ink);
+  background-color: var(--bg-linen);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.hold-game-btn:hover {
+  background-color: var(--accent-ochre);
+  color: var(--bg-ink);
+}
+
+.hold-game-btn.in-tray {
+  background-color: var(--accent-pine);
+  color: #FAF7F1;
+  border-color: var(--accent-pine);
+}
+
+/* ==========================================================================
+   Interactive "Der Spielberater" — Table Flight Recommender
+   ========================================================================== */
+
+.recommender-banner {
+  margin-top: 3.5rem;
+  background-color: var(--bg-baize);
+  color: var(--text-on-dark);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-elevated);
+  position: relative;
+  overflow: hidden;
+}
+
+.recommender-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.recommender-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent-ochre);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.recommender-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.65rem, 2.6vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.12;
+  margin-bottom: 0.75rem;
+}
+
+.recommender-sub {
+  font-size: 0.94rem;
+  color: var(--text-on-dark-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+.berater-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.berater-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.berater-step label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-ochre);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.berater-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.berater-chip {
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: var(--text-on-dark);
+  padding: 0.42rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.berater-chip:hover {
+  background-color: rgba(255, 255, 255, 0.16);
+}
+
+.berater-chip.active {
+  background-color: var(--accent-ochre);
+  color: var(--bg-ink);
+  border-color: var(--accent-ochre);
+  font-weight: 700;
+}
+
+.berater-result-box {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+  box-shadow: 6px 6px 0px var(--border-ink);
+}
+
+.berater-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-rule);
+}
+
+.berater-flight-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.flight-item {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.65rem;
+  background-color: var(--bg-linen);
+  border: 1px solid var(--border-rule);
+  border-radius: var(--radius-sm);
+}
+
+.flight-item img {
+  width: 64px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 3px;
+  border: 1px solid var(--border-ink);
+}
+
+.flight-item-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.98rem;
+}
+
+.flight-item-meta {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   § 02 — Das TTDI Spielhaus Erlebnis (Parlor Gallery & Pass Rates)
+   ========================================================================== */
+
+.parlor-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border-rule);
+  background-color: var(--bg-parchment);
+}
+
+.parlor-photo-mosaic {
+  display: grid;
+  grid-template-columns: 1.3fr 0.85fr 0.85fr;
+  grid-template-rows: 240px 240px;
+  gap: 1.25rem;
+  margin-bottom: 3.5rem;
+}
+
+.mosaic-card {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 2px solid var(--border-ink);
+  box-shadow: var(--shadow-card);
+  background-color: var(--bg-walnut);
+}
+
+.mosaic-card.tall {
+  grid-row: span 2;
+}
+
+.mosaic-card.wide {
+  grid-column: span 2;
+}
+
+.mosaic-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.mosaic-card:hover img {
+  transform: scale(1.04);
+}
+
+.mosaic-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  background: linear-gradient(to top, rgba(22, 19, 17, 0.92) 0%, rgba(22, 19, 17, 0.55) 65%, transparent 100%);
+  color: #FAF7F1;
+  padding: 1.35rem;
+}
+
+.mosaic-fig {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent-ochre);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.mosaic-overlay h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.mosaic-overlay p {
+  font-size: 0.84rem;
+  color: var(--text-on-dark-muted);
+  line-height: 1.45;
+}
+
+/* Parlor Pillars + Pass Pricing Table */
+.parlor-columns {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.craft-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.craft-item {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.35rem;
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 1rem;
+  box-shadow: var(--shadow-card);
+}
+
+.craft-num {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-linen);
+  border: 1.5px solid var(--border-ink);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-crimson);
+}
+
+.craft-item h4 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  margin-bottom: 0.3rem;
+}
+
+.craft-item p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+/* Rulebook Tarif / Pass Ledger */
+.tarif-card {
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-stamp);
+}
+
+.tarif-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  margin-bottom: 1.1rem;
+  border-bottom: 2px solid var(--border-ink);
+}
+
+.tarif-header h3 {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+}
+
+.tarif-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+
+.tarif-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 1rem;
+  background-color: var(--bg-linen);
+  border: 1px solid var(--border-rule);
+  border-radius: var(--radius-sm);
+}
+
+.tarif-row.featured {
+  background-color: #F4E9D8;
+  border: 1.5px solid var(--accent-crimson);
+}
+
+.tarif-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tarif-desc {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-top: 0.15rem;
+}
+
+.tarif-price {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent-crimson);
+  white-space: nowrap;
+}
+
+.tarif-note {
+  padding: 0.85rem 1rem;
+  background-color: var(--bg-baize);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   § 03 — Wöchentlicher Spielplan (Weekly TTDI Nights & Guild Calendar)
+   ========================================================================== */
+
+.schedule-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border-rule);
+}
+
+.schedule-ledger {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.35rem;
+}
+
+.schedule-card {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.45rem;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+  position: relative;
+}
+
+.schedule-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.9rem;
+  border-bottom: 1px solid var(--border-rule);
+}
+
+.day-german {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  color: var(--accent-crimson);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.day-time {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+}
+
+.schedule-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.28rem;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-card p {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  margin-bottom: 1.1rem;
+  flex: 1;
+}
+
+.schedule-featured-game {
+  background-color: var(--bg-parchment);
+  border: 1px solid var(--border-rule);
+  border-radius: var(--radius-sm);
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1rem;
+  font-size: 0.78rem;
+}
+
+.schedule-featured-game span {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.schedule-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--border-rule);
+}
+
+.seats-left {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-pine);
+}
+
+/* ==========================================================================
+   § 04 — Interactive Shophouse Table Reservation & TTDI Wayfinding
+   ========================================================================== */
+
+.booking-section {
+  padding: 5rem 0;
+  border-bottom: 1px solid var(--border-rule);
+}
+
+.booking-console-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+/* Interactive Shophouse Floorplan Box */
+.floorplan-panel {
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-card);
+}
+
+.floorplan-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.floorplan-legend {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.legend-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid var(--border-ink);
+}
+
+.shophouse-blueprint {
+  background-color: #EDE6D6;
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-sm);
+  padding: 1.25rem;
+  position: relative;
+  background-image:
+    linear-gradient(to right, rgba(30, 27, 24, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 27, 24, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.blueprint-street-label {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-align: center;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px dashed var(--border-strong);
+}
+
+.tables-floor-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.9rem;
+}
+
+.table-node {
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.18s ease;
+  position: relative;
+}
+
+.table-node.wide-node {
+  grid-column: span 2;
+}
+
+.table-node:hover {
+  border-color: var(--accent-crimson);
+  transform: translateY(-2px);
+}
+
+.table-node.selected {
+  background-color: var(--bg-baize);
+  color: var(--text-on-dark);
+  border-color: var(--border-ink);
+  box-shadow: 3px 3px 0px var(--border-ink);
+}
+
+.table-node-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}
+
+.table-node.selected .table-node-top {
+  color: var(--accent-ochre);
+}
+
+.table-node-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.02rem;
+  margin-bottom: 0.2rem;
+}
+
+.table-node-spec {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+}
+
+.table-node.selected .table-node-spec {
+  color: var(--text-on-dark-muted);
+}
+
+/* Booking Form Panel */
+.reservation-form-card {
+  background-color: var(--bg-card);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-stamp);
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.form-field input,
+.form-field select {
+  padding: 0.65rem 0.8rem;
+  background-color: var(--bg-linen);
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: none;
+  border-color: var(--accent-crimson);
+  background-color: #fff;
+}
+
+.held-games-box {
+  background-color: var(--bg-parchment);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  margin-bottom: 1.15rem;
+}
+
+.held-games-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.45rem;
+}
+
+.held-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-ink);
+  padding: 0.25rem 0.55rem;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.held-chip button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--accent-crimson);
+  font-weight: 700;
+}
+
+.ticket-confirmation {
+  margin-top: 1.15rem;
+  padding: 1.15rem;
+  background-color: #E9F3EC;
+  border: 2px solid var(--accent-pine);
+  border-radius: var(--radius-sm);
+  display: none;
+}
+
+.ticket-confirmation.visible {
+  display: block;
+}
+
+/* ==========================================================================
+   TTDI Wayfinding & Footer Colophon
+   ========================================================================== */
+
+.wayfinding-strip {
+  margin-top: 2.5rem;
+  background-color: var(--bg-card);
+  border: 1.5px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  padding: 1.65rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.wayfinding-block h4 {
+  font-family: var(--font-display);
+  font-size: 1.08rem;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.wayfinding-block p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+.site-footer {
+  background-color: var(--bg-ink);
+  color: var(--text-on-dark);
+  padding: 4rem 0 2.5rem;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 2.5rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.footer-col h4 {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent-ochre);
+  margin-bottom: 1rem;
+}
+
+.footer-col ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  color: var(--text-on-dark-muted);
+}
+
+.footer-col ul a:hover {
+  color: #fff;
+}
+
+.footer-bottom {
+  padding-top: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-on-dark-muted);
+}
+
+/* ==========================================================================
+   Rulebook Inspection Modal
+   ========================================================================== */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(20, 18, 15, 0.72);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal-backdrop.open {
+  display: flex;
+}
+
+.rulebook-modal {
+  background-color: var(--bg-linen);
+  border: 2px solid var(--border-ink);
+  border-radius: var(--radius-md);
+  max-width: 760px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: var(--shadow-elevated);
+  animation: modalPop 0.22s ease-out;
+}
+
+@keyframes modalPop {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-top-bar {
+  background-color: var(--bg-ink);
+  color: var(--text-on-dark);
+  padding: 0.85rem 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.modal-close-btn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+
+.modal-body-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  padding: 1.65rem;
+}
+
+.modal-photo-col img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border-ink);
+  margin-bottom: 0.85rem;
+}
+
+.modal-components-box {
+  background-color: var(--bg-parchment);
+  border: 1px solid var(--border-rule);
+  padding: 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+}
+
+/* ==========================================================================
+   Responsive Design
+   ========================================================================== */
+
+@media (max-width: 1120px) {
+  .hero-grid,
+  .section-header-grid,
+  .recommender-grid,
+  .parlor-columns,
+  .booking-console-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .games-bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .schedule-ledger {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .parlor-photo-mosaic {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .mosaic-card.tall {
+    grid-row: span 1;
+    height: 300px;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding: 0 1.15rem;
+  }
+
+  .nav-links,
+  .telemetry-meta {
+    display: none;
+  }
+
+  .hero-ledger {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .games-bento-grid,
+  .schedule-ledger,
+  .parlor-photo-mosaic,
+  .wayfinding-strip,
+  .footer-grid,
+  .form-grid-2,
+  .modal-body-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mosaic-card.wide,
+  .table-node.wide-node {
+    grid-column: span 1;
+  }
+}

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>GummyBox — Interactive Jelly Gummy Bear Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="jelly-canvas"></canvas>
+
+    <!-- Top Floating Header & Quick Actions -->
+    <header class="top-bar">
+      <div class="brand-pill">
+        <span class="brand-icon" aria-hidden="true">🧸</span>
+        <div>
+          <h1>GummyBox</h1>
+          <p class="subtitle"><span id="bear-count">0</span> Jelly Bears · <span id="fps-counter">60</span> FPS</p>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <button id="btn-spawn-one" class="action-btn primary-btn" title="Drop a new Gummy Bear (Space)">
+          <span>+ Add Gummy</span>
+        </button>
+        <button id="btn-candy-rain" class="action-btn accent-btn" title="Shower of Gummy Bears!">
+          <span>🍬 Candy Rain</span>
+        </button>
+        <button id="btn-giant-bear" class="action-btn giant-btn" title="Spawn a Giant Chonky Gummy Bear">
+          <span>👑 Giant Bear</span>
+        </button>
+        <button id="btn-shake" class="action-btn" title="Shake the Candy Jar">
+          <span>🫨 Shake</span>
+        </button>
+        <button id="btn-zero-g" class="action-btn" aria-pressed="false" title="Toggle Zero Gravity">
+          <span>🪐 Zero-G</span>
+        </button>
+        <button id="btn-sound" class="action-btn icon-btn" aria-pressed="true" title="Toggle Jelly Sound Effects">
+          <span id="sound-icon">🔊</span>
+        </button>
+        <button id="btn-clear" class="action-btn danger-btn" title="Clear All Bears">
+          <span>🗑️ Clear</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Left Dock: Interactive Tools -->
+    <aside class="tool-dock" aria-label="Interaction Tools">
+      <div class="dock-label">TOOLS</div>
+      <button class="tool-btn active" data-tool="grab" title="Stretch & Fling (1)">
+        <span class="tool-emoji">🤏</span>
+        <span class="tool-name">Stretch</span>
+      </button>
+      <button class="tool-btn" data-tool="poke" title="Boop & Shockwave (2)">
+        <span class="tool-emoji">👆</span>
+        <span class="tool-name">Boop</span>
+      </button>
+      <button class="tool-btn" data-tool="bite" title="Chomp a Bite Out of a Bear (3)">
+        <span class="tool-emoji">🦷</span>
+        <span class="tool-name">Chomp</span>
+      </button>
+      <button class="tool-btn" data-tool="vortex" title="Swirl Jelly Whirlpool (4)">
+        <span class="tool-emoji">🌀</span>
+        <span class="tool-name">Swirl</span>
+      </button>
+      <button class="tool-btn" data-tool="grow" title="Inflate / Supersize Bear (5)">
+        <span class="tool-emoji">🎈</span>
+        <span class="tool-name">Pump</span>
+      </button>
+      <button class="tool-btn" data-tool="paint" title="Recolor Existing Bear (6)">
+        <span class="tool-emoji">🎨</span>
+        <span class="tool-name">Dye</span>
+      </button>
+    </aside>
+
+    <!-- Right Control Drawer: Flavors, Coatings & Physics -->
+    <aside class="control-panel" id="control-panel">
+      <button class="panel-toggle" id="panel-toggle" title="Toggle Jelly Lab Controls">
+        <span>⚙️ Jelly Lab</span>
+        <span class="chevron" id="panel-chevron">▾</span>
+      </button>
+
+      <div class="panel-body" id="panel-body">
+        <!-- Flavor / Color Picker -->
+        <section class="panel-section">
+          <div class="section-header">
+            <h2>Flavor &amp; Color</h2>
+            <span id="active-flavor-name" class="flavor-badge">Cherry Red</span>
+          </div>
+          <div class="flavor-grid" id="flavor-grid">
+            <!-- Populated by JS -->
+          </div>
+          <div class="custom-color-row">
+            <label for="custom-color-input">Custom Jelly Hue</label>
+            <input type="color" id="custom-color-input" value="#ff2a55" />
+          </div>
+        </section>
+
+        <!-- Finish / Coating -->
+        <section class="panel-section">
+          <div class="section-header">
+            <h2>Gummy Finish</h2>
+          </div>
+          <div class="segmented-control" id="coating-control">
+            <button class="seg-btn active" data-coating="glossy">✨ Glossy</button>
+            <button class="seg-btn" data-coating="sour">🍋 Sour Sugar</button>
+            <button class="seg-btn" data-coating="neon">⚡ Neon Glow</button>
+          </div>
+        </section>
+
+        <!-- Jelly Physics Sliders -->
+        <section class="panel-section">
+          <div class="section-header">
+            <h2>Jelly Physics</h2>
+            <button id="btn-reset-physics" class="text-btn">Reset</button>
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Wobble / Softness</span>
+              <span id="val-softness">Juicy</span>
+            </div>
+            <input type="range" id="slider-stiffness" min="0.15" max="0.95" step="0.05" value="0.55" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Bounce</span>
+              <span id="val-bounce">75%</span>
+            </div>
+            <input type="range" id="slider-bounce" min="0.1" max="1.1" step="0.05" value="0.75" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Bear Size</span>
+              <span id="val-size">1.0×</span>
+            </div>
+            <input type="range" id="slider-size" min="0.55" max="1.85" step="0.05" value="1.0" />
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Gravity</span>
+              <span id="val-gravity">Normal</span>
+            </div>
+            <input type="range" id="slider-gravity" min="-0.4" max="1.2" step="0.05" value="0.5" />
+          </div>
+        </section>
+
+        <!-- Expression Selector -->
+        <section class="panel-section">
+          <div class="section-header">
+            <h2>Bear Mood</h2>
+          </div>
+          <div class="segmented-control" id="mood-control">
+            <button class="seg-btn active" data-mood="auto">🎭 Reactive</button>
+            <button class="seg-btn" data-mood="happy">😊 Happy</button>
+            <button class="seg-btn" data-mood="derp">🤪 Derpy</button>
+            <button class="seg-btn" data-mood="sleepy">😴 Sleepy</button>
+          </div>
+        </section>
+      </div>
+    </aside>
+
+    <!-- Bottom Toast / Hint -->
+    <div class="hint-pill" id="hint-pill">
+      <span>💡 Drag any ear, belly, or paw to stretch · Double-click empty space to spawn · Press <kbd>Space</kbd> for more bears</span>
+    </div>
+  </div>
+
+  <script src="audio.js"></script>
+  <script src="physics.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

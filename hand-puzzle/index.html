@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HandCraft Puzzle — Gesture-Controlled Photo Puzzle</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- MediaPipe Hands & Camera Utils -->
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <!-- Ambient Background -->
+  <div class="bg-glow bg-glow-1"></div>
+  <div class="bg-glow bg-glow-2"></div>
+
+  <!-- Virtual Hand Cursor (follows index/thumb pinch midpoint) -->
+  <div id="hand-cursor" class="hand-cursor hidden" aria-hidden="true">
+    <div class="cursor-ring"></div>
+    <div class="cursor-dot"></div>
+    <svg class="cursor-progress" viewBox="0 0 48 48">
+      <circle class="cursor-progress-bg" cx="24" cy="24" r="20"></circle>
+      <circle id="cursor-progress-bar" class="cursor-progress-bar" cx="24" cy="24" r="20"></circle>
+    </svg>
+    <div id="cursor-label" class="cursor-label">OPEN</div>
+  </div>
+
+  <!-- Floating Dragged Tile Clone (when dragging a tile with pinch or mouse) -->
+  <canvas id="drag-ghost" class="drag-ghost hidden" width="160" height="160"></canvas>
+
+  <!-- Main App Container -->
+  <div class="app-shell">
+    <!-- Top Header -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="brand-icon" aria-hidden="true">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v0"/>
+            <path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v2"/>
+            <path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"/>
+            <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/>
+          </svg>
+        </div>
+        <div>
+          <h1>HandCraft Puzzle</h1>
+          <p class="subtitle">Play 3×3, 4×4, or 5×5 photo puzzles with hand gestures or mouse</p>
+        </div>
+      </div>
+
+      <!-- Grid Size & Mode Controls -->
+      <div class="header-controls">
+        <div class="control-pill-group" role="group" aria-label="Grid Size">
+          <span class="group-label">Grid</span>
+          <button class="pill-btn active gesture-target" data-size="3" id="btn-size-3">3×3</button>
+          <button class="pill-btn gesture-target" data-size="4" id="btn-size-4">4×4</button>
+          <button class="pill-btn gesture-target" data-size="5" id="btn-size-5">5×5</button>
+        </div>
+
+        <div class="control-pill-group" role="group" aria-label="Puzzle Mode">
+          <span class="group-label">Mode</span>
+          <button class="pill-btn active gesture-target" data-mode="swap" id="btn-mode-swap" title="Pinch & drag or select any two tiles to swap them">Swap Tiles</button>
+          <button class="pill-btn gesture-target" data-mode="slide" id="btn-mode-slide" title="Classic sliding puzzle with one empty space">Classic Slide</button>
+        </div>
+
+        <button id="btn-camera-toggle" class="action-btn primary-btn gesture-target">
+          <span class="status-dot" id="camera-status-dot"></span>
+          <span id="camera-btn-text">Enable Hand Camera</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="workspace">
+      <!-- Left Sidebar: Photo Source & Presets + Hand Tracking Feed -->
+      <aside class="sidebar left-sidebar">
+        <!-- Camera & Hand Tracking Panel -->
+        <section class="panel camera-panel">
+          <div class="panel-header">
+            <h2>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                <circle cx="12" cy="13" r="4"/>
+              </svg>
+              Hand Gesture Tracker
+            </h2>
+            <span id="gesture-badge" class="badge badge-neutral">Camera Off</span>
+          </div>
+
+          <div class="video-container" id="video-container">
+            <video id="webcam-video" playsinline muted></video>
+            <canvas id="webcam-canvas"></canvas>
+
+            <div id="camera-placeholder" class="camera-placeholder">
+              <div class="placeholder-icon">🖐️</div>
+              <p id="camera-placeholder-text">Use your webcam to grab &amp; swap tiles in mid-air!</p>
+              <button id="btn-start-cam-overlay" class="action-btn primary-btn sm-btn">Start Hand Tracking</button>
+            </div>
+
+            <div class="pinch-meter-wrap" id="pinch-meter-wrap" title="Pinch strength (Thumb + Index proximity)">
+              <span>Pinch</span>
+              <div class="pinch-meter-track">
+                <div id="pinch-meter-fill" class="pinch-meter-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="camera-device-row" id="camera-device-row" hidden>
+            <label for="camera-select">Camera:</label>
+            <select id="camera-select" class="camera-select"></select>
+          </div>
+
+          <div class="gesture-instructions">
+            <div class="gesture-tip">
+              <span class="tip-icon">🤏</span>
+              <div>
+                <strong>Pinch (Thumb + Index)</strong>
+                <span>Grab &amp; drag a tile, or pinch two tiles in a row to swap</span>
+              </div>
+            </div>
+            <div class="gesture-tip">
+              <span class="tip-icon">✌️</span>
+              <div>
+                <strong>Peace Sign (2 Fingers)</strong>
+                <span>Hold for 0.4s to peek at the solved photo</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Photo Upload & Gallery Panel -->
+        <section class="panel photo-panel">
+          <div class="panel-header">
+            <h2>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                <circle cx="8.5" cy="8.5" r="1.5"/>
+                <polyline points="21 15 16 10 5 21"/>
+              </svg>
+              Puzzle Photo
+            </h2>
+          </div>
+
+          <!-- Upload Dropzone -->
+          <div id="upload-dropzone" class="upload-dropzone">
+            <input type="file" id="file-input" accept="image/*" hidden />
+            <div class="upload-actions">
+              <button id="btn-upload-photo" class="action-btn secondary-btn full-width gesture-target">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                  <polyline points="17 8 12 3 7 8"/>
+                  <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                Upload Your Photo
+              </button>
+              <button id="btn-snap-webcam" class="action-btn ghost-btn full-width gesture-target" title="Take a snapshot from your webcam as the puzzle image">
+                📸 Snap From Webcam
+              </button>
+            </div>
+            <p class="drop-hint">Or drag &amp; drop any image file anywhere on screen</p>
+          </div>
+
+          <!-- Built-in Art Presets -->
+          <div class="presets-section">
+            <span class="section-caption">Or choose a vibrant artwork:</span>
+            <div class="preset-grid" id="preset-grid">
+              <!-- Populated dynamically with crisp procedural artworks -->
+            </div>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Center: Puzzle Board -->
+      <section class="board-stage">
+        <!-- Stats & Action Toolbar -->
+        <div class="board-hud">
+          <div class="hud-stats">
+            <div class="stat-box">
+              <span class="stat-label">Moves</span>
+              <span class="stat-value" id="stat-moves">0</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Time</span>
+              <span class="stat-value" id="stat-time">00:00</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-label">Matched</span>
+              <span class="stat-value" id="stat-progress">0/9</span>
+            </div>
+          </div>
+
+          <div class="hud-actions">
+            <button id="btn-shuffle" class="action-btn secondary-btn gesture-target" title="Shuffle tiles and restart timer">
+              🔀 Shuffle
+            </button>
+            <button id="btn-hint" class="action-btn ghost-btn gesture-target" title="Automatically solve one misplaced tile">
+              💡 Hint
+            </button>
+            <button id="btn-numbers" class="action-btn ghost-btn active gesture-target" title="Toggle tile numbers">
+              # Numbers
+            </button>
+            <button id="btn-peek" class="action-btn ghost-btn gesture-target" title="Hold or toggle to inspect the original image">
+              👁️ Peek
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="board-progress-track">
+          <div id="board-progress-fill" class="board-progress-fill" style="width: 0%"></div>
+        </div>
+
+        <!-- Puzzle Wrapper -->
+        <div class="board-wrapper" id="board-wrapper">
+          <div id="puzzle-grid" class="puzzle-grid" role="grid" aria-label="Puzzle Board">
+            <!-- Tiles injected by JS -->
+          </div>
+
+          <!-- Original Image Peek Overlay -->
+          <div id="peek-overlay" class="peek-overlay hidden">
+            <canvas id="peek-canvas" width="600" height="600"></canvas>
+            <div class="peek-tag">Original Photo Preview</div>
+          </div>
+
+          <!-- Win Celebration Modal Overlay -->
+          <div id="win-overlay" class="win-overlay hidden">
+            <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+            <div class="win-card">
+              <div class="win-trophy">🏆</div>
+              <h2>Puzzle Complete!</h2>
+              <p id="win-summary">Solved the 3×3 puzzle in 18 moves (00:34)</p>
+              <div class="win-actions">
+                <button id="btn-play-again" class="action-btn primary-btn gesture-target">Play Again (Shuffle)</button>
+                <button id="btn-next-size" class="action-btn secondary-btn gesture-target">Try Next Grid Size</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Quick Help Bar -->
+        <div class="board-footer">
+          <div class="reference-mini">
+            <canvas id="mini-preview-canvas" width="64" height="64"></canvas>
+            <div>
+              <strong>Target Image</strong>
+              <p id="status-message">Pinch &amp; drag any tile to swap, or click two tiles to swap them.</p>
+            </div>
+          </div>
+          <div class="audio-toggle-wrap">
+            <button id="btn-sound" class="icon-btn" title="Toggle Sound Effects" aria-label="Toggle Sound Effects">
+              🔊
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

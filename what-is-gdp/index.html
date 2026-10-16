@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>What Is GDP? — 60-Second Explainer ("Huge If True" Edition)</title>
+  <style>
+    :root {
+      --bg: #070b14;
+      --panel: #0f172a;
+      --panel-hover: #1e293b;
+      --yellow: #ffe600;
+      --cyan: #00f0ff;
+      --green: #34d399;
+      --red: #fb7185;
+      --ink: #060911;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background:
+        radial-gradient(circle at 18% 0%, rgba(255, 230, 0, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 82% 0%, rgba(0, 240, 255, 0.12) 0%, transparent 42%),
+        var(--bg);
+      color: var(--text);
+      font-family: "Arial Rounded MT Bold", "Avenir Next", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      padding: 28px 24px 64px;
+    }
+    .container {
+      max-width: 1340px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 20px 28px;
+      background: linear-gradient(135deg, #111827 0%, #0b1120 100%);
+      border: 3px solid var(--yellow);
+      border-radius: 24px;
+      box-shadow: 0 0 28px rgba(255, 230, 0, 0.18), 0 8px 0 var(--ink);
+    }
+    .title-group h1 {
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .title-group h1 span.cyan {
+      color: var(--cyan);
+    }
+    .title-group p {
+      font-size: 0.98rem;
+      color: #cbd5e1;
+      margin-top: 5px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      background: #1e293b;
+      color: var(--cyan);
+      border: 2px solid var(--cyan);
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      letter-spacing: 0.03em;
+    }
+    .pill.yellow {
+      color: var(--ink);
+      background: var(--yellow);
+      border-color: var(--ink);
+      font-weight: 800;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1060px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .video-card {
+      background: var(--panel);
+      border: 3px solid var(--cyan);
+      border-radius: 24px;
+      box-shadow: 0 0 26px rgba(0, 240, 255, 0.14), 0 10px 0 var(--ink);
+      overflow: hidden;
+    }
+    .video-stage {
+      background: #03060c;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #000;
+      transition: all 0.25s ease;
+    }
+    video.vertical-mode {
+      width: auto;
+      max-height: 680px;
+      aspect-ratio: 9 / 16;
+      margin: 0 auto;
+    }
+    .video-controls-bar {
+      padding: 16px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 3px solid #1e293b;
+      background: #0b1120;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 2px solid var(--ink);
+      background: var(--yellow);
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--ink);
+      transition: transform 0.12s ease;
+      font-size: 0.88rem;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+    .btn.secondary {
+      background: #1e293b;
+      color: var(--text);
+      border-color: #475569;
+    }
+    .btn.secondary.active-mode {
+      background: var(--cyan);
+      color: var(--ink);
+      border-color: var(--ink);
+    }
+    .formula-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      padding: 16px 22px;
+      background: #0f172a;
+      border-top: 2px solid #1e293b;
+    }
+    @media (max-width: 720px) {
+      .formula-strip { grid-template-columns: repeat(2, 1fr); }
+    }
+    .f-box {
+      background: #131c31;
+      border: 2px solid #334155;
+      border-radius: 14px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .f-box:hover {
+      border-color: var(--yellow);
+      transform: translateY(-2px);
+    }
+    .f-box .f-code {
+      font-size: 1.1rem;
+      color: var(--yellow);
+      display: flex;
+      justify-content: space-between;
+    }
+    .f-box .f-code span {
+      color: var(--cyan);
+      font-size: 0.9rem;
+    }
+    .f-box .f-desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .chapters-panel {
+      background: var(--panel);
+      border: 3px solid var(--yellow);
+      border-radius: 24px;
+      box-shadow: 0 10px 0 var(--ink);
+      padding: 20px;
+      max-height: 690px;
+      overflow-y: auto;
+    }
+    .chapters-panel h2 {
+      font-size: 1.1rem;
+      color: var(--yellow);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .chapter-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 2px solid #1e293b;
+      background: #0b1120;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chapter-item:hover {
+      background: var(--panel-hover);
+      border-color: var(--cyan);
+    }
+    .chapter-item.active {
+      background: #172554;
+      border-color: var(--yellow);
+      box-shadow: 0 4px 0 var(--ink);
+    }
+    .ch-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+    .ch-title {
+      font-size: 0.96rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .ch-script {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.38;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .storyboard-section {
+      margin-top: 36px;
+    }
+    .storyboard-section h2 {
+      font-size: 1.35rem;
+      color: var(--cyan);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .shots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .shot-card {
+      background: var(--panel);
+      border: 3px solid #1e293b;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 0 var(--ink);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .shot-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--yellow);
+    }
+    .shot-card img {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      object-fit: cover;
+      display: block;
+      border-bottom: 2px solid #1e293b;
+    }
+    .shot-card .shot-label {
+      padding: 10px 12px;
+      font-size: 0.82rem;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+    .shot-card .shot-label span {
+      color: var(--yellow);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-group">
+        <h1>⚡ WHAT IS GDP? <span class="cyan">// HUGE IF TRUE</span></h1>
+        <p>60-Second Neon Studio Explainer • C + I + G + NX • Real GDP vs. Well-Being</p>
+      </div>
+      <div class="badges">
+        <span class="pill yellow">🎙️ ElevenLabs v4 Voiceover</span>
+        <span class="pill">📺 16:9 Studio (1080p) + 📱 9:16 Vertical Short</span>
+        <span class="pill">🎨 16 Neon 3D Storyboard Shots</span>
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <div class="video-card">
+        <div class="video-stage">
+          <video id="player" controls preload="auto" poster="assets/frames/verify_01_110t_economy.jpg">
+            <source id="video-src" src="what_is_gdp_explainer.mp4" type="video/mp4" />
+            <track label="English" kind="subtitles" srclang="en" src="what_is_gdp.vtt" default />
+          </video>
+        </div>
+
+        <div class="formula-strip">
+          <div class="f-box" onclick="seekTo(22.1)">
+            <div class="f-code"><strong>C</strong><span>~68% US GDP</span></div>
+            <div class="f-desc">Consumer Spending (Goods & Services)</div>
+          </div>
+          <div class="f-box" onclick="seekTo(30.4)">
+            <div class="f-code"><strong>I</strong><span>~18% US GDP</span></div>
+            <div class="f-desc">Business Investment (Robots, Factories)</div>
+          </div>
+          <div class="f-box" onclick="seekTo(33.2)">
+            <div class="f-code"><strong>G</strong><span>~17% US GDP</span></div>
+            <div class="f-desc">Government (Bridges, Schools, Transit)</div>
+          </div>
+          <div class="f-box" onclick="seekTo(35.8)">
+            <div class="f-code"><strong>NX</strong><span>Exports - Imports</span></div>
+            <div class="f-desc">Net Trade Balance Across Borders</div>
+          </div>
+        </div>
+
+        <div class="video-controls-bar">
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <button class="btn" onclick="const v=document.getElementById('player'); v.paused ? v.play() : v.pause();">
+              ▶ Play / Pause
+            </button>
+            <button id="btn-16-9" class="btn secondary active-mode" onclick="switchFormat('widescreen')">
+              📺 16:9 Studio Broadcast
+            </button>
+            <button id="btn-9-16" class="btn secondary" onclick="switchFormat('vertical')">
+              📱 9:16 Vertical Short
+            </button>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a class="btn secondary" href="what_is_gdp_explainer.mp4" download>⬇ 16:9 MP4</a>
+            <a class="btn secondary" href="what_is_gdp_vertical.mp4" download>⬇ 9:16 MP4</a>
+            <a class="btn secondary" href="assets/audio/master_audio.mp3" download>🎵 MP3</a>
+            <a class="btn secondary" href="what_is_gdp.srt" download>💬 SRT</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="chapters-panel">
+        <h2>8 Chapters (Click to Seek)</h2>
+        <div id="chapters-list"></div>
+      </aside>
+    </div>
+
+    <section class="storyboard-section">
+      <h2>🎨 16-Shot Neon Storyboard Gallery (Click any shot to jump in video)</h2>
+      <div class="shots-grid" id="shots-grid"></div>
+    </section>
+  </div>
+
+  <script>
+    const SCENES = [
+      { num: 1, title: "The $110 Trillion Number", start: 0.00, end: 7.80, shots: ["shot_01", "shot_02"], text: "Politicians love pointing to one giant number: GDP—now over a hundred trillion dollars globally! Wait, what does it actually measure?" },
+      { num: 2, title: "Gross Domestic Product", start: 7.80, end: 15.05, shots: ["shot_03", "shot_04"], text: "GDP means Gross Domestic Product: the total price tag of every brand-new good or service sold, from lattes to rocket launches!" },
+      { num: 3, title: "Final Goods & Borders", start: 15.05, end: 22.05, shots: ["shot_05", "shot_06"], text: "Here is the catch: we only count the final receipt—never raw ingredients twice—and only things made inside a country's borders." },
+      { num: 4, title: "The Secret Formula (C)", start: 22.05, end: 30.35, shots: ["shot_07", "shot_08"], text: "The secret formula is C + I + G + Net Exports! C is consumer spending—nearly 70% of America's economy." },
+      { num: 5, title: "Investment, Govt & Trade", start: 30.35, end: 38.10, shots: ["shot_09", "shot_10"], text: "I is business investment in robots and factories. G is government building bridges and schools, plus exports minus imports!" },
+      { num: 6, title: "Nominal vs. Real GDP", start: 38.10, end: 44.95, shots: ["shot_11", "shot_12"], text: "Wait—what if prices just inflated? That is why economists use Real GDP, stripping out inflation to reveal true growth." },
+      { num: 7, title: "Kuznets' 1934 Warning", start: 44.95, end: 52.70, shots: ["shot_13", "shot_14"], text: "Plot twist! Simon Kuznets invented GDP in 1934, warning Congress it is not well-being. It ignores clean air and parenting!" },
+      { num: 8, title: "Speedometer vs. Compass", start: 52.70, end: 60.00, shots: ["shot_15", "shot_16"], text: "GDP is an economic speedometer: it shows how fast our engine spins, just not if we are driving somewhere worth going—and that is huge!" }
+    ];
+
+    const player = document.getElementById("player");
+    const chList = document.getElementById("chapters-list");
+    const shotsGrid = document.getElementById("shots-grid");
+
+    function fmt(s) {
+      const sec = Math.floor(s);
+      return `0:${sec < 10 ? "0" + sec : sec}`;
+    }
+
+    function seekTo(sec) {
+      player.currentTime = sec;
+      player.play();
+    }
+
+    function switchFormat(mode) {
+      const curTime = player.currentTime;
+      const wasPlaying = !player.paused;
+      const btn16 = document.getElementById("btn-16-9");
+      const btn9 = document.getElementById("btn-9-16");
+      if (mode === "vertical") {
+        player.src = "what_is_gdp_vertical.mp4";
+        player.classList.add("vertical-mode");
+        btn9.classList.add("active-mode");
+        btn16.classList.remove("active-mode");
+      } else {
+        player.src = "what_is_gdp_explainer.mp4";
+        player.classList.remove("vertical-mode");
+        btn16.classList.add("active-mode");
+        btn9.classList.remove("active-mode");
+      }
+      player.currentTime = curTime;
+      if (wasPlaying) player.play();
+    }
+
+    SCENES.forEach((s, idx) => {
+      const div = document.createElement("div");
+      div.className = "chapter-item" + (idx === 0 ? " active" : "");
+      div.id = `ch-item-${s.num}`;
+      div.innerHTML = `
+        <div class="ch-meta"><span>CHAPTER 0${s.num}</span><span>${fmt(s.start)} – ${fmt(s.end)}</span></div>
+        <div class="ch-title">${s.title}</div>
+        <div class="ch-script">"${s.text}"</div>
+      `;
+      div.onclick = () => seekTo(s.start + 0.05);
+      chList.appendChild(div);
+
+      const mid = (s.start + s.end) / 2;
+      [
+        { id: s.shots[0], label: `${s.title} (A)`, time: s.start },
+        { id: s.shots[1], label: `${s.title} (B)`, time: mid }
+      ].forEach((sh) => {
+        const card = document.createElement("div");
+        card.className = "shot-card";
+        card.innerHTML = `
+          <img src="assets/images/${sh.id}.png" alt="${sh.label}" loading="lazy" />
+          <div class="shot-label"><strong>${sh.label}</strong><span>${fmt(sh.time)}</span></div>
+        `;
+        card.onclick = () => {
+          seekTo(sh.time + 0.05);
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+        shotsGrid.appendChild(card);
+      });
+    });
+
+    player.addEventListener("timeupdate", () => {
+      const t = player.currentTime;
+      SCENES.forEach((s) => {
+        const el = document.getElementById(`ch-item-${s.num}`);
+        if (t >= s.start && t < s.end) el.classList.add("active");
+        else el.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>

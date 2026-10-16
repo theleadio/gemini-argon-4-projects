@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Argon Atelier — Gemini 4 Argon AI Coloring Studio</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141212'/%3E%3Crect x='6' y='6' width='8' height='8' rx='2' fill='%23E4B357'/%3E%3Crect x='18' y='6' width='8' height='8' rx='2' fill='%23E07A5F'/%3E%3Crect x='6' y='18' width='8' height='8' rx='2' fill='%2381B29A'/%3E%3Crect x='18' y='18' width='8' height='8' rx='2' fill='%23FFEDD2'/%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app" class="atelier-shell">
+      <!-- Top Studio Header -->
+      <header class="studio-header">
+        <div class="brand-cluster">
+          <div class="brand-mark" aria-hidden="true">
+            <span class="swatch-dot s1"></span>
+            <span class="swatch-dot s2"></span>
+            <span class="swatch-dot s3"></span>
+            <span class="swatch-dot s4"></span>
+          </div>
+          <div class="brand-titles">
+            <div class="brand-name-row">
+              <h1 class="brand-name">ARGON ATELIER</h1>
+              <span class="model-pill" id="model-status-pill">
+                <span class="status-dot"></span>
+                google/gemini-4-argon
+              </span>
+            </div>
+            <p class="brand-subtitle">
+              Upload any empty coloring photo &amp; color with Gemini 4 Argon Vision
+            </p>
+          </div>
+        </div>
+
+        <!-- Center Upload & Starter Source Controls -->
+        <div class="source-controls">
+          <input
+            type="file"
+            id="file-input"
+            accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif"
+            hidden
+          />
+          <button
+            type="button"
+            id="upload-photo-btn"
+            class="btn-upload-primary"
+            title="Upload an empty coloring photo (PNG, JPG, WEBP) or paste from clipboard"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="17 8 12 3 7 8" />
+              <line x1="12" y1="3" x2="12" y2="15" />
+            </svg>
+            <span>Upload Coloring Photo</span>
+          </button>
+
+          <div class="starter-picker-group">
+            <label for="sample-select" class="mono-label">STARTER SHEET</label>
+            <select id="sample-select" class="sample-select" aria-label="Starter Coloring Sheet">
+              <!-- Populated by main.js -->
+            </select>
+          </div>
+
+          <button
+            type="button"
+            id="extract-lineart-btn"
+            class="btn-ghost-studio"
+            title="Convert a colored photo or dark scan into a clean black-and-white empty coloring sheet"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3v18" />
+              <path d="M12 8l6-3" />
+              <path d="M12 14l7-3" />
+            </svg>
+            <span>Photo → Line Art</span>
+          </button>
+
+          <button
+            type="button"
+            id="download-empty-btn"
+            class="btn-ghost-studio"
+            title="Download current empty line-art sheet as PNG (to test uploading or printing)"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" />
+              <path d="M12 8v8" />
+              <path d="M8 12l4 4 4-4" />
+            </svg>
+            <span>Save Empty Sheet</span>
+          </button>
+        </div>
+
+        <!-- Right Canvas History & Export Controls -->
+        <div class="header-actions">
+          <div class="history-group">
+            <button type="button" id="undo-btn" class="icon-btn" title="Undo (Cmd/Ctrl+Z)" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 7v6h6" />
+                <path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13" />
+              </svg>
+            </button>
+            <button type="button" id="redo-btn" class="icon-btn" title="Redo (Cmd/Ctrl+Shift+Z)" disabled>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 7v6h-6" />
+                <path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3l3 2.7" />
+              </svg>
+            </button>
+          </div>
+
+          <button type="button" id="reset-empty-btn" class="btn-ghost-studio" title="Reset canvas back to empty coloring photo">
+            Clear Color
+          </button>
+
+          <button type="button" id="export-png-btn" class="btn-indigo-action" title="Download colored artwork as high-res PNG">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            <span>Export PNG</span>
+          </button>
+
+          <button type="button" id="api-settings-btn" class="icon-btn" title="OpenRouter API Key & Model Settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3" />
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Dual-Pane Workspace: Warm Paper Studio Stage (Left) + Carbon AI Control Room (Right) -->
+      <main class="studio-workspace">
+        <!-- Left & Center Paper Tabletop Stage -->
+        <section class="canvas-stage-pane" id="dropzone-stage">
+          <!-- Top Floating Telemetry & Upload Banner inside Stage -->
+          <div class="stage-top-hud">
+            <div class="hud-chip-group">
+              <span class="hud-chip" id="sheet-title-chip">Alpine Valley Cottage</span>
+              <span class="hud-chip mono" id="regions-count-chip">48 Regions Segmented</span>
+              <span class="hud-chip mono" id="colored-progress-chip">0% Colored</span>
+            </div>
+
+            <div class="hud-view-toggles">
+              <button
+                type="button"
+                id="toggle-numbers-btn"
+                class="hud-toggle-btn"
+                title="Show/Hide Color-by-Number Region IDs (Shortcut: N)"
+              >
+                <span># Region IDs</span>
+              </button>
+              <button
+                type="button"
+                id="toggle-split-btn"
+                class="hud-toggle-btn"
+                title="Before / After Empty vs. Colored Split Slider (Shortcut: C)"
+              >
+                <span>Before / After Split</span>
+              </button>
+              <div class="zoom-controls">
+                <button type="button" id="zoom-out-btn" class="zoom-btn" title="Zoom Out">-</button>
+                <span id="zoom-label" class="mono">100%</span>
+                <button type="button" id="zoom-in-btn" class="zoom-btn" title="Zoom In">+</button>
+                <button type="button" id="zoom-fit-btn" class="zoom-btn" title="Reset Zoom">Fit</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Left Floating Tool Rail -->
+          <aside class="tool-rail" aria-label="Coloring Tools">
+            <button
+              type="button"
+              class="tool-btn active"
+              data-tool="bucket"
+              title="Smart Region Fill Bucket (Shortcut: B) — Click any enclosed region to fill"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2c.8.8 2 .8 2.8 0L19 11Z" />
+                <path d="m5 2 5 5" />
+                <path d="M2 13h15" />
+                <path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4Z" />
+              </svg>
+              <span class="tool-label">Fill</span>
+            </button>
+
+            <button
+              type="button"
+              class="tool-btn"
+              data-tool="brush"
+              title="Stay-Inside-Lines Studio Brush (Shortcut: P) — Paints underneath black outlines"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08" />
+                <path d="M7.07 14.94c-1.66 0-3 1.35-3 3.02 0 1.33-2.5 1.52-2 2.02 1.08 1.1 2.49 2.02 4 2.02 2.2 0 4-1.8 4-4.04a3.01 3.01 0 0 0-3-3.02z" />
+              </svg>
+              <span class="tool-label">Brush</span>
+            </button>
+
+            <button
+              type="button"
+              class="tool-btn"
+              data-tool="select-ai"
+              title="Select Regions for Gemini 4 Argon — Click regions to target specific areas for AI coloring"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
+              </svg>
+              <span class="tool-label">Target</span>
+            </button>
+
+            <button
+              type="button"
+              class="tool-btn"
+              data-tool="eyedropper"
+              title="Eyedropper Color Picker (Shortcut: I)"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m2 22 1-1h3l9-9" />
+                <path d="M3 21v-3l9-9" />
+                <path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z" />
+              </svg>
+              <span class="tool-label">Pick</span>
+            </button>
+
+            <button
+              type="button"
+              class="tool-btn"
+              data-tool="eraser"
+              title="Region & Brush Eraser (Shortcut: E) — Restores clean white paper without erasing line art"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21" />
+                <path d="M22 21H7" />
+                <path d="m5 11 9 9" />
+              </svg>
+              <span class="tool-label">Erase</span>
+            </button>
+
+            <div class="rail-divider"></div>
+
+            <!-- Lock Brush to Region Toggle -->
+            <label class="lock-region-toggle" title="When using Brush, keep strokes strictly inside the region where you started">
+              <input type="checkbox" id="brush-lock-region" checked />
+              <span>Stay in Lines</span>
+            </label>
+
+            <!-- Brush Size Slider -->
+            <div class="brush-size-box" title="Brush & Eraser Size">
+              <span class="mono-tiny" id="brush-size-val">18px</span>
+              <input type="range" id="brush-size-slider" min="4" max="64" value="18" />
+            </div>
+          </aside>
+
+          <!-- Center Interactive Canvas Viewport -->
+          <div class="canvas-viewport" id="canvas-viewport">
+            <div class="paper-sheet-frame" id="paper-sheet-frame">
+              <canvas id="coloring-canvas" width="760" height="760"></canvas>
+
+              <!-- Interactive Split Curtain Handle (Visible when Split Mode is active) -->
+              <div id="split-curtain-line" class="split-curtain-line hidden">
+                <div class="split-curtain-handle">
+                  <span>EMPTY</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <polyline points="15 18 9 12 15 6" />
+                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                  <span>ARGON</span>
+                </div>
+              </div>
+
+              <!-- Live Animated Gemini 4 Argon Painting Badge -->
+              <div id="live-paint-cursor" class="live-paint-cursor hidden">
+                <span class="cursor-swatch" id="cursor-swatch"></span>
+                <span class="cursor-text" id="cursor-text">Argon coloring #1...</span>
+              </div>
+
+              <!-- Hover Region Inspector Tooltip -->
+              <div id="region-hover-pill" class="region-hover-pill hidden">
+                <span class="mono" id="hover-region-id">#01</span>
+                <span id="hover-region-name">Uncolored Region</span>
+              </div>
+            </div>
+
+            <!-- Drag-and-Drop Overlay when dragging files onto window -->
+            <div id="drop-overlay" class="drop-overlay hidden">
+              <div class="drop-card">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+                <h3>Drop Empty Coloring Photo Here</h3>
+                <p>Supports PNG, JPG, WEBP, SVG • Auto-segments enclosed line-art regions</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Studio Dock: Artistic Finish Mode + Active Palette Swatches + Line Sensitivity -->
+          <div class="stage-bottom-dock">
+            <!-- 4 Real-Time Finish Modes -->
+            <div class="finish-selector" role="group" aria-label="Artistic Finish Mode">
+              <span class="dock-section-label">FINISH</span>
+              <button type="button" class="finish-pill active" data-finish="watercolor">
+                Watercolor Wash
+              </button>
+              <button type="button" class="finish-pill" data-finish="pencil">
+                Colored Pencil
+              </button>
+              <button type="button" class="finish-pill" data-finish="cel">
+                Cel-Shaded
+              </button>
+              <button type="button" class="finish-pill" data-finish="flat">
+                Flat Clean
+              </button>
+            </div>
+
+            <!-- Active Color Picker + Swatch Ribbon -->
+            <div class="palette-dock">
+              <label class="active-color-well" title="Choose Active Manual Fill/Brush Color">
+                <input type="color" id="active-color-input" value="#E07A5F" />
+                <span class="active-color-hex mono" id="active-color-hex">#E07A5F</span>
+              </label>
+              <div class="swatch-ribbon" id="swatch-ribbon">
+                <!-- Populated dynamically from Argon scene palette + studio pigments -->
+              </div>
+            </div>
+
+            <!-- Line-Art Segmentation Tuning (Threshold & Gap Seal) -->
+            <div class="segmentation-tuning">
+              <label class="tuning-control" title="Adjust line darkness detection threshold for scanned or faint coloring photos">
+                <span class="dock-section-label">INK THRESHOLD</span>
+                <input type="range" id="ink-threshold-slider" min="90" max="225" value="172" />
+                <span class="mono-tiny" id="ink-threshold-val">172</span>
+              </label>
+              <label class="tuning-control" title="Bridge tiny 1-3px gaps in hand-drawn outlines so color doesn't leak between regions">
+                <span class="dock-section-label">GAP SEAL</span>
+                <input type="range" id="gap-seal-slider" min="0" max="3" value="1" />
+                <span class="mono-tiny" id="gap-seal-val">1px</span>
+              </label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Right Carbon AI Control Console (Pika-Inspired Studio Command Panel) -->
+        <aside class="argon-console-pane">
+          <div class="console-scroll">
+            <!-- Section 1: Upload Quick Dropzone + Argon Primary CTA -->
+            <div class="console-block hero-cta-block">
+              <div class="upload-mini-dropzone" id="console-upload-dropzone" role="button" tabindex="0">
+                <div class="upload-mini-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="3" />
+                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <polyline points="21 15 16 10 5 21" />
+                  </svg>
+                </div>
+                <div class="upload-mini-copy">
+                  <strong>Upload Empty Coloring Photo</strong>
+                  <span>Click, drag &amp; drop, or paste (⌘V) any line art</span>
+                </div>
+              </div>
+
+              <button type="button" id="argon-color-btn" class="btn-argon-start">
+                <span class="argon-sparkle" aria-hidden="true">✦</span>
+                <span id="argon-btn-label">Start Coloring with Gemini 4 Argon</span>
+              </button>
+
+              <!-- Live AI Progress Bar & Playback Controls -->
+              <div id="argon-status-bar" class="argon-status-bar hidden">
+                <div class="status-top-row">
+                  <span class="status-spinner" id="status-spinner"></span>
+                  <span id="argon-status-text">Analyzing regions with Gemini 4 Argon...</span>
+                </div>
+                <div class="progress-track">
+                  <div class="progress-fill" id="argon-progress-fill" style="width: 0%"></div>
+                </div>
+              </div>
+
+              <div class="playback-options-row">
+                <label class="console-checkbox">
+                  <input type="checkbox" id="animate-steps-toggle" checked />
+                  <span>Animate region-by-region painting</span>
+                </label>
+                <select id="anim-speed-select" class="console-mini-select" title="Painting Animation Speed">
+                  <option value="55">Normal (1x)</option>
+                  <option value="22" selected>Fast (2.5x)</option>
+                  <option value="0">Instant</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Section 2: Artistic Palette Direction Presets -->
+            <div class="console-block">
+              <div class="block-header">
+                <span class="block-title">1. ARTISTIC PALETTE DIRECTION</span>
+                <span class="block-badge mono" id="active-preset-tag">Painterly &amp; Lush</span>
+              </div>
+              <div class="preset-grid" id="preset-grid">
+                <!-- Populated by main.js -->
+              </div>
+            </div>
+
+            <!-- Section 3: Custom Prompt & Target Scope -->
+            <div class="console-block">
+              <div class="block-header">
+                <span class="block-title">2. CREATIVE PROMPT FOR GEMINI 4 ARGON</span>
+                <button type="button" id="clear-prompt-btn" class="text-link-btn">Reset</button>
+              </div>
+              <textarea
+                id="argon-prompt-input"
+                class="console-textarea"
+                rows="3"
+                placeholder="Describe how Gemini 4 Argon should color this photo (e.g., 'Make the roof warm terracotta, sky golden sunset, and flowers lavender')..."
+              ></textarea>
+
+              <div class="scope-row">
+                <label class="console-checkbox">
+                  <input type="checkbox" id="complete-micro-toggle" checked />
+                  <span>Auto-harmonize micro-details (100% fill)</span>
+                </label>
+                <div id="selected-regions-bar" class="selected-regions-bar hidden">
+                  <span class="mono" id="selected-regions-count">0 selected</span>
+                  <button type="button" id="color-selected-only-btn" class="btn-mini-buttermilk">
+                    Color Selected Only
+                  </button>
+                  <button type="button" id="clear-selected-btn" class="text-link-btn">
+                    Clear
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 4: Gemini 4 Argon Vision Output, Reasoning & Blueprint Map -->
+            <div class="console-block" id="argon-report-block">
+              <div class="block-header">
+                <span class="block-title">3. GEMINI 4 ARGON VISION LEDGER</span>
+                <span class="block-badge mono" id="argon-latency-badge">Ready</span>
+              </div>
+
+              <div class="argon-art-notes" id="argon-art-notes">
+                <div class="notes-title" id="argon-scene-title">Awaiting Gemini 4 Argon Pass</div>
+                <p id="argon-notes-body">
+                  Upload an empty coloring photo or use the starter sheet, then click
+                  <strong>Start Coloring with Gemini 4 Argon</strong> to watch the model identify and paint every enclosed region.
+                </p>
+              </div>
+
+              <!-- Collapsible Vision Blueprint & Reasoning Trace -->
+              <details class="blueprint-details" id="blueprint-details">
+                <summary class="blueprint-summary">
+                  <span>Inspect Numbered Vision Blueprint &amp; Reasoning</span>
+                  <span class="mono">View</span>
+                </summary>
+                <div class="blueprint-drawer">
+                  <p class="blueprint-caption">
+                    This numbered region map is generated from your coloring photo and sent to
+                    <code>google/gemini-4-argon</code> so every color assignment lands inside exact ink boundaries:
+                  </p>
+                  <img
+                    id="blueprint-preview-img"
+                    class="blueprint-preview-img"
+                    alt="Numbered Region Blueprint Map sent to Gemini 4 Argon"
+                  />
+                  <div class="reasoning-box" id="argon-reasoning-box">
+                    <div class="mono-label">GEMINI 4 ARGON REASONING TRACE</div>
+                    <pre id="argon-reasoning-text">Run Gemini 4 Argon to inspect reasoning trace &amp; token telemetry.</pre>
+                  </div>
+                </div>
+              </details>
+
+              <!-- Region-by-Region Interactive Color Ledger -->
+              <div class="region-ledger-header">
+                <span class="mono-label">SEGMENTED REGIONS (<span id="ledger-total-count">0</span>)</span>
+                <span class="mono-label">CLICK SWATCH TO EDIT</span>
+              </div>
+              <div class="region-ledger-list" id="region-ledger-list">
+                <!-- Populated dynamically with region rows -->
+              </div>
+            </div>
+          </div>
+        </aside>
+      </main>
+
+      <!-- API Key & Model Configuration Modal -->
+      <div id="api-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="api-modal-title">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2 id="api-modal-title">OpenRouter &amp; Gemini 4 Argon Settings</h2>
+            <button type="button" id="close-api-modal-btn" class="icon-btn" aria-label="Close modal">✕</button>
+          </div>
+          <div class="modal-body">
+            <label class="field-label" for="api-key-input">OpenRouter API Key</label>
+            <input
+              type="password"
+              id="api-key-input"
+              class="modal-input mono"
+              placeholder="sk-or-v1-..."
+              autocomplete="off"
+            />
+            <p class="field-hint">
+              Pre-configured with your OpenRouter key for <code>google/gemini-4-argon</code>.
+            </p>
+
+            <label class="field-label" for="reasoning-effort-select">Gemini 4 Argon Reasoning Effort</label>
+            <select id="reasoning-effort-select" class="modal-input">
+              <option value="low" selected>Low (Fastest response, ~2–4s)</option>
+              <option value="medium">Medium (Balanced visual reasoning)</option>
+              <option value="high">High (Deep artistic analysis)</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="save-api-modal-btn" class="btn-indigo-action">Save Settings</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

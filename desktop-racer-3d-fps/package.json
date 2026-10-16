@@ -1,0 +1,13 @@
+{
+  "name": "desktop-racer-3d-fps",
+  "version": "1.0.0",
+  "description": "3D First-Person POV Desktop Racing Game on a Motorized TT Racing Sit-Stand Desk",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "python3 -m http.server 8080"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  }
+}

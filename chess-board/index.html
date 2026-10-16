@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>楚漢爭霸 · 3D 中國象棋 (Three.js Xiangqi)</title>
+  <link rel="stylesheet" href="./src/style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js",
+        "three/addons/": "./node_modules/three/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Full-Viewport Three.js 3D Canvas Container -->
+  <div id="canvas-container" aria-label="3D Chinese Chess Board"></div>
+
+  <!-- Top Header Bar -->
+  <header class="hud-topbar">
+    <div class="brand-group">
+      <div class="cinnabar-seal" aria-hidden="true">象棋</div>
+      <div class="brand-titles">
+        <h1>楚漢爭霸 <span class="brand-sub">3D XIANGQI</span></h1>
+        <p id="preset-subtitle">標準開局 · Standard 32-Piece Formation</p>
+      </div>
+    </div>
+
+    <!-- Active Turn & Check Status Indicator -->
+    <div class="turn-banner" id="turn-banner" data-turn="r">
+      <span class="turn-disc" id="turn-disc">帥</span>
+      <div class="turn-text-wrap">
+        <span class="turn-label" id="turn-label">紅方行棋 · Red to Move</span>
+        <span class="turn-meta" id="turn-meta">Click a Red piece to begin</span>
+      </div>
+    </div>
+
+    <!-- Camera & Material Quick Controls -->
+    <div class="topbar-actions">
+      <div class="segmented-group" role="group" aria-label="Camera View">
+        <button class="seg-btn active" data-cam="red" title="Red Player Perspective">紅視角</button>
+        <button class="seg-btn" data-cam="black" title="Black Player Perspective">黑視角</button>
+        <button class="seg-btn" data-cam="top" title="Top-Down 2.5D View">俯視</button>
+        <button class="seg-btn" data-cam="cinematic" title="Pavilion Isometric View">斜觀</button>
+      </div>
+
+      <select id="piece-style-select" class="hud-select" aria-label="Piece 3D Style">
+        <option value="cartoon">3D 卡通萌將 · Cartoon</option>
+        <option value="classic">傳統木雕圓棋 · Classic Disc</option>
+      </select>
+
+      <select id="theme-select" class="hud-select" aria-label="Material Theme">
+        <option value="rosewood">紫檀黃楊 · Rosewood</option>
+        <option value="jade">水墨和田玉 · Hetian Jade</option>
+        <option value="lacquer">朱砂描金 · Gilt Lacquer</option>
+      </select>
+
+      <button id="sound-btn" class="icon-btn" title="Toggle Sound Effects (音效)">
+        <span id="sound-icon">🔊</span>
+      </button>
+
+      <button id="zen-btn" class="icon-btn" title="Toggle Immersive View (沉浸模式)">
+        <span>⛶</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Left HUD Panel: Match Configuration & Classical Endgames -->
+  <aside class="hud-panel hud-left" id="left-panel">
+    <section class="panel-section">
+      <h2 class="section-heading">對弈設定 · MATCH SETUP</h2>
+
+      <label class="field-label" for="mode-select">對弈模式 · Game Mode</label>
+      <select id="mode-select" class="hud-select full-width">
+        <option value="ai-black">人機對弈 (執紅先行 vs AI)</option>
+        <option value="ai-red">人機對弈 (執黑後手 vs AI)</option>
+        <option value="pvp">雙人同屏對弈 (Pass &amp; Play)</option>
+      </select>
+
+      <div id="ai-level-row" class="field-row">
+        <label class="field-label">AI 棋力 · AI Strength</label>
+        <div class="segmented-group full-width" id="difficulty-group">
+          <button class="seg-btn" data-diff="1">初學 Novice</button>
+          <button class="seg-btn active" data-diff="2">棋社 Club</button>
+          <button class="seg-btn" data-diff="3">國手 Master</button>
+        </div>
+      </div>
+
+      <label class="field-label" for="preset-select">棋局與古譜殘局 · Board &amp; Endgames</label>
+      <select id="preset-select" class="hud-select full-width"></select>
+      <p class="preset-desc" id="preset-desc">
+        Traditional starting battle formation across Chu River &amp; Han Border.
+      </p>
+    </section>
+
+    <section class="panel-section action-grid">
+      <button id="new-game-btn" class="btn-primary">
+        <span>↺</span> 重新開局 · New Game
+      </button>
+      <div class="btn-row-2">
+        <button id="undo-btn" class="btn-secondary" disabled>
+          <span>↶</span> 悔棋 Undo
+        </button>
+        <button id="hint-btn" class="btn-secondary">
+          <span>✦</span> 提示 Hint
+        </button>
+      </div>
+    </section>
+
+    <section class="panel-section piece-inspector" id="piece-inspector">
+      <div class="inspector-header">
+        <span class="inspector-char" id="inspector-char">帥</span>
+        <div>
+          <h3 id="inspector-title">帥 / 將 · General</h3>
+          <p id="inspector-pinyin">Nine-Point Palace Commander</p>
+        </div>
+      </div>
+      <p class="inspector-rule" id="inspector-rule">
+        Moves 1 step orthogonally within the Nine-Point Palace (九宮). Opposing Generals may never face each other directly along an open file (飛將).
+      </p>
+    </section>
+  </aside>
+
+  <!-- Right HUD Panel: Move Notation Log & Captured Pieces -->
+  <aside class="hud-panel hud-right" id="right-panel">
+    <section class="panel-section">
+      <h2 class="section-heading">戰況統計 · CAPTURED</h2>
+      <div class="capture-summary">
+        <div class="capture-row">
+          <span class="side-tag red-tag">紅方戰果</span>
+          <div class="captured-list" id="captured-by-red" aria-label="Black pieces captured by Red">
+            <span class="empty-cap">尚無吃子</span>
+          </div>
+        </div>
+        <div class="capture-row">
+          <span class="side-tag black-tag">黑方戰果</span>
+          <div class="captured-list" id="captured-by-black" aria-label="Red pieces captured by Black">
+            <span class="empty-cap">尚無吃子</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel-section move-log-section">
+      <div class="section-header-inline">
+        <h2 class="section-heading">着法棋譜 · MOVE LOG</h2>
+        <span class="move-count-badge" id="move-count-badge">0 回合</span>
+      </div>
+      <div class="move-log-container" id="move-log">
+        <div class="move-log-empty">點擊紅方棋子開始行棋…<br/>Select any Red piece to make the opening move.</div>
+      </div>
+    </section>
+
+    <footer class="controls-legend">
+      <span>🖱️ 左鍵選子/落子 · 拖曳旋轉視角 · 滾輪縮放</span>
+    </footer>
+  </aside>
+
+  <!-- Dramatic Check Callout Toast (將軍!) -->
+  <div class="check-toast" id="check-toast" aria-live="assertive">
+    <div class="check-seal">將軍</div>
+    <div class="check-sub">CHECK! 應將護帥</div>
+  </div>
+
+  <!-- Game Over Modal Overlay (絕殺 / 困斃) -->
+  <div class="gameover-modal hidden" id="gameover-modal" role="dialog" aria-modal="true">
+    <div class="gameover-card">
+      <div class="gameover-seal" id="gameover-seal">紅勝</div>
+      <h2 id="gameover-title">絕殺 · 勝局已定</h2>
+      <p id="gameover-subtitle">Checkmate — Red (紅方) Wins!</p>
+      <div class="gameover-actions">
+        <button id="modal-rematch-btn" class="btn-primary">再戰一局 · Play Again</button>
+        <button id="modal-review-btn" class="btn-secondary">復盤觀局 · Inspect Board</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

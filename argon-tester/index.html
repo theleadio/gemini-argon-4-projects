@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gemini 4 Argon — Tester</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <!-- Marked & Highlight.js for rich Markdown and code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.1/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Left Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-top">
+        <button class="icon-btn" id="sidebarToggleBtn" title="Collapse menu" aria-label="Toggle Menu">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <button class="new-chat-btn" id="newChatBtn" title="New chat">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span class="sidebar-label">New chat</span>
+        </button>
+      </div>
+
+      <!-- Recent Chats -->
+      <div class="sidebar-section">
+        <div class="sidebar-section-title sidebar-label">Recent</div>
+        <div class="chat-history-list" id="chatHistoryList">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Sidebar Footer: Advanced Config & Theme -->
+      <div class="sidebar-footer">
+        <div class="sidebar-config sidebar-label">
+          <div class="config-group">
+            <label for="baseUrlInput">Base URL</label>
+            <input type="text" id="baseUrlInput" value="https://llm.thelead.io" placeholder="https://llm.thelead.io" />
+          </div>
+
+          <div class="config-group">
+            <label for="customModelInput">Model ID</label>
+            <div class="input-with-btn">
+              <input type="text" id="customModelInput" value="gemini-4-argon" placeholder="e.g. gemini-4-argon" list="modelSuggestions" />
+              <datalist id="modelSuggestions">
+                <option value="gemini-4-argon">Gemini 4 Argon</option>
+                <option value="gemini-4-argon-medium">Gemini 4 Argon (Medium)</option>
+                <option value="gemini-4-argon-high">Gemini 4 Argon (High)</option>
+                <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+                <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+              </datalist>
+              <button class="mini-btn" id="fetchModelsBtn" title="Fetch available models from server">Sync</button>
+            </div>
+          </div>
+
+          <div class="config-row">
+            <div class="config-group half">
+              <label for="tempInput">Temp: <span id="tempVal">0.7</span></label>
+              <input type="range" id="tempInput" min="0" max="2" step="0.1" value="0.7" />
+            </div>
+            <div class="config-group half">
+              <label for="streamToggle">Stream</label>
+              <label class="switch">
+                <input type="checkbox" id="streamToggle" checked />
+                <span class="slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="config-group">
+            <label for="systemPromptInput">System Instruction</label>
+            <textarea id="systemPromptInput" rows="2" placeholder="Optional system prompt..."></textarea>
+          </div>
+        </div>
+
+        <div class="sidebar-bottom-actions">
+          <button class="sidebar-action-btn" id="clearChatsBtn" title="Clear all chats">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+              <path d="M10 11v6"></path>
+              <path d="M14 11v6"></path>
+            </svg>
+            <span class="sidebar-label">Clear history</span>
+          </button>
+          <button class="sidebar-action-btn" id="themeToggleBtn" title="Toggle light/dark mode">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <span class="sidebar-label" id="themeLabel">Light mode</span>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-area">
+      <!-- Top Bar with Gemini Brand + Prominent API Key Box -->
+      <header class="top-bar">
+        <div class="top-bar-left">
+          <button class="icon-btn mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="brand-selector">
+            <div class="gemini-title-row">
+              <span class="gemini-logo-text">Gemini</span>
+              <span class="argon-badge">4 Argon</span>
+            </div>
+            <div class="model-QuickSelect-row">
+              <select id="modelSelectDropdown" aria-label="Select Model">
+                <option value="gemini-4-argon">gemini-4-argon</option>
+              </select>
+              <span class="endpoint-pill" id="endpointBadge" title="Active Base URL">llm.thelead.io</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Extra Box for API Key right in the Top Bar -->
+        <div class="api-key-bar" id="apiKeyBar">
+          <div class="api-key-status-dot" id="apiKeyStatusDot" title="API Key status"></div>
+          <svg class="key-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path>
+          </svg>
+          <input
+            type="password"
+            id="apiKeyInput"
+            class="api-key-input"
+            placeholder="Paste API Key for llm.thelead.io..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="icon-btn small" id="toggleKeyVisibilityBtn" title="Show/Hide API Key" aria-label="Toggle API Key visibility">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="eyeIcon">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+          <button class="verify-key-btn" id="testConnectionBtn" title="Test API Key & Fetch Models">
+            Connect
+          </button>
+        </div>
+      </header>
+
+      <!-- Scrollable Conversation Stream -->
+      <div class="chat-viewport" id="chatViewport">
+        <!-- Empty State / Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+          <div class="welcome-header">
+            <div class="welcome-sparkle">
+              <svg width="44" height="44" viewBox="0 0 32 32" fill="none">
+                <path d="M16 0C16 8.83656 8.83656 16 0 16C8.83656 16 16 23.1634 16 32C16 23.1634 23.1634 16 32 16C23.1634 16 16 8.83656 16 0Z" fill="url(#gemini-grad)"/>
+                <defs>
+                  <linearGradient id="gemini-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#4285F4"/>
+                    <stop offset="50%" stop-color="#9B72CB"/>
+                    <stop offset="100%" stop-color="#D96570"/>
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+            <h1 class="welcome-greeting">Hello, Explorer</h1>
+            <p class="welcome-subtitle">How can I help you test <strong>Gemini 4 Argon</strong> today?</p>
+          </div>
+
+          <div class="suggestion-grid">
+            <button class="suggestion-card" data-prompt="Write a self-contained HTML5 canvas simulation of a gravitational 3-body orbital system with trails and interactive controls.">
+              <span class="suggestion-text">Build an interactive 3-body physics simulation in HTML5 Canvas</span>
+              <div class="suggestion-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+            </button>
+
+            <button class="suggestion-card" data-prompt="Solve this step-by-step: A factory has 3 machines A, B, and C producing 50%, 30%, and 20% of items. Their defect rates are 2%, 3%, and 5%. If a randomly picked item is defective, what is the exact probability it came from machine C?">
+              <span class="suggestion-text">Test mathematical & Bayesian reasoning step-by-step</span>
+              <div class="suggestion-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+            </button>
+
+            <button class="suggestion-card" data-prompt="Design a fault-tolerant distributed rate limiter for an API gateway handling 500k requests/second across 3 regions. Include architecture trade-offs and Redis Lua script.">
+              <span class="suggestion-text">Architect a 500k RPS multi-region distributed rate limiter</span>
+              <div class="suggestion-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                  <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                  <line x1="6" y1="18" x2="6.01" y2="18"></line>
+                </svg>
+              </div>
+            </button>
+
+            <button class="suggestion-card" data-prompt="Introduce yourself! What model are you, what are your strengths, and demonstrate a short creative poem alongside a JSON schema.">
+              <span class="suggestion-text">Verify model identity, structured output & creative flair</span>
+              <div class="suggestion-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Messages List -->
+        <div class="messages-container" id="messagesContainer"></div>
+      </div>
+
+      <!-- Bottom Composer Area (Google Gemini Pill Style) -->
+      <div class="composer-wrapper">
+        <div class="composer-box" id="composerBox">
+          <!-- Attached files preview -->
+          <div class="attachments-preview" id="attachmentsPreview" hidden></div>
+
+          <div class="composer-input-row">
+            <textarea
+              id="promptInput"
+              rows="1"
+              placeholder="Enter a prompt here for Gemini 4 Argon..."
+              aria-label="Prompt input"
+            ></textarea>
+          </div>
+
+          <div class="composer-actions-row">
+            <div class="composer-left-tools">
+              <input type="file" id="fileInput" accept="image/*,.txt,.md,.json,.py,.js,.ts,.html,.css,.csv" multiple hidden />
+              <button class="tool-pill-btn" id="attachBtn" title="Attach image or code file">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="12" y1="5" x2="12" y2="19"></line>
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                <span>Add file / image</span>
+              </button>
+              <span class="active-model-chip" id="activeModelChip">gemini-4-argon</span>
+            </div>
+
+            <div class="composer-right-tools">
+              <button class="stop-btn" id="stopBtn" hidden title="Stop generating">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <rect x="6" y="6" width="12" height="12" rx="2"></rect>
+                </svg>
+              </button>
+              <button class="send-btn" id="sendBtn" disabled title="Send message (Enter)">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <line x1="22" y1="2" x2="11" y2="13"></line>
+                  <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="composer-disclaimer">
+          <span>Connected to <code>https://llm.thelead.io</code> • Responses may display inaccurate info, so double-check outputs.</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

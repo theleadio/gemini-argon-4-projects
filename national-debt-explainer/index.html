@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小林說風格 • 60秒搞懂什麼是「國債」 (ElevenLabs v4 Voiceover)</title>
+  <style>
+    :root {
+      --bg: #0f1420;
+      --panel: #182032;
+      --panel-hover: #212c44;
+      --gold: #ffd434;
+      --gold-dark: #d99b07;
+      --ink: #14100c;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #38bdf8;
+      --green: #4ade80;
+      --red: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b0f19 100%);
+      color: var(--text);
+      font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding: 32px 24px 64px;
+    }
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 26px;
+      padding: 22px 28px;
+      background: var(--gold);
+      color: var(--ink);
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 0 8px 0 var(--ink);
+    }
+    .title-group h1 {
+      font-size: 1.95rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+    }
+    .title-group p {
+      font-size: 1rem;
+      color: #422006;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      background: var(--ink);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1060px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .video-card {
+      background: var(--panel);
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 0 10px 0 var(--ink);
+      overflow: hidden;
+    }
+    video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #000;
+    }
+    .video-controls-bar {
+      padding: 16px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 3px solid var(--ink);
+      background: #131a29;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 14px;
+      border: 3px solid var(--ink);
+      background: var(--gold);
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--ink);
+      transition: transform 0.12s ease;
+      font-size: 0.92rem;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+    .btn.secondary {
+      background: #334155;
+      color: #f8fafc;
+    }
+    .chapters-panel {
+      background: var(--panel);
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 0 10px 0 var(--ink);
+      padding: 20px;
+      max-height: 680px;
+      overflow-y: auto;
+    }
+    .chapters-panel h2 {
+      font-size: 1.15rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+      letter-spacing: 0.03em;
+    }
+    .chapter-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 3px solid transparent;
+      background: #111726;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chapter-item:hover {
+      background: var(--panel-hover);
+      border-color: #475569;
+    }
+    .chapter-item.active {
+      background: #1e293b;
+      border-color: var(--gold);
+      box-shadow: 0 4px 0 var(--ink);
+    }
+    .ch-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .ch-title {
+      font-size: 1rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 5px;
+    }
+    .ch-script {
+      font-size: 0.86rem;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .ch-badge {
+      display: inline-block;
+      margin-top: 7px;
+      padding: 3px 10px;
+      border-radius: 8px;
+      background: rgba(255, 212, 52, 0.14);
+      border: 1px solid rgba(255, 212, 52, 0.4);
+      color: #fde047;
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+    .interactive-lab {
+      margin-top: 30px;
+      background: var(--panel);
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 0 10px 0 var(--ink);
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (max-width: 900px) {
+      .interactive-lab { grid-template-columns: 1fr; }
+    }
+    .lab-info h2 {
+      color: var(--gold);
+      font-size: 1.35rem;
+      margin-bottom: 8px;
+    }
+    .lab-info p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .slider-row input[type="range"] {
+      flex: 1;
+      accent-color: var(--gold);
+      height: 8px;
+      cursor: pointer;
+    }
+    .seesaw-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .metric-box {
+      background: #111726;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      padding: 16px;
+      text-align: center;
+      box-shadow: 0 5px 0 var(--ink);
+    }
+    .metric-box .label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .metric-box .val {
+      font-size: 1.85rem;
+      font-weight: 900;
+    }
+    .storyboard-section {
+      margin-top: 36px;
+    }
+    .storyboard-section h2 {
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .shots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .shot-card {
+      background: var(--panel);
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 0 var(--ink);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .shot-card:hover { transform: translateY(-4px); }
+    .shot-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      border-bottom: 3px solid var(--ink);
+    }
+    .shot-card .shot-label {
+      padding: 10px 14px;
+      font-size: 0.86rem;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .shot-card .shot-label span {
+      color: var(--gold);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-group">
+        <h1>📜 小林說風格 • 60秒搞懂什麼是「國債」</h1>
+        <p>國家為什麼欠幾十兆還不倒？從「官方欠條」、「債市蹺蹺板」到「借新還舊」一次看懂！</p>
+      </div>
+      <div class="badges">
+        <span class="pill">🎙️ ElevenLabs v4 (Lily 中文配音)</span>
+        <span class="pill">🎬 1920×1080 • 30 FPS • 60.0s</span>
+        <span class="pill">🎨 16 張小林說白板分鏡</span>
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <div class="video-card">
+        <video id="player" controls preload="auto" poster="assets/frames/verify_01_debt_clock.jpg">
+          <source src="national_debt_explainer.mp4" type="video/mp4" />
+          <track label="繁體中文" kind="subtitles" srclang="zh-Hant" src="national_debt.vtt" default />
+        </video>
+        <div class="video-controls-bar">
+          <div>
+            <button class="btn" onclick="const v=document.getElementById('player'); v.paused ? v.play() : v.pause();">
+              ▶ 播放 / 暫停 60秒國債解說
+            </button>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn secondary" href="national_debt_explainer.mp4" download>⬇ 下載影片 MP4 (1080p)</a>
+            <a class="btn secondary" href="assets/audio/master_audio.mp3" download>🎵 下載混音音軌 (MP3)</a>
+            <a class="btn secondary" href="national_debt.srt" download>💬 下載字幕檔 (SRT)</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="chapters-panel">
+        <h2>📋 8 大白板章節（點擊跳轉段落）</h2>
+        <div id="chapters-list"></div>
+      </aside>
+    </div>
+
+    <section class="interactive-lab">
+      <div class="lab-info">
+        <h2>⚖️ 小林白板互動實驗室：國債價格 vs. 殖利率「反比蹺蹺板」</h2>
+        <p>
+          假設一張國債面額 <strong>$1,000</strong>，每年固定付息 <strong>$40</strong>（票面利率 4%）。<br/>
+          拖動下方滑桿模擬市場搶購或拋售國債，觀察<strong>二手成交價格</strong>與<strong>實際殖利率 (Yield)</strong> 的蹺蹺板變化！
+        </p>
+        <div class="slider-row">
+          <span>🥶 沒人要 ($800)</span>
+          <input id="bond-slider" type="range" min="800" max="1250" step="5" value="1000" />
+          <span>🔥 瘋狂搶購 ($1,250)</span>
+        </div>
+      </div>
+      <div class="seesaw-cards">
+        <div class="metric-box">
+          <div class="label">二手市場國債價格 (Bond Price)</div>
+          <div class="val" id="price-val" style="color: var(--green);">$1,000</div>
+          <div class="label" id="price-status" style="margin-top:6px; color:#fde047;">平價發行 (Par Value)</div>
+        </div>
+        <div class="metric-box">
+          <div class="label">實際到期殖利率 (Effective Yield)</div>
+          <div class="val" id="yield-val" style="color: var(--accent);">4.00%</div>
+          <div class="label" style="margin-top:6px;">固定年息 $40 ÷ 買入價</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="storyboard-section">
+      <h2>🎨 16 張小林說風格白板分鏡畫廊（點擊分鏡直接跳轉影片時間點）</h2>
+      <div class="shots-grid" id="shots-grid"></div>
+    </section>
+  </div>
+
+  <script>
+    const SCENES = [
+      {
+        num: 1,
+        title: "國家為什麼會欠一屁股債？",
+        start: 0.00,
+        end: 6.30,
+        shots: ["shot_01", "shot_02"],
+        badge: "財政赤字：稅收 $4.9T < 支出 $6.7T",
+        text: "哈囉大家好！美國國債衝破三十六兆美元，等一下——國家這麼有錢，為什麼還會欠一屁股債？"
+      },
+      {
+        num: 2,
+        title: "國債本質＝國家級官方欠條",
+        start: 6.30,
+        end: 14.30,
+        shots: ["shot_03", "shot_04"],
+        badge: "國債 (Bond) ＝ 國家官方欠條 (I.O.U.)",
+        text: "其實超簡單！當政府花錢比稅收還多，就會出現財政赤字。這時政府打一張官方欠條借錢，就叫國債！"
+      },
+      {
+        num: 3,
+        title: "拆解欠條：本金、利息、到期日",
+        start: 14.30,
+        end: 21.95,
+        shots: ["shot_05", "shot_06"],
+        badge: "本金 $1,000 ＋ 票息 4%/年 ＋ 10年到期",
+        text: "欠條寫得很清楚：借政府一千塊，每年付四十塊利息，到期還本金。有國家信用擔保，全球都在搶！"
+      },
+      {
+        num: 4,
+        title: "誰在買國債？價格與殖利率蹺蹺板",
+        start: 21.95,
+        end: 28.90,
+        shots: ["shot_07", "shot_08"],
+        badge: "債市鐵律：債券價格 ↑ ↔ 殖利率 ↓",
+        text: "退休基金、銀行和各國央行都是大買家！國債還能二手買賣：搶著買、價格漲，殖利率就會跌！"
+      },
+      {
+        num: 5,
+        title: "欠幾十兆怎麼還？借新還舊！",
+        start: 28.90,
+        end: 37.55,
+        shots: ["shot_09", "shot_10"],
+        badge: "借新還舊 (Rollover)：發新債 → 還舊債",
+        text: "那欠幾十兆怎麼還？答案很扎心：不用還清！舊債到期就發新債，拿新債主的錢還舊債，這就叫借新還舊！"
+      },
+      {
+        num: 6,
+        title: "央行印鈔買債？小心通膨怪獸！",
+        start: 37.55,
+        end: 45.45,
+        shots: ["shot_11", "shot_12"],
+        badge: "印鈔買債 (QE) 過頭 → 物價飛天 (全民買單)",
+        text: "萬一沒人買新債呢？央行雖然能印鈔買債，但錢印太多物價會飛天，引發通膨，等於全民幫國債買單！"
+      },
+      {
+        num: 7,
+        title: "推進器還是債務陷阱？看 GDP 增速",
+        start: 45.45,
+        end: 53.20,
+        shots: ["shot_13", "shot_14"],
+        badge: "良性循環：GDP 經濟增速 (g) ＞ 債務利率 (r)",
+        text: "所以國債好不好？只要借錢搞基建與科研，讓經濟成長跑贏利息，就是推進器；反之就會掉進債務陷阱！"
+      },
+      {
+        num: 8,
+        title: "小林總結：向未來借錢的時光機",
+        start: 53.20,
+        end: 60.00,
+        shots: ["shot_15", "shot_16"],
+        badge: "國債 ＝ 跨時空借錢時光機 × 國家信用",
+        text: "總結來說，國債就是向未來借錢的時光機，唯一的燃料就是信任！我是小林，我們下期見，拜拜！"
+      }
+    ];
+
+    const player = document.getElementById("player");
+    const chList = document.getElementById("chapters-list");
+    const shotsGrid = document.getElementById("shots-grid");
+
+    function fmt(s) {
+      const sec = Math.floor(s);
+      return `0:${sec < 10 ? "0" + sec : sec}`;
+    }
+
+    SCENES.forEach((s, idx) => {
+      const div = document.createElement("div");
+      div.className = "chapter-item" + (idx === 0 ? " active" : "");
+      div.id = `ch-item-${s.num}`;
+      div.innerHTML = `
+        <div class="ch-meta"><span>CHAPTER 0${s.num}</span><span>${fmt(s.start)} – ${fmt(s.end)}</span></div>
+        <div class="ch-title">${s.title}</div>
+        <div class="ch-script">「${s.text}」</div>
+        <div class="ch-badge">${s.badge}</div>
+      `;
+      div.onclick = () => {
+        player.currentTime = s.start + 0.05;
+        player.play();
+      };
+      chList.appendChild(div);
+
+      const mid = (s.start + s.end) / 2;
+      [
+        { id: s.shots[0], label: `CH0${s.num} A • ${s.title}`, time: s.start },
+        { id: s.shots[1], label: `CH0${s.num} B • ${s.title}`, time: mid }
+      ].forEach((sh) => {
+        const card = document.createElement("div");
+        card.className = "shot-card";
+        card.innerHTML = `
+          <img src="assets/images/${sh.id}.png" alt="${sh.label}" loading="lazy" />
+          <div class="shot-label"><strong>${sh.label}</strong><span>${fmt(sh.time)}</span></div>
+        `;
+        card.onclick = () => {
+          player.currentTime = sh.time + 0.05;
+          player.play();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+        shotsGrid.appendChild(card);
+      });
+    });
+
+    player.addEventListener("timeupdate", () => {
+      const t = player.currentTime;
+      SCENES.forEach((s) => {
+        const el = document.getElementById(`ch-item-${s.num}`);
+        if (t >= s.start && t < s.end) el.classList.add("active");
+        else el.classList.remove("active");
+      });
+    });
+
+    // Interactive Bond Price vs Yield Seesaw Calculator
+    const slider = document.getElementById("bond-slider");
+    const priceVal = document.getElementById("price-val");
+    const yieldVal = document.getElementById("yield-val");
+    const priceStatus = document.getElementById("price-status");
+
+    slider.addEventListener("input", () => {
+      const p = Number(slider.value);
+      const y = (40 / p) * 100;
+      priceVal.textContent = `$${p.toLocaleString()}`;
+      yieldVal.textContent = `${y.toFixed(2)}%`;
+      if (p > 1000) {
+        priceVal.style.color = "#4ade80";
+        yieldVal.style.color = "#38bdf8";
+        priceStatus.textContent = "🔥 搶購溢價 ↑ → 殖利率下跌 ↓";
+      } else if (p < 1000) {
+        priceVal.style.color = "#f87171";
+        yieldVal.style.color = "#fbbf24";
+        priceStatus.textContent = "🥶 拋售折價 ↓ → 殖利率飆升 ↑";
+      } else {
+        priceVal.style.color = "#4ade80";
+        yieldVal.style.color = "#38bdf8";
+        priceStatus.textContent = "⚖️ 平價發行 (Par Value)";
+      }
+    });
+  </script>
+</body>
+</html>

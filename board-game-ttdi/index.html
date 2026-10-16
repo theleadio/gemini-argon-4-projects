@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SPIELHAUS TTDI — European Board Game Parlor & Retail Atelier · Kuala Lumpur</title>
+  <meta name="description" content="Kuala Lumpur's premier European board game parlor and retail archive in Taman Tun Dr Ismail (TTDI). 485+ curated Eurogames, Essen Spiel imports, recessed green baize tables, and live Spielmeister rules hosts." />
+
+  <!-- Google Fonts: Fraunces (Literary Euro Serif), Plus Jakarta Sans, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;0,9..144,700;1,9..144,600&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Top Rulebook Telemetry Bar -->
+  <div class="top-telemetry-bar">
+    <div class="container top-telemetry-inner">
+      <div class="telemetry-status">
+        <span class="live-pulse" aria-hidden="true"></span>
+        <span>GEÖFFNET IN TTDI · <strong>18A LORONG RAHIM KAJAI 14</strong> · 9 OF 14 BAIZE TABLES ACTIVE TONIGHT</span>
+      </div>
+      <div class="telemetry-meta">
+        <span>ESSEN SPIEL '26 CRATE: <strong>UNPACKED</strong></span>
+        <span>MRT TTDI EXIT A: <strong>4 MIN WALK</strong></span>
+        <span>COORDS: <strong>3.1412° N, 101.6298° E</strong></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Architectural Header -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-inner">
+      <a href="#" class="brand-lockup" aria-label="Spielhaus TTDI Home">
+        <div class="brand-emblem" aria-hidden="true">
+          <!-- Custom Wooden Meeple SVG Icon -->
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 4C13.8 4 12 5.8 12 8C12 9.4 12.7 10.6 13.8 11.3L7.2 14.5C5.9 15.1 5.4 16.7 6.1 17.9C6.6 18.8 7.6 19.2 8.6 19L11.5 18.3L9.3 26.2C9 27.1 9.7 28 10.6 28H14.2L16 22.5L17.8 28H21.4C22.3 28 23 27.1 22.7 26.2L20.5 18.3L23.4 19C24.4 19.2 25.4 18.8 25.9 17.9C26.6 16.7 26.1 15.1 24.8 14.5L18.2 11.3C19.3 10.6 20 9.4 20 8C20 5.8 18.2 4 16 4Z" fill="#FAF7F1" stroke="#1E1B18" stroke-width="1.5" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">
+            SPIELHAUS
+            <span class="brand-badge-ttdi">TTDI</span>
+          </div>
+          <span class="brand-sub">BRETTSPIEL-ATELIER &amp; PARLOR · KUALA LUMPUR</span>
+        </div>
+      </a>
+
+      <nav aria-label="Primary Rulebook Navigation">
+        <ul class="nav-links">
+          <li><a href="#sammlung"><span class="nav-sec">§01</span> Die Sammlung</a></li>
+          <li><a href="#spielberater"><span class="nav-sec">§02</span> Spielberater</a></li>
+          <li><a href="#parlor"><span class="nav-sec">§03</span> Das Spielhaus</a></li>
+          <li><a href="#spielplan"><span class="nav-sec">§04</span> Spielplan</a></li>
+          <li><a href="#reservierung"><span class="nav-sec">§05</span> Tisch Buchen</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="#reservierung" class="tray-pill-btn" title="Games held for your table reservation">
+          <span>Table Tray</span>
+          <span class="tray-count" id="navTrayCount">1</span>
+        </a>
+        <a href="#reservierung" class="btn btn-primary btn-sm">Reserve a Table →</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ====================================================================
+         HERO SECTION — Asymmetric 60/40 Editorial Rulebook Presentation
+         ==================================================================== -->
+    <section class="hero-section">
+      <div class="container hero-grid">
+        <!-- Left 60% Editorial & Architectural Column -->
+        <div class="hero-copy-col">
+          <div class="hero-kicker-row">
+            <span class="spiel-seal-pill">
+              <span class="meeple-dot crimson"></span>
+              <span class="meeple-dot ochre"></span>
+              <span class="meeple-dot pine"></span>
+              ESSEN SPIEL ARCHIVE · SEIT 2021
+            </span>
+            <span class="location-kicker">LORONG RAHIM KAJAI · TAMAN TUN DR ISMAIL</span>
+          </div>
+
+          <h1 class="hero-headline">
+            Holz, Pappe &amp; <span class="highlight-italic">Strategie</span> — European Board Gaming in the <span class="pine-underline">Heart of TTDI</span>.
+          </h1>
+
+          <p class="hero-lead">
+            Step upstairs from TTDI’s leafy kopitiam row into Kuala Lumpur’s sanctuary for continental tabletop craft. Discover <strong>485+ curated German &amp; European strategy games</strong>—from <em>Kennerspiel</em> classics by Stefan Feld and Uwe Rosenberg to unpunched Essen imports—served on recessed green baize tables with live <strong>Spielmeister</strong> rules hosts.
+          </p>
+
+          <div class="hero-cta-group">
+            <a href="#reservierung" class="btn btn-primary">
+              Reserve a Baize Table
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="#sammlung" class="btn btn-secondary">
+              Browse the Eurogame Vault (485+)
+            </a>
+            <a href="#spielberater" class="btn btn-pine btn-sm">
+              Try "Der Spielberater" Flight Picker
+            </a>
+          </div>
+
+          <!-- Technical Rulebook Ledger -->
+          <div class="hero-ledger" role="region" aria-label="Parlor Key Specifications">
+            <div class="ledger-cell">
+              <span class="ledger-code">INDEX 01 · ARCHIV</span>
+              <span class="ledger-val">485+</span>
+              <span class="ledger-label">Curated Eurogames &amp; Essen Imports</span>
+            </div>
+            <div class="ledger-cell">
+              <span class="ledger-code">INDEX 02 · ERKLÄRER</span>
+              <span class="ledger-val">15 Min</span>
+              <span class="ledger-label">Live Rules Teach — Skip the Manual</span>
+            </div>
+            <div class="ledger-cell">
+              <span class="ledger-code">INDEX 03 · GUTSCHRIFT</span>
+              <span class="ledger-val">100%</span>
+              <span class="ledger-label">Table Fee Credited to Retail Box Purchase</span>
+            </div>
+            <div class="ledger-cell">
+              <span class="ledger-code">INDEX 04 · BGG WEIGHT</span>
+              <span class="ledger-val">1.8–4.6</span>
+              <span class="ledger-label">Gateway Familienspiel to Heavy Lacerda</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right 40% Real Photography Specimen Stage -->
+        <div class="hero-visual-stage">
+          <!-- Rotating Spiel Stamp -->
+          <div class="spiel-stamp-badge" aria-hidden="true">
+            <span class="stamp-top">AUSLESE</span>
+            <span class="stamp-main">SPIEL<br/>KL·TTDI</span>
+            <span class="stamp-sub">100% ANALOG</span>
+          </div>
+
+          <div class="specimen-frame">
+            <div class="specimen-header">
+              <span>FIG. 01 — DIE AUSLAGE (REAL TABLE PHOTOGRAPHY)</span>
+              <span>TISCH 02 · BAIZE INLAY</span>
+            </div>
+
+            <div class="specimen-photo-wrap">
+              <img
+                src="https://images.unsplash.com/photo-1610890716171-6b1bb98ffd09?auto=format&fit=crop&w=1400&q=85"
+                alt="Overhead real photograph of a European hexagonal strategy board game with wooden pieces and cards on a warm wooden tabletop"
+              />
+              <!-- Interactive Component Hotspots -->
+              <button type="button" class="photo-hotspot active" style="top: 34%; left: 44%;" aria-label="Inspect component A">A</button>
+              <button type="button" class="photo-hotspot" style="top: 62%; left: 28%;" aria-label="Inspect component B">B</button>
+              <button type="button" class="photo-hotspot" style="top: 52%; left: 72%;" aria-label="Inspect component C">C</button>
+            </div>
+
+            <div class="hotspot-caption-bar" aria-live="polite">
+              <div>
+                <strong id="hotspotCode">COMP. A — HOLZFIGUREN</strong>
+                <p id="hotspotText" style="color: var(--text-secondary); margin-top: 0.1rem;">
+                  Turned Birch &amp; Beechwood Meeples — Sustainably harvested German hardwood pieces finished in non-toxic water-based lacquers.
+                </p>
+              </div>
+              <span class="mono-tag" style="color: var(--text-muted); white-space: nowrap;">CLICK PINS A/B/C</span>
+            </div>
+          </div>
+
+          <!-- Secondary Real Photo Card: Friends playing around the parlor table -->
+          <div class="hero-inset-card">
+            <div class="hero-inset-img">
+              <img
+                src="https://images.unsplash.com/photo-1585504198199-20277593b94f?auto=format&fit=crop&w=600&q=80"
+                alt="Friends laughing and playing a board game together around a sunlit table"
+              />
+            </div>
+            <div class="hero-inset-content">
+              <div class="inset-tag">FIG. 02 · ABENDSPIEL IN TTDI</div>
+              <h3>No Screens. Just Wooden Cubes &amp; Good Company.</h3>
+              <p>Every evening from 5 PM, our upstairs shophouse fills with neighbours trading wheat, laying Carcassonne tiles, and sipping iced Spezi.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- European Publisher Heritage Strip -->
+    <div class="publisher-ribbon" aria-label="Featured European Board Game Publishers">
+      <div class="container publisher-ribbon-inner">
+        <span class="publisher-label">DIRECT IMPORTS &amp; ARCHIVE EDITIONS FROM:</span>
+        <div class="publisher-houses">
+          <div class="publisher-item">KOSMOS <span>Stuttgart · Est. 1822</span></div>
+          <div class="publisher-item">Hans im Glück <span>München</span></div>
+          <div class="publisher-item">Ravensburger / Alea <span>Bodensee</span></div>
+          <div class="publisher-item">Lookout Games <span>Hünstetten</span></div>
+          <div class="publisher-item">Feuerland Spiele <span>Franken</span></div>
+          <div class="publisher-item">Czech Games Edition <span>Praha</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================================================================
+         § 01 — DIE KURATIERTE SAMMLUNG (Interactive Eurogame Vault & Retail)
+         ==================================================================== -->
+    <section class="catalog-section" id="sammlung">
+      <div class="container">
+        <div class="section-index-bar">
+          <span class="index-num">§ 01 — DIE KURATIERTE SAMMLUNG</span>
+          <span>SPIEL DES JAHRES · KENNERSPIEL · SCHWERGEWICHTE</span>
+          <span>RETAIL &amp; PLAY ARCHIVE</span>
+        </div>
+
+        <div class="section-header-grid">
+          <div>
+            <h2 class="section-title">
+              Hand-Carried from <em>Essen Spiel</em> to Lorong Rahim Kajai.
+            </h2>
+          </div>
+          <div>
+            <p class="section-lead">
+              Every game in our vault has both a <strong>sleeved, component-upgraded parlor table copy</strong> and <strong>sealed retail boxes</strong> to take home. Filter by German <em>Spiel</em> classification, player count, or BoardGameGeek complexity weight—and click <strong>+ Hold for Table</strong> so our hosts have it set up before you arrive.
+            </p>
+          </div>
+        </div>
+
+        <!-- Interactive Filter Console -->
+        <div class="catalog-controls" role="region" aria-label="Filter Board Game Catalog">
+          <div class="filter-top-row">
+            <div class="category-tabs" role="tablist">
+              <button type="button" class="cat-tab active" data-cat="all">
+                All Vault Titles
+              </button>
+              <button type="button" class="cat-tab" data-cat="familienspiel">
+                <span class="meeple-dot ochre"></span> Familienspiel (Gateway)
+              </button>
+              <button type="button" class="cat-tab" data-cat="kennerspiel">
+                <span class="meeple-dot crimson"></span> Kennerspiel (Connoisseur)
+              </button>
+              <button type="button" class="cat-tab" data-cat="schwergewicht">
+                <span class="meeple-dot pine"></span> Schwergewicht (Heavy Euro)
+              </button>
+              <button type="button" class="cat-tab" data-cat="zwei">
+                <span class="meeple-dot cobalt"></span> Zwei-Spieler (2P Duel)
+              </button>
+            </div>
+
+            <div class="search-input-wrap">
+              <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="search" id="gameSearchInput" placeholder="Search title, designer (e.g. Rosenberg, Catan)..." aria-label="Search games by title or designer" />
+            </div>
+          </div>
+
+          <div class="filter-bottom-row">
+            <div class="filter-group-inline">
+              <span class="filter-label">Player Count:</span>
+              <div class="player-pills">
+                <button type="button" class="player-pill active" data-players="any">Any</button>
+                <button type="button" class="player-pill" data-players="2">2P</button>
+                <button type="button" class="player-pill" data-players="3">3P</button>
+                <button type="button" class="player-pill" data-players="4">4P</button>
+                <button type="button" class="player-pill" data-players="5">5–6P</button>
+              </div>
+            </div>
+
+            <div class="filter-group-inline weight-slider-wrap">
+              <label for="weightSlider" class="filter-label">Max BGG Weight:</label>
+              <input type="range" id="weightSlider" min="2.0" max="5.0" step="0.2" value="5.0" />
+              <span class="mono-tag" id="weightReadout" style="min-width: 135px; color: var(--accent-crimson);">All Weights (≤ 5.0)</span>
+            </div>
+
+            <div class="catalog-count-readout" id="catalogCountReadout">
+              SHOWING 9 OF 9 FEATURED VAULT TITLES
+            </div>
+          </div>
+        </div>
+
+        <!-- Bento Grid of Real-Photo Eurogames (Populated by app.js) -->
+        <div class="games-bento-grid" id="gamesBentoGrid"></div>
+
+        <!-- ================================================================
+             § 02 — DER SPIELBERATER (Interactive 3-Step Flight Recommender)
+             ================================================================ -->
+        <div class="recommender-banner" id="spielberater">
+          <div class="recommender-grid">
+            <div>
+              <div class="recommender-kicker">§ 02 · DER DIGITALE SPIELBERATER</div>
+              <h3 class="recommender-title">Not Sure Which Box to Open First?</h3>
+              <p class="recommender-sub">
+                Tell our table sommelier your group size, preferred European mechanism, and how long you want to linger in TTDI. We’ll deal a bespoke 3-game flight and hold all three at your table.
+              </p>
+
+              <div class="berater-controls">
+                <div class="berater-step">
+                  <label>01. Group Size at Your Table</label>
+                  <div class="berater-options">
+                    <button type="button" class="berater-chip" data-step="group" data-val="2">2 Players (Duel)</button>
+                    <button type="button" class="berater-chip active" data-step="group" data-val="3-4">3–4 Players (Classic Euro)</button>
+                    <button type="button" class="berater-chip" data-step="group" data-val="5+">5–6 Players (Social Table)</button>
+                  </div>
+                </div>
+
+                <div class="berater-step">
+                  <label>02. Tactile Mechanism &amp; Mood</label>
+                  <div class="berater-options">
+                    <button type="button" class="berater-chip active" data-step="mood" data-val="worker">Worker Placement &amp; Harvest</button>
+                    <button type="button" class="berater-chip" data-step="mood" data-val="tile">Hexes, Dice &amp; Spatial Tiles</button>
+                    <button type="button" class="berater-chip" data-step="mood" data-val="economic">Industrial &amp; Heavy Economy</button>
+                    <button type="button" class="berater-chip" data-step="mood" data-val="gateway">Relaxed Café Gateway</button>
+                  </div>
+                </div>
+
+                <div class="berater-step">
+                  <label>03. Session Length</label>
+                  <div class="berater-options">
+                    <button type="button" class="berater-chip" data-step="time" data-val="quick">Quick Coffee (45–60m)</button>
+                    <button type="button" class="berater-chip active" data-step="time" data-val="classic">Evening Standard (75–120m)</button>
+                    <button type="button" class="berater-chip" data-step="time" data-val="epic">Deep Marathon (150m+)</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recommended Flight Output Card -->
+            <div class="berater-result-box" aria-live="polite">
+              <div class="berater-result-header">
+                <span class="mono-tag" style="color: var(--accent-crimson); font-weight: 700;">RECOMMENDED 3-GAME TABLE FLIGHT</span>
+                <span class="mono-tag" style="color: var(--accent-pine);">RULES TEACH INCLUDED</span>
+              </div>
+
+              <div class="berater-flight-list" id="beraterFlightList"></div>
+
+              <p id="beraterPairingNote" style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem; font-style: italic;"></p>
+
+              <button type="button" class="btn btn-primary" id="holdFlightBtn" style="width: 100%;">
+                Hold Entire 3-Game Flight for My Table →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         § 03 — DAS TTDI SPIELHAUS ERLEBNIS (Real Photo Parlor & Pass Tarif)
+         ==================================================================== -->
+    <section class="parlor-section" id="parlor">
+      <div class="container">
+        <div class="section-index-bar">
+          <span class="index-num">§ 03 — DAS TTDI SPIELHAUS ERLEBNIS</span>
+          <span>18A LORONG RAHIM KAJAI 14 · UPSTAIRS SHOPHOUSE</span>
+          <span>ARCHITECTURE &amp; TARIF</span>
+        </div>
+
+        <div class="section-header-grid">
+          <div>
+            <h2 class="section-title">
+              Designed Like a <em>Vienna Café</em>, Rooted in a 1970s TTDI Shophouse.
+            </h2>
+          </div>
+          <div>
+            <p class="section-lead">
+              We stripped back a sunlit first-floor shophouse in Taman Tun Dr Ismail to its original red brick and terrazzo, adding custom Malaysian Chengal timber gaming tables with recessed German wool baize so dice roll whisper-quiet and cards lift effortlessly.
+            </p>
+          </div>
+        </div>
+
+        <!-- Real Photography Mosaic of Parlor & Tabletop Craft -->
+        <div class="parlor-photo-mosaic">
+          <figure class="mosaic-card tall">
+            <img
+              src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=1200&q=80"
+              alt="Warm sunlit timber and brick shophouse parlor interior with pendant lights and wooden tables"
+            />
+            <figcaption class="mosaic-overlay">
+              <span class="mosaic-fig">FIG. 03 · DER HAUPTSAAL (LORONG RAHIM KAJAI)</span>
+              <h3>Warm Pendant Lighting &amp; Zero-Glare Tables</h3>
+              <p>3000K warm high-CRI illumination over solid timber tables—engineered so gloss punchboards never reflect overhead glare during four-hour sessions.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="mosaic-card">
+            <img
+              src="https://images.unsplash.com/photo-1611996575749-79a3a250f948?auto=format&fit=crop&w=900&q=80"
+              alt="Close up of colorful board game tiles, wooden tokens, and dice during an active game session"
+            />
+            <figcaption class="mosaic-overlay">
+              <span class="mosaic-fig">FIG. 04 · UPGRADED COMPONENTS</span>
+              <h3>Wooden Bowls &amp; Iron Clays</h3>
+              <p>Every table comes stocked with turned beechwood token bowls and metal coins.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="mosaic-card">
+            <img
+              src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=900&q=80"
+              alt="Cozy café corner with wooden chairs and warm afternoon light"
+            />
+            <figcaption class="mosaic-overlay">
+              <span class="mosaic-fig">FIG. 05 · KAFFEEKLATSCH &amp; KOPI BAR</span>
+              <h3>Paulaner Spezi, Pour-Over &amp; Pretzels</h3>
+              <p>Served in slide-out under-table cup holders so condensation never touches a card.</p>
+            </figcaption>
+          </figure>
+
+          <figure class="mosaic-card wide">
+            <img
+              src="https://images.unsplash.com/photo-1632501641765-e568d28b0015?auto=format&fit=crop&w=1200&q=80"
+              alt="Detailed spread of European strategy board game cards, tokens, and player boards"
+            />
+            <figcaption class="mosaic-overlay">
+              <span class="mosaic-fig">FIG. 06 · VORBEREITETER SPIELTISCH (PRE-SET CONCIERGE)</span>
+              <h3>Walk In to a Fully Set-Up Board</h3>
+              <p>Dreading the 25-minute setup of <em>Agricola</em>, <em>Brass</em>, or <em>Lisboa</em>? Hold your game online and our Spielmeister will have every deck shuffled and resource bank sorted before you climb the stairs.</p>
+            </figcaption>
+          </figure>
+        </div>
+
+        <!-- Parlor Pillars + Transparent Rulebook Tarif -->
+        <div class="parlor-columns">
+          <div class="craft-list">
+            <div class="craft-item">
+              <div class="craft-num">01</div>
+              <div>
+                <h4>Recessed German Baize &amp; Side Cup Drawers</h4>
+                <p>Our tables feature a 3mm cushioned forest-green wool felt surface framed in local Chengal hardwood. Drinks sit in pull-out brass-lined coasters below the rail—keeping RM 600 collector games pristine.</p>
+              </div>
+            </div>
+            <div class="craft-item">
+              <div class="craft-num">02</div>
+              <div>
+                <h4>Live Spielmeister Teach (No Rulebook Reading)</h4>
+                <p>Whether it’s a quick round of <em>Carcassonne</em> or a complex Vital Lacerda economic sandbox, our bilingual hosts teach the rules clearly in 10–15 minutes and stay on call for edge-case questions.</p>
+              </div>
+            </div>
+            <div class="craft-item">
+              <div class="craft-num">03</div>
+              <div>
+                <h4>Try Before You Buy (100% Table Fee Credit)</h4>
+                <p>Fell in love with the game you played tonight? Apply 100% of your session pass directly toward purchasing a brand-new shrink-wrapped copy from our retail wall.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rulebook Pass Tarif Card -->
+          <div class="tarif-card">
+            <div class="tarif-header">
+              <div>
+                <span class="mono-tag" style="color: var(--accent-crimson);">EINTRITT &amp; MITGLIEDSCHAFT</span>
+                <h3>Parlor Table Passes</h3>
+              </div>
+              <span class="mono-tag" style="background: var(--bg-parchment); padding: 0.3rem 0.6rem; border: 1px solid var(--border-rule);">ALL-INCLUSIVE TEACH</span>
+            </div>
+
+            <div class="tarif-rows">
+              <div class="tarif-row">
+                <div>
+                  <div class="tarif-name">
+                    <span class="meeple-dot ochre"></span>
+                    Feierabend Pass (Weeknight 3-Hr)
+                  </div>
+                  <div class="tarif-desc">Tue–Thu · Unlimited library access + live Spielmeister rules teach</div>
+                </div>
+                <div class="tarif-price">RM 18 <span style="font-size:0.72rem;font-weight:400;color:var(--text-secondary);">/ pax</span></div>
+              </div>
+
+              <div class="tarif-row featured">
+                <div>
+                  <div class="tarif-name">
+                    <span class="meeple-dot crimson"></span>
+                    Tageskarte (All-Day Spiel Pass)
+                  </div>
+                  <div class="tarif-desc">Fri–Sun &amp; Holidays · Play from opening till midnight + 1x Craft Spezi or Kopi</div>
+                </div>
+                <div class="tarif-price">RM 28 <span style="font-size:0.72rem;font-weight:400;color:var(--text-secondary);">/ pax</span></div>
+              </div>
+
+              <div class="tarif-row">
+                <div>
+                  <div class="tarif-name">
+                    <span class="meeple-dot pine"></span>
+                    TTDI Stammtisch Guild Pass (Monthly)
+                  </div>
+                  <div class="tarif-desc">Unlimited parlor visits, 15% off Essen retail boxes, &amp; priority Friday Heavy Euro seating</div>
+                </div>
+                <div class="tarif-price">RM 110 <span style="font-size:0.72rem;font-weight:400;color:var(--text-secondary);">/ mo</span></div>
+              </div>
+            </div>
+
+            <div class="tarif-note">
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--accent-ochre); font-size: 1.1rem;">★</span>
+              <span><strong>Retail Rebate Guarantee:</strong> Buy any board game RM 180+ on the same day and your table pass for the evening is waived in full.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         § 04 — WÖCHENTLICHER SPIELPLAN (Weekly TTDI Nights & Community)
+         ==================================================================== -->
+    <section class="schedule-section" id="spielplan">
+      <div class="container">
+        <div class="section-index-bar">
+          <span class="index-num">§ 04 — WÖCHENTLICHER SPIELPLAN</span>
+          <span>SOLO &amp; DUO PLAYERS WELCOME · GUARANTEED TABLE MATCHING</span>
+          <span>TTDI GUILD CALENDAR</span>
+        </div>
+
+        <div class="section-header-grid">
+          <div>
+            <h2 class="section-title">
+              Pull Up a Chair at Our Weekly <em>Stammtisch</em> Nights.
+            </h2>
+          </div>
+          <div>
+            <p class="section-lead">
+              Coming solo or as a pair? Our weekly themed nights match players around pre-scheduled European titles with a dedicated table teacher so you always have a full 4-player group.
+            </p>
+          </div>
+        </div>
+
+        <div class="schedule-ledger">
+          <article class="schedule-card">
+            <div class="schedule-day-header">
+              <span class="day-german">MITTWOCH · WED</span>
+              <span class="day-time">20:00 – 23:30</span>
+            </div>
+            <h3>Kennerspiel After-Work Club</h3>
+            <p>Mid-weight modern Euros taught from scratch in 12 minutes. Ideal for solo drop-ins and couples looking for a 90-minute strategic puzzle after dinner in TTDI.</p>
+            <div class="schedule-featured-game">
+              <span>THIS WEEK'S FEATURED TABLES</span>
+              <strong>Die Burgen von Burgund &amp; Arnak</strong>
+            </div>
+            <div class="schedule-footer">
+              <span class="seats-left">● 5 Seats Open</span>
+              <button type="button" class="btn btn-secondary btn-sm rsvp-event-btn" data-event="Wednesday · 20:00 (Kennerspiel Club)">Join Table</button>
+            </div>
+          </article>
+
+          <article class="schedule-card">
+            <div class="schedule-day-header">
+              <span class="day-german">FREITAG · FRI</span>
+              <span class="day-time">19:30 – 00:30</span>
+            </div>
+            <h3>Schwergewicht &amp; Lacerda Night</h3>
+            <p>Our flagship deep-strategy evening. Boards are pre-punched and set up at 7 PM sharp so tables can dive straight into heavy economic and worker-placement epics.</p>
+            <div class="schedule-featured-game">
+              <span>THIS WEEK'S FEATURED TABLES</span>
+              <strong>Brass: Birmingham &amp; Lisboa</strong>
+            </div>
+            <div class="schedule-footer">
+              <span class="seats-left">● 3 Seats Open</span>
+              <button type="button" class="btn btn-secondary btn-sm rsvp-event-btn" data-event="Friday · 19:30 (Heavy Euro Night)">Join Table</button>
+            </div>
+          </article>
+
+          <article class="schedule-card">
+            <div class="schedule-day-header">
+              <span class="day-german">SAMSTAG · SAT</span>
+              <span class="day-time">14:00 – 23:30</span>
+            </div>
+            <h3>Essen '26 Unboxing &amp; Open Play</h3>
+            <p>Be the first in Kuala Lumpur to play fresh air-freight arrivals from Messe Essen. English translations and custom player aids provided for German-only releases.</p>
+            <div class="schedule-featured-game">
+              <span>THIS WEEK'S FEATURED TABLES</span>
+              <strong>Agricola Deluxe &amp; Kosmos 2P Duels</strong>
+            </div>
+            <div class="schedule-footer">
+              <span class="seats-left">● 6 Seats Open</span>
+              <button type="button" class="btn btn-secondary btn-sm rsvp-event-btn" data-event="Saturday · 14:00 (Essen New Arrivals)">Join Table</button>
+            </div>
+          </article>
+
+          <article class="schedule-card">
+            <div class="schedule-day-header">
+              <span class="day-german">SONNTAG · SUN</span>
+              <span class="day-time">11:00 – 18:00</span>
+            </div>
+            <h3>TTDI Familienspiel Matinee</h3>
+            <p>After Sunday morning breakfast at the TTDI wet market, bring the family upstairs for tactile tile-laying, Catan trading, and Wingspan. Kids under 12 play half-price.</p>
+            <div class="schedule-featured-game">
+              <span>THIS WEEK'S FEATURED TABLES</span>
+              <strong>Carcassonne Jubilee, Catan 3D &amp; Wingspan</strong>
+            </div>
+            <div class="schedule-footer">
+              <span class="seats-left">● 8 Seats Open</span>
+              <button type="button" class="btn btn-secondary btn-sm rsvp-event-btn" data-event="Sunday · 11:00 (Familienspiel Matinee)">Join Table</button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         § 05 — TISCHRESERVIERUNG & TTDI WAYFINDING (Interactive Floorplan)
+         ==================================================================== -->
+    <section class="booking-section" id="reservierung">
+      <div class="container">
+        <div class="section-index-bar">
+          <span class="index-num">§ 05 — TISCHRESERVIERUNG &amp; ANFAHRT</span>
+          <span>SELECT YOUR SHOPHOUSE TABLE · PRE-SET GAME CONCIERGE</span>
+          <span>18A LORONG RAHIM KAJAI 14</span>
+        </div>
+
+        <div class="section-header-grid">
+          <div>
+            <h2 class="section-title">
+              Claim Your <em>Spieltisch</em> &amp; Pre-Set Your Boxes.
+            </h2>
+          </div>
+          <div>
+            <p class="section-lead">
+              Click any table on our upstairs TTDI shophouse blueprint below to choose your spot, review your held games, and lock in an instant reservation pass. No advance deposit required.
+            </p>
+          </div>
+        </div>
+
+        <div class="booking-console-grid">
+          <!-- Left Column: Interactive Upstairs Shophouse Blueprint -->
+          <div class="floorplan-panel">
+            <div class="floorplan-top">
+              <div>
+                <span class="mono-tag" style="color: var(--accent-crimson);">ARCHITEKTURPLAN · FIRST FLOOR</span>
+                <h3 style="font-family: var(--font-display); font-size: 1.35rem;">Interactive TTDI Floorplan Picker</h3>
+              </div>
+              <div class="floorplan-legend">
+                <span class="legend-item">
+                  <span class="legend-swatch" style="background: var(--bg-baize);"></span> Selected Table
+                </span>
+                <span class="legend-item">
+                  <span class="legend-swatch" style="background: var(--bg-card);"></span> Available
+                </span>
+              </div>
+            </div>
+
+            <div class="shophouse-blueprint" role="group" aria-label="Select a gaming table from the floorplan">
+              <div class="blueprint-street-label">
+                ▲ WINDOW BALCONY OVERLOOKING LORONG RAHIM KAJAI 14 (LEAFY RAIN TREES) ▲
+              </div>
+
+              <div class="tables-floor-grid">
+                <button type="button" class="table-node selected" data-table-name="Tisch 01 · Essen Window Booth (2–4P)">
+                  <div class="table-node-top">
+                    <span>TISCH 01 · WINDOW</span>
+                    <span>2–4 PAX</span>
+                  </div>
+                  <div class="table-node-name">Essen Window Booth</div>
+                  <div class="table-node-spec">Natural daylight · Recessed green baize · Ideal for Castles of Burgundy &amp; Wingspan</div>
+                </button>
+
+                <button type="button" class="table-node" data-table-name="Tisch 02 · Catan Hex Round Table (3–6P)">
+                  <div class="table-node-top">
+                    <span>TISCH 02 · HEXAGON</span>
+                    <span>3–6 PAX</span>
+                  </div>
+                  <div class="table-node-name">Catan Hex Round Table</div>
+                  <div class="table-node-spec">150cm octagonal Chengal wood · Equal reach for all 6 players + lazy Susan</div>
+                </button>
+
+                <button type="button" class="table-node wide-node" data-table-name="Tisch 03 · Rosenberg Heavy Euro Workbench (2–5P)">
+                  <div class="table-node-top">
+                    <span>TISCH 03 · OVERSIZED VAULT TABLE</span>
+                    <span>2–5 PAX · EXTRA DEEP 120×210CM</span>
+                  </div>
+                  <div class="table-node-name">Rosenberg &amp; Lacerda Heavy Euro Workbench</div>
+                  <div class="table-node-spec">Built specifically for sprawling boards (Agricola, Brass: Birmingham, Lisboa) + magnetic component rails</div>
+                </button>
+
+                <button type="button" class="table-node" data-table-name="Tisch 04 · Kosmos 2-Player Nook (2P)">
+                  <div class="table-node-top">
+                    <span>TISCH 04 · DUEL NOOK</span>
+                    <span>2 PAX ONLY</span>
+                  </div>
+                  <div class="table-node-name">Kosmos 2-Player Nook</div>
+                  <div class="table-node-spec">Intimate brick-wall alcove beside the espresso bar · Built for Targi &amp; Patchwork</div>
+                </button>
+
+                <button type="button" class="table-node" data-table-name="Tisch 05 · Hans im Glück Longtable (4–8P)">
+                  <div class="table-node-top">
+                    <span>TISCH 05 · STAMMTISCH</span>
+                    <span>4–8 PAX</span>
+                  </div>
+                  <div class="table-node-name">Hans im Glück Guild Table</div>
+                  <div class="table-node-spec">Can split into two 4P games or host large group nights right beside the 485-game vault wall</div>
+                </button>
+              </div>
+
+              <div class="blueprint-street-label" style="margin-top: 1rem; margin-bottom: 0; padding-top: 0.75rem; padding-bottom: 0; border-bottom: none; border-top: 1px dashed var(--border-strong);">
+                ▼ KAFFEEKLATSCH BAR · 485-TITLE RETAIL WALL · STAIRCASE TO STREET ▼
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Reservation Form & Instant Ticket -->
+          <div class="reservation-form-card">
+            <div style="margin-bottom: 1.15rem; padding-bottom: 0.85rem; border-bottom: 1px solid var(--border-rule);">
+              <span class="mono-tag" style="color: var(--accent-pine);">SOFORTBESTÄTIGUNG · ZERO DEPOSIT</span>
+              <h3 style="font-family: var(--font-display); font-size: 1.45rem;">Reserve Your Table &amp; Games</h3>
+            </div>
+
+            <form id="ttdiBookingForm">
+              <div class="form-field">
+                <label for="selectedTableInput">Selected Shophouse Table (Click Floorplan to Change)</label>
+                <input type="text" id="selectedTableInput" value="Tisch 01 · Essen Window Booth (2–4P)" readonly style="font-weight: 600; background-color: #EFE8D8;" />
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label for="guestNameInput">Your Name</label>
+                  <input type="text" id="guestNameInput" placeholder="e.g. Amirul / Sarah Tan" required />
+                </div>
+                <div class="form-field">
+                  <label for="guestPhoneInput">WhatsApp Contact</label>
+                  <input type="tel" id="guestPhoneInput" placeholder="+60 12-345 6789" required />
+                </div>
+              </div>
+
+              <div class="form-grid-2">
+                <div class="form-field">
+                  <label for="partySizeSelect">Party Size</label>
+                  <select id="partySizeSelect">
+                    <option value="2 Players">2 Players (Zwei-Spieler)</option>
+                    <option value="3 Players">3 Players</option>
+                    <option value="4 Players" selected>4 Players (Classic Euro)</option>
+                    <option value="5–6 Players">5–6 Players</option>
+                    <option value="1 Player (Join Stammtisch)">1 Player (Solo Matchmaking)</option>
+                  </select>
+                </div>
+                <div class="form-field">
+                  <label for="bookingSessionSelect">Session &amp; Time Slot</label>
+                  <select id="bookingSessionSelect">
+                    <option value="Tonight · 20:00 (Abendspiel)">Tonight · 20:00 (Abendspiel)</option>
+                    <option value="Wednesday · 20:00 (Kennerspiel Club)">Wednesday · 20:00 (Kennerspiel Club)</option>
+                    <option value="Friday · 19:30 (Heavy Euro Night)">Friday · 19:30 (Heavy Euro Night)</option>
+                    <option value="Saturday · 14:00 (Essen New Arrivals)">Saturday · 14:00 (Essen New Arrivals)</option>
+                    <option value="Sunday · 11:00 (Familienspiel Matinee)">Sunday · 11:00 (Familienspiel Matinee)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Games Held from Vault / Recommender -->
+              <div class="held-games-box">
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                  <span class="mono-tag" style="color: var(--text-primary); font-weight: 700;">PRE-SET TABLE TRAY (UP TO 4 GAMES)</span>
+                  <a href="#sammlung" class="mono-tag" style="color: var(--accent-crimson); text-decoration: underline;">+ Add More from Vault</a>
+                </div>
+                <div class="held-games-list" id="heldGamesList"></div>
+              </div>
+
+              <button type="submit" class="btn btn-primary" style="width: 100%;">
+                Generate Table Pass &amp; Pre-Set My Board →
+              </button>
+            </form>
+
+            <!-- Instant Confirmation Ticket Output -->
+            <div class="ticket-confirmation" id="ticketConfirmation" role="status" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <!-- TTDI Neighbourhood Wayfinding Strip -->
+        <div class="wayfinding-strip">
+          <div class="wayfinding-block">
+            <h4>
+              <span class="meeple-dot crimson"></span>
+              Shophouse Address in TTDI
+            </h4>
+            <p>
+              <strong>18A (First Floor), Lorong Rahim Kajai 14</strong>, Taman Tun Dr Ismail, 60000 Kuala Lumpur. Look for the crimson wooden Meeple lantern beside the brass staircase right above the heritage kopitiam row.
+            </p>
+          </div>
+          <div class="wayfinding-block">
+            <h4>
+              <span class="meeple-dot pine"></span>
+              MRT &amp; Evening Parking
+            </h4>
+            <p>
+              <strong>MRT Kajang Line:</strong> 4-minute sheltered walk from <strong>Taman Tun Dr Ismail MRT Station (Exit A)</strong>. Driving? Street bays along Lorong Rahim Kajai 13 &amp; 14 are free after 6:00 PM, or park at Plaza VADS.
+            </p>
+          </div>
+          <div class="wayfinding-block">
+            <h4>
+              <span class="meeple-dot ochre"></span>
+              Öffnungszeiten (Parlor Hours)
+            </h4>
+            <p>
+              <strong>Tue – Thu:</strong> 17:00 – 23:30<br/>
+              <strong>Fri – Sat:</strong> 14:00 – 00:30<br/>
+              <strong>Sunday:</strong> 11:00 – 22:00 · <em>Closed Mondays for Essen inventory sorting</em>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ======================================================================
+       FOOTER COLOPHON
+       ====================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="brand-lockup" style="margin-bottom: 1rem;">
+            <div class="brand-emblem" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+                <path d="M16 4C13.8 4 12 5.8 12 8C12 9.4 12.7 10.6 13.8 11.3L7.2 14.5C5.9 15.1 5.4 16.7 6.1 17.9C6.6 18.8 7.6 19.2 8.6 19L11.5 18.3L9.3 26.2C9 27.1 9.7 28 10.6 28H14.2L16 22.5L17.8 28H21.4C22.3 28 23 27.1 22.7 26.2L20.5 18.3L23.4 19C24.4 19.2 25.4 18.8 25.9 17.9C26.6 16.7 26.1 15.1 24.8 14.5L18.2 11.3C19.3 10.6 20 9.4 20 8C20 5.8 18.2 4 16 4Z" fill="#FAF7F1" stroke="#1E1B18" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <div class="brand-text">
+              <div class="brand-name" style="color: #FAF7F1;">
+                SPIELHAUS <span class="brand-badge-ttdi">TTDI</span>
+              </div>
+              <span class="brand-sub" style="color: var(--text-on-dark-muted);">DAS BRETTSPIEL-ATELIER · KUALA LUMPUR</span>
+            </div>
+          </div>
+          <p style="font-size: 0.85rem; color: var(--text-on-dark-muted); max-width: 36ch; line-height: 1.6;">
+            An independent European board game parlor and specialty retail shop in Taman Tun Dr Ismail, dedicated to cardboard architecture, wooden meeples, and unhurried human connection.
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Rulebook Index</h4>
+          <ul>
+            <li><a href="#sammlung">§01 Die Kuratierte Sammlung</a></li>
+            <li><a href="#spielberater">§02 Der Spielberater Flight</a></li>
+            <li><a href="#parlor">§03 Das TTDI Spielhaus</a></li>
+            <li><a href="#spielplan">§04 Wöchentlicher Spielplan</a></li>
+            <li><a href="#reservierung">§05 Tischreservierung</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>European Publishers</h4>
+          <ul>
+            <li><a href="#sammlung">KOSMOS Verlag (Stuttgart)</a></li>
+            <li><a href="#sammlung">Hans im Glück (München)</a></li>
+            <li><a href="#sammlung">Ravensburger / Alea</a></li>
+            <li><a href="#sammlung">Lookout Games &amp; Feuerland</a></li>
+            <li><a href="#sammlung">Eagle-Gryphon &amp; CGE</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Visit TTDI Parlor</h4>
+          <ul>
+            <li>18A, Lorong Rahim Kajai 14</li>
+            <li>Taman Tun Dr Ismail, 60000 KL</li>
+            <li>WhatsApp Desk: +60 17-882 1995</li>
+            <li>Instagram: @spielhaus.ttdi</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 SPIELHAUS TTDI SDN. BHD. · PRINTED ON DIGITAL UNBLEACHED LINEN PAPER</span>
+        <span>COORDINATES: 3.1412° N, 101.6298° E · SEE YOU AT THE BAIZE TABLE</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       COMPONENT & RULEBOOK DOSSIER MODAL
+       ====================================================================== -->
+  <div class="modal-backdrop" id="gameModalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalRefCode">
+    <div class="rulebook-modal">
+      <div class="modal-top-bar">
+        <span id="modalRefCode">ARCHIVE DOSSIER · SPIELHAUS TTDI</span>
+        <button type="button" class="modal-close-btn" id="closeModalBtn">ESC · CLOSE</button>
+      </div>
+      <div class="modal-body-grid" id="gameModalBody"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

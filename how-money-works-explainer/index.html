@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Money Works — 60-Second Cartoon Explainer (ElevenLabs v4)</title>
+  <style>
+    :root {
+      --bg: #0f1420;
+      --panel: #182032;
+      --panel-hover: #212c44;
+      --gold: #ffd434;
+      --gold-dark: #d99b07;
+      --ink: #14100c;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e293b 0%, #0b0f19 100%);
+      color: var(--text);
+      font-family: "Arial Rounded MT Bold", "Avenir Next", -apple-system, BlinkMacSystemFont, sans-serif;
+      min-height: 100vh;
+      padding: 32px 24px 64px;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 20px 28px;
+      background: var(--gold);
+      color: var(--ink);
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 0 8px 0 var(--ink);
+    }
+    .title-group h1 {
+      font-size: 2rem;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+    .title-group p {
+      font-size: 1rem;
+      color: #422006;
+      margin-top: 4px;
+    }
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .pill {
+      background: var(--ink);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      letter-spacing: 0.03em;
+    }
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+    .video-card {
+      background: var(--panel);
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 0 10px 0 var(--ink);
+      overflow: hidden;
+    }
+    video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: block;
+      background: #000;
+    }
+    .video-controls-bar {
+      padding: 16px 22px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 3px solid var(--ink);
+      background: #131a29;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 14px;
+      border: 3px solid var(--ink);
+      background: var(--gold);
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 4px 0 var(--ink);
+      transition: transform 0.12s ease;
+      font-size: 0.92rem;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+    .btn.secondary {
+      background: #334155;
+      color: #f8fafc;
+    }
+    .chapters-panel {
+      background: var(--panel);
+      border: 4px solid var(--ink);
+      border-radius: 24px;
+      box-shadow: 0 10px 0 var(--ink);
+      padding: 20px;
+      max-height: 640px;
+      overflow-y: auto;
+    }
+    .chapters-panel h2 {
+      font-size: 1.15rem;
+      color: var(--gold);
+      margin-bottom: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .chapter-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 3px solid transparent;
+      background: #111726;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .chapter-item:hover {
+      background: var(--panel-hover);
+      border-color: #475569;
+    }
+    .chapter-item.active {
+      background: #1e293b;
+      border-color: var(--gold);
+      box-shadow: 0 4px 0 var(--ink);
+    }
+    .ch-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .ch-title {
+      font-size: 0.98rem;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .ch-script {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.38;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .storyboard-section {
+      margin-top: 36px;
+    }
+    .storyboard-section h2 {
+      font-size: 1.4rem;
+      color: var(--gold);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .shots-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 18px;
+    }
+    .shot-card {
+      background: var(--panel);
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 6px 0 var(--ink);
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .shot-card:hover { transform: translateY(-4px); }
+    .shot-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+      border-bottom: 3px solid var(--ink);
+    }
+    .shot-card .shot-label {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      display: flex;
+      justify-content: space-between;
+    }
+    .shot-card .shot-label span {
+      color: var(--gold);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="title-group">
+        <h1>🪙 How Money Works</h1>
+        <p>60-Second Animated Cartoon Explainer • Narrated by ElevenLabs v4</p>
+      </div>
+      <div class="badges">
+        <span class="pill">🎙️ Voice: elevenlabs/eleven-v4 (Charlie)</span>
+        <span class="pill">🎬 1920×1080 • 30 FPS • 60.0s</span>
+        <span class="pill">🎨 16 Original Cartoon Scenes</span>
+      </div>
+    </header>
+
+    <div class="main-grid">
+      <div class="video-card">
+        <video id="player" controls preload="auto" poster="assets/frames/verify_01_barter.jpg">
+          <source src="how_money_works_explainer.mp4" type="video/mp4" />
+          <track label="English" kind="subtitles" srclang="en" src="how_money_works.vtt" default />
+        </video>
+        <div class="video-controls-bar">
+          <div>
+            <button class="btn" onclick="const v=document.getElementById('player'); v.paused ? v.play() : v.pause();">
+              ▶ Play / Pause 60s Explainer
+            </button>
+          </div>
+          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <a class="btn secondary" href="how_money_works_explainer.mp4" download>⬇ Download MP4 (1080p)</a>
+            <a class="btn secondary" href="assets/audio/master_audio.mp3" download>🎵 Audio Track (MP3)</a>
+            <a class="btn secondary" href="how_money_works.srt" download>💬 Subtitles (SRT)</a>
+          </div>
+        </div>
+      </div>
+
+      <aside class="chapters-panel">
+        <h2>8 Story Chapters (Click to Seek)</h2>
+        <div id="chapters-list"></div>
+      </aside>
+    </div>
+
+    <section class="storyboard-section">
+      <h2>🎨 16-Shot Cartoon Storyboard Gallery (Click any shot to jump in video)</h2>
+      <div class="shots-grid" id="shots-grid"></div>
+    </section>
+  </div>
+
+  <script>
+    const SCENES = [
+      { num: 1, title: "The Barter Problem", start: 0.0, end: 7.70, shots: ["shot_01", "shot_02"], text: "Why can paper bills or digits on a phone buy your coffee? Before money, people bartered—trading fish directly for bread!" },
+      { num: 2, title: "Commodity Money", start: 7.70, end: 15.95, shots: ["shot_03", "shot_04"], text: "What if the baker hated fish? Humans solved this with commodity money: shells, salt, and shiny gold coins everyone valued." },
+      { num: 3, title: "The First Banknotes", start: 15.95, end: 23.80, shots: ["shot_05", "shot_06"], text: "Hauling heavy gold was exhausting! So goldsmiths locked it in vaults and issued paper receipts—the very first banknotes." },
+      { num: 4, title: "Fiat Money & Trust", start: 23.80, end: 30.20, shots: ["shot_07", "shot_08"], text: "Today we use fiat money, which isn't backed by gold at all. It works because of shared trust and law." },
+      { num: 5, title: "Digital Money & Banks", start: 30.20, end: 36.85, shots: ["shot_09", "shot_10"], text: "In fact, over ninety percent of money is digital! Banks lend out your deposits to help build homes and businesses." },
+      { num: 6, title: "How Inflation Happens", start: 36.85, end: 44.70, shots: ["shot_11", "shot_12"], text: "But when too much money chases too few goods, prices balloon! That is inflation—making every dollar buy less." },
+      { num: 7, title: "Central Bank Thermostat", start: 44.70, end: 51.80, shots: ["shot_13", "shot_14"], text: "Central banks act like an economic thermostat—raising interest rates to cool inflation, or cutting them to spark jobs." },
+      { num: 8, title: "A Story of Shared Trust", start: 51.80, end: 60.00, shots: ["shot_15", "shot_16"], text: "Money isn't just metal, paper, or pixels. It is humanity's greatest invention for cooperation—a shared story of trust!" }
+    ];
+
+    const player = document.getElementById("player");
+    const chList = document.getElementById("chapters-list");
+    const shotsGrid = document.getElementById("shots-grid");
+
+    function fmt(s) {
+      const sec = Math.floor(s);
+      return `0:${sec < 10 ? "0" + sec : sec}`;
+    }
+
+    SCENES.forEach((s, idx) => {
+      const div = document.createElement("div");
+      div.className = "chapter-item" + (idx === 0 ? " active" : "");
+      div.id = `ch-item-${s.num}`;
+      div.innerHTML = `
+        <div class="ch-meta"><span>CHAPTER 0${s.num}</span><span>${fmt(s.start)} – ${fmt(s.end)}</span></div>
+        <div class="ch-title">${s.title}</div>
+        <div class="ch-script">"${s.text}"</div>
+      `;
+      div.onclick = () => {
+        player.currentTime = s.start + 0.05;
+        player.play();
+      };
+      chList.appendChild(div);
+
+      const mid = (s.start + s.end) / 2;
+      [
+        { id: s.shots[0], label: `${s.title} (Part A)`, time: s.start },
+        { id: s.shots[1], label: `${s.title} (Part B)`, time: mid }
+      ].forEach((sh) => {
+        const card = document.createElement("div");
+        card.className = "shot-card";
+        card.innerHTML = `
+          <img src="assets/images/${sh.id}.png" alt="${sh.label}" loading="lazy" />
+          <div class="shot-label"><strong>${sh.label}</strong><span>${fmt(sh.time)}</span></div>
+        `;
+        card.onclick = () => {
+          player.currentTime = sh.time + 0.05;
+          player.play();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+        shotsGrid.appendChild(card);
+      });
+    });
+
+    player.addEventListener("timeupdate", () => {
+      const t = player.currentTime;
+      SCENES.forEach((s) => {
+        const el = document.getElementById(`ch-item-${s.num}`);
+        if (t >= s.start && t < s.end) el.classList.add("active");
+        else el.classList.remove("active");
+      });
+    });
+  </script>
+</body>
+</html>

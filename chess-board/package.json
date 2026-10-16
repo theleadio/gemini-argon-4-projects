@@ -1,0 +1,19 @@
+{
+  "name": "xiangqi-3d-threejs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "3D Chinese Chess (Xiangqi / 中國象棋) in Three.js",
+  "scripts": {
+    "dev": "vite --port 6677",
+    "start": "vite --port 6677",
+    "build": "vite build",
+    "preview": "vite preview --port 6677"
+  },
+  "dependencies": {
+    "three": "^0.183.2"
+  },
+  "devDependencies": {
+    "vite": "^8.0.8"
+  }
+}

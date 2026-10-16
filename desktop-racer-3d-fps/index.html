@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TT RACING: Desktop Micro GP (3D First-Person POV)</title>
+  <link rel="stylesheet" href="./style.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./node_modules/three/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- 3D WebGL Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- Windshield / Cockpit Vignette & Speed Lines Overlay -->
+  <div id="cockpit-overlay" class="active">
+    <div id="speed-lines"></div>
+    <div id="gforce-vignette"></div>
+  </div>
+
+  <!-- Top Telemetry Bar -->
+  <header id="hud-top">
+    <div class="hud-card brand-card">
+      <div class="tt-logo">TT<span>RACING</span></div>
+      <div class="tt-sub">SMART DESK MICRO GP</div>
+    </div>
+
+    <div class="hud-card race-stats">
+      <div class="stat-block">
+        <span class="stat-label">POSITION</span>
+        <span id="hud-pos" class="stat-value accent">1<small>/4</small></span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">LAP</span>
+        <span id="hud-lap" class="stat-value">1<small>/3</small></span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">LAP TIME</span>
+        <span id="hud-time" class="stat-value mono">00:00.00</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-label">BEST LAP</span>
+        <span id="hud-best" class="stat-value mono">--:--.--</span>
+      </div>
+    </div>
+
+    <!-- Rear-View Mirror / Proximity Radar -->
+    <div class="hud-card mirror-card" title="Rear-View Mirror & Proximity Radar">
+      <div class="mirror-frame">
+        <canvas id="mirror-canvas" width="220" height="64"></canvas>
+        <span class="mirror-label">REAR VIEW</span>
+      </div>
+    </div>
+
+    <div class="hud-card mode-controls">
+      <button id="btn-camera" class="hud-btn" title="Switch Camera View (C)">
+        🎥 POV: <span id="cam-label">COCKPIT 1ST-PERSON</span>
+      </button>
+      <button id="btn-mode" class="hud-btn" title="Switch Game Mode (M)">
+        🏁 MODE: <span id="mode-label">GRAND PRIX</span>
+      </button>
+      <button id="btn-audio" class="hud-btn" title="Toggle Engine & Desk Audio">
+        🔊 SFX: <span id="audio-label">ON</span>
+      </button>
+      <button id="btn-reset" class="hud-btn" title="Respawn Car on Track (Backspace)">
+        ↺ RESPAWN
+      </button>
+    </div>
+  </header>
+
+  <!-- Center Race Countdown / Notifications -->
+  <div id="center-banner" class="hidden">3</div>
+  <div id="checkpoint-toast" class="hidden">CHECKPOINT!</div>
+
+  <!-- Interactive TT Racing Sit/Stand Desk Controller Widget -->
+  <aside id="tt-desk-controller">
+    <div class="desk-ctrl-header">
+      <span class="tt-badge">TT RACING</span>
+      <span class="ctrl-title">MOTORIZED DESK PANEL</span>
+    </div>
+    <div class="desk-led-screen">
+      <div class="led-main">
+        <span id="desk-height-val">76.0</span>
+        <span class="led-unit">CM</span>
+      </div>
+      <div class="led-status">
+        <span id="desk-state-text">SIT MODE • STABLE</span>
+        <span id="desk-g-indicator">1.00G</span>
+      </div>
+    </div>
+    <div class="desk-btn-row">
+      <button id="desk-up-btn" class="desk-btn up-hold" title="Hold R or Up Button to Raise Desk">▲ UP (R)</button>
+      <button id="desk-down-btn" class="desk-btn down-hold" title="Hold F or Down Button to Lower Desk">▼ DN (F)</button>
+    </div>
+    <div class="desk-presets">
+      <button class="preset-btn" data-height="73" title="Sit Preset (Key 1)">M1<span>73cm</span></button>
+      <button class="preset-btn" data-height="96" title="Mid Shortcut Unlocks Bridge (Key 2)">M2<span>96cm</span></button>
+      <button class="preset-btn" data-height="118" title="Stand Max Height (Key 3)">M3<span>118cm</span></button>
+      <button id="desk-wave-btn" class="preset-btn wave-btn" title="Dynamic Up/Down Table Oscillation (Key 4)">WAVE<span>AUTO</span></button>
+    </div>
+    <div class="desk-hint">
+      💡 Raising table &gt;92cm deploys the <b>Laptop Overpass Ramp</b>! Rapid drops create <b>Low-G Air Jumps</b>!
+    </div>
+  </aside>
+
+  <!-- Minimap & Desktop Object Legend (Bottom Left) -->
+  <aside id="hud-minimap-panel">
+    <div class="panel-header">DESKTOP CIRCUIT MAP</div>
+    <canvas id="minimap-canvas" width="210" height="145"></canvas>
+    <div class="object-tags">
+      <span class="tag">💻 2 Laptops</span>
+      <span class="tag">🖥️ 2 Monitors</span>
+      <span class="tag">📱 3 Phones</span>
+      <span class="tag">🎙️ Studio Mic</span>
+      <span class="tag">☕ 3 Mugs</span>
+    </div>
+  </aside>
+
+  <!-- Speedometer, Tachometer & Boost Gauge (Bottom Right) -->
+  <aside id="hud-gauges">
+    <div class="boost-bar-wrap">
+      <div class="boost-label">
+        <span>⚡ NITRO BOOST (SHIFT)</span>
+        <span id="boost-pct">100%</span>
+      </div>
+      <div class="boost-track">
+        <div id="boost-fill" style="width: 100%"></div>
+      </div>
+    </div>
+
+    <div class="speedo-cluster">
+      <div class="rpm-leds" id="rpm-leds">
+        <span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+      <div class="speed-main">
+        <div class="gear-box" id="hud-gear">1</div>
+        <div class="speed-readout">
+          <span id="hud-speed">0</span>
+          <small>KM/H (SCALE)</small>
+        </div>
+      </div>
+      <div class="controls-mini">
+        <span><b>W/S</b> Drive</span>
+        <span><b>A/D</b> Steer</span>
+        <span><b>SPACE</b> Drift</span>
+        <span><b>SHIFT</b> Boost</span>
+        <span><b>R/F</b> Table ↕</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Start / Pause Modal Overlay -->
+  <div id="start-overlay">
+    <div class="modal-card">
+      <div class="modal-badge">FIRST-PERSON POV 3D DESKTOP RACER</div>
+      <h1>TT<span>RACING</span> DESKTOP GP</h1>
+      <p class="modal-desc">
+        Strap into the <strong>1st-Person Cockpit</strong> of a micro-scale GT supercar on a motorized
+        <strong>TT Racing Up &amp; Down Sit-Stand Desk</strong>. Thread between towering <strong>dual external monitors</strong>,
+        drift past glowing <strong>smartphones</strong>, dodge steaming <strong>coffee mugs</strong> and the
+        <strong>studio condenser microphone</strong>, and launch off <strong>laptop keyboards</strong>!
+      </p>
+
+      <div class="feature-grid">
+        <div class="feat-item">
+          <strong>🕹️ Driving Controls</strong>
+          <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> or <kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> Drive &amp; Steer</span>
+          <span><kbd>SPACE</kbd> Handbrake Drift &bull; <kbd>SHIFT</kbd> Nitro Boost</span>
+        </div>
+        <div class="feat-item">
+          <strong>↕️ TT Racing Up/Down Table</strong>
+          <span><kbd>R</kbd> / <kbd>F</kbd> Raise &amp; Lower Motorized Table (72–120cm)</span>
+          <span><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> Height Presets &bull; <kbd>4</kbd> Dynamic Wave Mode</span>
+        </div>
+        <div class="feat-item">
+          <strong>🎥 Camera &amp; Track</strong>
+          <span><kbd>C</kbd> Toggle 1st-Person Cockpit / Hood / Chase POV</span>
+          <span><kbd>Backspace</kbd> Respawn Car &bull; <kbd>M</kbd> Switch Race/Free Roam</span>
+        </div>
+      </div>
+
+      <div class="start-actions">
+        <button id="btn-start-gp" class="primary-btn">🏁 START GRAND PRIX (1ST-PERSON POV)</button>
+        <button id="btn-start-tt" class="secondary-btn">⏱️ TIME TRIAL</button>
+        <button id="btn-start-free" class="secondary-btn">🛠️ FREE ROAM &amp; DESK SANDBOX</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

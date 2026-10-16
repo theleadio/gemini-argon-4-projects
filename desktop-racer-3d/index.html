@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#e7e9e7" />
+    <title>Desktop Racer — Small car. Big desk energy.</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main id="app">
+      <div id="scene" aria-label="3D race circuit on a height-adjustable desk"></div>
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Desktop Racer home"><span class="brand-mark">dr<span>↗</span></span><span>DESKTOP<br/>RACER</span></a>
+        <div class="circuit-title"><span class="status-dot"></span> THE HOME OFFICE GRAND PRIX <span class="tag">VOL. 01</span></div>
+        <div class="top-actions"><button id="sound" class="icon-button" aria-label="Enable engine sound" title="Toggle sound">♪<span class="slash">／</span></button><button id="help" class="icon-button" aria-label="Show controls" title="Controls">?</button></div>
+      </header>
+      <section class="intro" id="intro">
+        <div class="eyebrow"><span class="tiny-line"></span> YOUR DESK. YOUR RACETRACK.</div>
+        <h1>Small car.<br/>Big desk energy.</h1>
+        <p>Clock out. Buckle up. Turn your everyday<br class="desktop-break"/> workspace into a miniature grand prix.</p>
+        <button class="primary" id="start">Let’s race <span>↗</span></button>
+        <div class="start-caption"><kbd>↵</kbd> or press Enter to start your engine</div>
+      </section>
+      <section class="race-stats" aria-label="Race statistics">
+        <div><span class="label">LAP</span><strong><span id="lap">01</span><small> / 03</small></strong></div>
+        <div><span class="label">TIME</span><strong id="time">00:00.00</strong></div>
+        <div><span class="label">PERSONAL BEST</span><strong id="best">— — : — —</strong></div>
+      </section>
+      <div class="scene-label"><span class="scene-label-line"></span><span>TT RACING DESK<small>One very competitive workspace.</small></span></div>
+      <aside class="desk-control" aria-label="Desk height">
+        <div class="desk-heading"><span class="label">DESK HEIGHT</span><span class="live-dot"></span></div>
+        <div class="height-readout"><span id="height-value">75</span><small>cm</small><div class="height-buttons"><button id="raise" aria-label="Raise desk">⌃</button><button id="lower" aria-label="Lower desk">⌄</button></div></div>
+        <input id="height" type="range" min="70" max="120" value="75" aria-label="Desk height in centimeters"/>
+        <div class="height-labels"><span>SIT</span><span>STAND</span></div>
+      </aside>
+      <div id="announcement" role="status" aria-live="polite"></div>
+      <div id="countdown" aria-live="assertive"></div>
+      <section class="speedometer" id="speedometer" hidden><div><span id="speed">0</span><small>KM/H</small></div><div class="boost-track"><span id="boost-fill"></span></div><span class="label">SHIFT · BOOST</span></section>
+      <div class="race-buttons" id="race-buttons" hidden><button id="pause" class="secondary">Pause <kbd>P</kbd></button><button id="restart" class="secondary">Restart <kbd>R</kbd></button></div>
+      <footer>
+        <div class="controls"><span class="control-group"><span><kbd>W</kbd><span class="key-row"><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span></span><span>Drive</span></span><span class="divider"></span><span><kbd>SPACE</kbd> Brake</span><span><kbd>SHIFT</kbd> Boost</span><span><kbd>R</kbd> Reset</span></div>
+        <div class="view-controls"><button id="camera" class="secondary"><span>◈</span> <span id="camera-label">Overview</span> <kbd>C</kbd></button><span class="view-caption">BUILT FOR A LITTLE ESCAPE.</span></div>
+      </footer>
+      <div class="mobile-controls" id="touch-controls"><button data-key="ArrowLeft" aria-label="Steer left">←</button><button data-key="ArrowRight" aria-label="Steer right">→</button><button data-key="ArrowDown" aria-label="Reverse or brake">↓</button><button data-key="ArrowUp" aria-label="Accelerate">↑</button></div>
+      <dialog id="help-dialog"><button class="dialog-close" id="close-help" aria-label="Close controls">×</button><div class="eyebrow">THE DRIVER’S HANDBOOK</div><h2>A little friendly<br/>desk competition.</h2><p>Follow the white arrows clockwise. Pass all four orange checkpoints in order and complete 3 laps. Stay on the desk and steer clear of office essentials.</p><dl><div><dt>WASD / Arrow keys</dt><dd>Accelerate, reverse & steer</dd></div><div><dt>Space / Shift</dt><dd>Brake / rechargeable boost</dd></div><div><dt>C / P / R</dt><dd>Camera / pause / restart</dd></div></dl><p class="dialog-note">Raise the desk to change your perspective. Your fastest three-lap race is saved on this device.</p></dialog>
+      <div id="error" role="alert" hidden></div>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
